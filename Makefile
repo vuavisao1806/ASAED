@@ -2,6 +2,8 @@
 
 CPP_FILES = main.cpp					\
 			asaed/main.cpp 				\
+			math/vector.cpp 			\
+
 
 #CC specifies which compiler we're using
 CC = g++
