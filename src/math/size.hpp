@@ -6,11 +6,11 @@
 class Sizef;
 
 class Size final {
-public :
+public:
 	int width;
 	int height;
 
-public :
+public:
 	Size();
 	Size(int width_, int height_);
 

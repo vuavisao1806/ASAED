@@ -7,6 +7,7 @@ CPP_FILES = main.cpp                    \
             math/sizef.cpp              \
             math/rect.cpp               \
             math/rectf.cpp              \
+            object/player.cpp           \
 
 
 

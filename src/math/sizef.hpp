@@ -8,7 +8,7 @@
 class Size;
 
 class Sizef final {
-public :
+public:
 	float width;
 	float height;
 

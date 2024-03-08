@@ -12,16 +12,16 @@
 class Rectf;
 
 class Rect final {
-public : 
+public:
 	int left;
 	int top;
 	int right;
 	int bottom;
 
-public :
+public:
 	static Rect from_center(int center_x, int center_y, int width, int height);
 
-public :
+public:
 	Rect();
 	Rect(int left_, int top_, int right_, int bottom_);
 

@@ -11,35 +11,35 @@ Rect Rect::from_center(int center_x, int center_y, int width, int height) {
 	            center_y + height / 2);
 }
 
-Rect::Rect() :
+Rect::Rect():
 	left(0),
 	top(0),
 	right(0),
 	bottom(0)
 {}
 
-Rect::Rect(int left_, int top_, int right_, int bottom_) :
+Rect::Rect(int left_, int top_, int right_, int bottom_):
 	left(left_),
 	top(top_),
 	right(right_),
 	bottom(bottom_)
 {}
 
-Rect::Rect(int left_, int top_, const Size& size) :
+Rect::Rect(int left_, int top_, const Size& size):
 	left(left_),
 	top(top_),
 	right(left_ + size.width),
 	bottom(top + size.height)
 {}
 
-Rect::Rect(const SDL_Rect& rect) :
+Rect::Rect(const SDL_Rect& rect):
 	left(rect.x),
 	top(rect.y),
 	right(rect.x + rect.w),
 	bottom(rect.y + rect.h)
 {}
 
-Rect::Rect(const Rectf& other) :
+Rect::Rect(const Rectf& other):
 	left(static_cast<int>(other.get_left())),
 	top(static_cast<int>(other.get_top())),
 	right(static_cast<int>(other.get_right())),

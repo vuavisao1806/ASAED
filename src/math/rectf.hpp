@@ -12,14 +12,14 @@
 class Rect;
 
 class Rectf final {
-private :
+private:
 	Vector m_p1; // Point upper left
 	Sizef m_size;
 
-public : 
+public: 
 	static Rectf from_center(const Vector& center, const Sizef& size);
 
-public :
+public:
 	Rectf();
 
 	Rectf(const Rectf& rhs) = default;
@@ -73,7 +73,7 @@ public :
 	void set_p1(const Vector& p);
 	void set_p2(const Vector& p);
 
-	Rect to_rect();	
+	Rect to_rect();
 	SDL_FRect to_sdl() const;
 };
 

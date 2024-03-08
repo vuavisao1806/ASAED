@@ -4,17 +4,17 @@
 
 #include "math/sizef.hpp"
 
-Size::Size() :
+Size::Size():
 	width(0),
 	height(0)
 {}
 
-Size::Size(int width_, int height_) :
+Size::Size(int width_, int height_):
 	width(width_),
 	height(height_)
 {}
 
-Size::Size(const Sizef& rhs) :
+Size::Size(const Sizef& rhs):
 	width(static_cast<int>(rhs.width)),
 	height(static_cast<int>(rhs.height))
 {}
@@ -38,8 +38,8 @@ Size& Size::operator+=(const Size& rhs) {
 }
 
 Size& Size::operator-=(const Size& rhs) { 
-	width += rhs.width; 
-	height += rhs.height; 
+	width -= rhs.width; 
+	height -= rhs.height; 
 	return *this;
 }
 
@@ -47,7 +47,7 @@ Size operator*(const Size& lhs, int factor) { return Size(lhs.width * factor, lh
 Size operator*(int factor, const Size& rhs) { return Size(rhs.width * factor, rhs.height * factor); }
 Size operator/(const Size& lhs, int divisor) { return Size(lhs.width / divisor, lhs.height / divisor); }
 Size operator+(const Size& lhs, const Size& rhs) { return Size(lhs.width + rhs.width, lhs.height + rhs.height); }
-Size operator-(const Size& lhs, const Size& rhs) { return Size(lhs.width + rhs.width, lhs.height + rhs.height); }
+Size operator-(const Size& lhs, const Size& rhs) { return Size(lhs.width - rhs.width, lhs.height - rhs.height); }
 bool operator==(const Size& lhs, const Size& rhs) { return ((lhs.width == rhs.width) && (lhs.height == rhs.height)); }
 bool operator!=(const Size& lhs, const Size& rhs) { return ((lhs.width != rhs.width) || (lhs.height != rhs.height)); }
 

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+#include "object/player.hpp"
+
 // Screen dimension constants
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 800;
@@ -77,7 +79,7 @@ bool loadMedia() {
 	bool success = true;
 
 	// Load PNG texture
-	gTexture = loadTexture( "data/images/texture.png");
+	gTexture = loadTexture( "data/images/m_map.png");
 	if (gTexture == nullptr) {
 		printf( "Failed to load texture image!\n" );
 		success = false;
@@ -142,13 +144,50 @@ int Main::run(int argc, char** argv) {
 			//Event handler
 			SDL_Event e;
 
+			Player p(100, 100, Size(16, 28));
+			p.loadTexture(gRenderer, "data/images/knight/idle-0.png");
+
+
 			//While application is running
 			while(!quit) {
 				//Handle events on queue
+				int dir[2] = {0, 0};
 				while(SDL_PollEvent(&e) != 0) {
 					//User requests quit
 					if (e.type == SDL_QUIT) {
 						quit = true;
+					}
+					// I will upgrade key handling in the future
+					// This code is basic to move my hero. But it looks quite inflexible
+					if (e.type == SDL_KEYDOWN) {
+						const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
+						if(currentKeyStates[SDL_SCANCODE_UP]) {
+							dir[1] -= 1;
+						}
+						else if(currentKeyStates[SDL_SCANCODE_DOWN]) {
+							dir[1] += 1;
+						}
+						else if(currentKeyStates[SDL_SCANCODE_LEFT]) {
+							dir[0] -= 1;
+						}
+						else if(currentKeyStates[SDL_SCANCODE_RIGHT]) {
+							dir[0] += 1;
+						}
+					}
+					if (e.type == SDL_KEYUP) {
+						const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
+						if(currentKeyStates[SDL_SCANCODE_UP]) {
+							dir[1] -= 1;
+						}
+						else if(currentKeyStates[SDL_SCANCODE_DOWN]) {
+							dir[1] += 1;
+						}
+						else if(currentKeyStates[SDL_SCANCODE_LEFT]) {
+							dir[0] -= 1;
+						}
+						else if(currentKeyStates[SDL_SCANCODE_RIGHT]) {
+							dir[0] += 1;
+						}
 					}
 				}
 
@@ -156,7 +195,13 @@ int Main::run(int argc, char** argv) {
 				SDL_RenderClear(gRenderer);
 
 				//Render texture to screen
-				SDL_RenderCopy(gRenderer, gTexture, NULL, NULL );
+				SDL_RenderCopy(gRenderer, gTexture, nullptr, nullptr);
+
+				p.moved(Vector(dir[0] * 4, dir[1] * 4));
+				p.update();
+
+				SDL_Rect temp = Rect(Rectf(p.pos, p.size).to_rect()).to_sdl();
+				SDL_RenderCopy(gRenderer, p.m_texture, nullptr, &temp);
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);

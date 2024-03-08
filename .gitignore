@@ -3,4 +3,6 @@ bin/
 temp.cpp
 temp.hpp
 *.txt
-data/ASAED.exe
+
+# to reduce upload resources is not necessary
+data/ASAED.exe 

@@ -11,36 +11,36 @@ Rectf Rectf::from_center(const Vector& center, const Sizef& size) {
 	             center.y + size.height / 2.0f);
 }
 
-Rectf::Rectf() :
+Rectf::Rectf():
 	m_p1(0.0f, 0.0f),
 	m_size()
 {}
 
-Rectf::Rectf(const Vector& np1, const Vector& np2) :
+Rectf::Rectf(const Vector& np1, const Vector& np2):
 	m_p1(np1),
 	m_size(np2.x - np1.x, np2.y - np1.y)
 {
 	assert(m_size.width >= 0 && m_size.height >= 0);
 }
 
-Rectf::Rectf(float x1, float y1, float x2, float y2) :
+Rectf::Rectf(float x1, float y1, float x2, float y2):
 	m_p1(x1, y1),
 	m_size(x2 - x1, y2 - y1)
 {
 	assert(m_size.width >= 0 && m_size.height >= 0);
 }
 
-Rectf::Rectf(const Vector& p1, const Sizef& size) :
+Rectf::Rectf(const Vector& p1, const Sizef& size):
 	m_p1(p1),
 	m_size(size)
 {}
 
-Rectf::Rectf(const SDL_FRect& rect) :
+Rectf::Rectf(const SDL_FRect& rect):
 	m_p1(rect.x, rect.y),
 	m_size(rect.w, rect.h)
 {}
 
-Rectf::Rectf(const Rect& rect) :
+Rectf::Rectf(const Rect& rect):
 	m_p1(static_cast<float>(rect.left), static_cast<float>(rect.top)),
 	m_size(static_cast<float>(rect.get_width()), static_cast<float>(rect.get_height()))
 {}
@@ -105,7 +105,7 @@ void Rectf::set_p1(const Vector& p) {
 void Rectf::set_p2(const Vector& p) { m_size = Sizef(p.x - m_p1.x, p.y - m_p1.y); }
 
 Rect Rectf::to_rect() { 
-	return {static_cast<int>(m_p1.x), static_cast<int>(m_p1.y), static_cast<int>(m_p1.x + m_size.width), static_cast<int>(m_p1.y + m_size.height)};
+	return {static_cast<int>(m_p1.x), static_cast<int>(m_p1.y), static_cast<int>(get_right()), static_cast<int>(get_bottom())};
 }
 SDL_FRect Rectf::to_sdl() const { 
 	return {m_p1.x, m_p1.y, m_size.width, m_size.height}; 
