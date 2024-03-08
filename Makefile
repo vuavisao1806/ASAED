@@ -1,8 +1,13 @@
 # This is Makefile I learned from my big senior and I adapted it to suit myself and this project 
 
-CPP_FILES = main.cpp					\
-			asaed/main.cpp 				\
-			math/vector.cpp 			\
+CPP_FILES = main.cpp                    \
+            asaed/main.cpp              \
+            math/vector.cpp             \
+            math/size.cpp               \
+            math/sizef.cpp              \
+            math/rect.cpp               \
+            math/rectf.cpp              \
+
 
 
 #CC specifies which compiler we're using
@@ -13,16 +18,16 @@ SDL2_IMAGE_PATH = D:\libs\SDL2_image-2.8.1\x86_64-w64-mingw32
 
 # $ to reference to the path, if doesn't use this, it like -I SDL2_PATH\include\SDl2 instead of D:\libs\SDL2-2.28.5\x86_64-w64-mingw32\....
 INCLUDE_PATHS = -I$(SDL2_PATH)\include\SDL2         \
-				-I$(SDL2_IMAGE_PATH)\include\SDL2   \
-				-I./src								\
+                -I$(SDL2_IMAGE_PATH)\include\SDL2   \
+                -I./src                             \
 
-LIBRARY_PATHS = -L$(SDL2_PATH)\lib 			\
-				-L$(SDL2_IMAGE_PATH)\lib 	\
+LIBRARY_PATHS = -L$(SDL2_PATH)\lib          \
+                -L$(SDL2_IMAGE_PATH)\lib    \
 
-LINKER_FLAGS = -lmingw32 		\
-			   -lSDL2main 		\
-			   -lSDL2 			\
-			   -lSDL2_image		\
+LINKER_FLAGS = -lmingw32        \
+               -lSDL2main       \
+               -lSDL2           \
+               -lSDL2_image     \
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 COMPILER_FLAGS = -std=c++17 -Wall -Wextra

@@ -33,9 +33,17 @@ Vector& Vector::operator+=(const Vector& other) { *this = (*this) + other; retur
 Vector& Vector::operator-=(const Vector& other) { *this = (*this) + other; return *this; }
 Vector& Vector::operator*=(const float& factor) { *this = (*this) * factor; return *this; }
 
-bool Vector::operator==(const Vector& other) { return (x == other.x && y == other.y); }
+bool Vector::operator==(const Vector& other) const { return (x == other.x && y == other.y); }
 
 Vector Vector::operator-() const { return Vector(-x, -y); }
 
 std::ostream& operator<<(std::ostream& os, const Vector& other) { return os << "(" << other.x << ", " << other.y << ")"; }
 
+namespace math {
+	float length(const Vector& vector) {
+		return std::hypot(vector.x, vector.y);
+	}
+	float distance(const Vector& lhs, const Vector& rhs) {
+		return std::hypot(lhs.x - rhs.x, lhs.y - rhs.y);
+	}
+} // namespace math
