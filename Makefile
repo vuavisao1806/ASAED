@@ -1,13 +1,17 @@
 # This is Makefile I learned from my big senior and I adapted it to suit myself and this project 
 
-CPP_FILES = main.cpp                    \
-            asaed/main.cpp              \
-            math/vector.cpp             \
-            math/size.cpp               \
-            math/sizef.cpp              \
-            math/rect.cpp               \
-            math/rectf.cpp              \
-            object/player.cpp           \
+CPP_FILES = main.cpp                         \
+            asaed/main.cpp                   \
+            math/vector.cpp                  \
+            math/size.cpp                    \
+            math/sizef.cpp                   \
+            math/rect.cpp                    \
+            math/rectf.cpp                   \
+            object/player.cpp                \
+            control/controller.cpp           \
+            control/input_manager.cpp        \
+            control/keyboard_config.cpp      \
+            control/keyboard_manager.cpp     \
 
 
 

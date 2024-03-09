@@ -6,6 +6,8 @@
 #include <string>
 
 #include "object/player.hpp"
+#include "control/input_manager.hpp"
+#include "control/keyboard_manager.hpp"
 
 // Screen dimension constants
 const int SCREEN_WIDTH = 1280;
@@ -146,7 +148,9 @@ int Main::run(int argc, char** argv) {
 
 			Player p(100, 100, Size(16, 28));
 			p.loadTexture(gRenderer, "data/images/knight/idle-0.png");
-
+			
+			KeyboardConfig keyboardConfig = KeyboardConfig();
+			std::unique_ptr<InputManager> control = std::make_unique<InputManager>(keyboardConfig);
 
 			//While application is running
 			while(!quit) {
@@ -157,38 +161,8 @@ int Main::run(int argc, char** argv) {
 					if (e.type == SDL_QUIT) {
 						quit = true;
 					}
-					// I will upgrade key handling in the future
-					// This code is basic to move my hero. But it looks quite inflexible
-					if (e.type == SDL_KEYDOWN) {
-						const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
-						if(currentKeyStates[SDL_SCANCODE_UP]) {
-							dir[1] -= 1;
-						}
-						else if(currentKeyStates[SDL_SCANCODE_DOWN]) {
-							dir[1] += 1;
-						}
-						else if(currentKeyStates[SDL_SCANCODE_LEFT]) {
-							dir[0] -= 1;
-						}
-						else if(currentKeyStates[SDL_SCANCODE_RIGHT]) {
-							dir[0] += 1;
-						}
-					}
-					if (e.type == SDL_KEYUP) {
-						const Uint8* currentKeyStates = SDL_GetKeyboardState(nullptr);
-						if(currentKeyStates[SDL_SCANCODE_UP]) {
-							dir[1] -= 1;
-						}
-						else if(currentKeyStates[SDL_SCANCODE_DOWN]) {
-							dir[1] += 1;
-						}
-						else if(currentKeyStates[SDL_SCANCODE_LEFT]) {
-							dir[0] -= 1;
-						}
-						else if(currentKeyStates[SDL_SCANCODE_RIGHT]) {
-							dir[0] += 1;
-						}
-					}
+					
+					InputManager::current()->process_event(e);
 				}
 
 				//Clear screen
@@ -197,6 +171,23 @@ int Main::run(int argc, char** argv) {
 				//Render texture to screen
 				SDL_RenderCopy(gRenderer, gTexture, nullptr, nullptr);
 
+				Controller& controller = InputManager::current()->get_controller(0);
+				if (controller.hold(Control::LEFT) && !controller.hold(Control::RIGHT)) {
+					dir[0] = -1;
+				} else if (!controller.hold(Control::LEFT) && controller.hold(Control::RIGHT)) {
+					dir[0] = 1;
+				} else {
+					dir[0] = 0;
+				}
+				
+				if (controller.hold(Control::UP) && !controller.hold(Control::DOWN)) {
+					dir[1] = -1;
+				} else if (!controller.hold(Control::UP) && controller.hold(Control::DOWN)) {
+					dir[1] = 1;
+				} else {
+					dir[1] = 0;
+				}
+				
 				p.moved(Vector(dir[0] * 4, dir[1] * 4));
 				p.update();
 
@@ -205,6 +196,8 @@ int Main::run(int argc, char** argv) {
 
 				//Update screen
 				SDL_RenderPresent(gRenderer);
+
+				SDL_Delay(33);
 			}
 		}
 	}
