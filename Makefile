@@ -2,16 +2,17 @@
 
 CPP_FILES = main.cpp                         \
             asaed/main.cpp                   \
+            control/controller.cpp           \
+            control/input_manager.cpp        \
+            control/keyboard_config.cpp      \
+            control/keyboard_manager.cpp     \
             math/vector.cpp                  \
             math/size.cpp                    \
             math/sizef.cpp                   \
             math/rect.cpp                    \
             math/rectf.cpp                   \
             object/player.cpp                \
-            control/controller.cpp           \
-            control/input_manager.cpp        \
-            control/keyboard_config.cpp      \
-            control/keyboard_manager.cpp     \
+            util/log.cpp                     \
 
 
 
