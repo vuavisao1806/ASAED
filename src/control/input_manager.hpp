@@ -8,7 +8,7 @@
 #include <memory>
 
 
-#include "util/curreton.hpp"
+#include "util/currenton.hpp"
 
 class KeyboardManager;
 class KeyboardConfig;
