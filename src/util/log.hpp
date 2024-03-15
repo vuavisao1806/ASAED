@@ -8,7 +8,7 @@ enum LogLevel {
 	LOG_FATAL,
 	LOG_WARNING,
 	LOG_INFO,
-	LOG_DEBUG,
+	LOG_DEBUG
 };
 
 extern LogLevel g_log_level;
