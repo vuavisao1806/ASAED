@@ -5,7 +5,7 @@
 
 class VideoSystem;
 
-/** This class controls SDL_Render to do things */
+/** This class controls SDL_Renderer* to do things */
 
 class Renderer {
 private:

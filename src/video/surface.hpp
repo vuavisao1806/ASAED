@@ -1,5 +1,5 @@
-#ifndef HEADER_ASAED_context_HPP
-#define HEADER_ASAED_context_HPP
+#ifndef HEADER_ASAED_VIDEO_SURFACE_HPP
+#define HEADER_ASAED_VIDEO_SURFACE_HPP
 
 #include <string>
 #include <optional>

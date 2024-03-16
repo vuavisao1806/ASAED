@@ -219,6 +219,7 @@
 
 #include "control/keyboard_config.hpp"
 #include "video/renderer.hpp"
+#include "video/texture_manager.hpp"
 #include "util/log.hpp"
 
 #include "object/player.hpp"
@@ -271,12 +272,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 	bool quit = false;
 	SDL_Event e;
 
-	std::string map = "data/images/m_map.png";
-	SDLSurfacePtr surface = SurfaceCreator::from_file(map);
-	TexturePtr texture = std::make_shared<Texture>(*surface);
+	TexturePtr texture = TextureManager::current()->get("data/images/m_map.png");
 
-	Player p(100, 100, Size(16, 28));
-	p.loadTexture(VideoSystem::current()->get_renderer().get_sdl_renderer(), "data/images/knight/idle-0.png");
+	Player p(100, 100);
+	p.loadTexture("data/images/knight/idle-0.png");
 	while (!quit) {
 		int dir[2] = {0, 0};
 		while (SDL_PollEvent(&e) != 0) {
@@ -312,11 +311,11 @@ int Main::run(int /* argc */, char** /* argv */) {
 		}
 		
 
-		p.moved(Vector(dir[0] * 6, dir[1] * 6));
+		p.moved(Vector(dir[0] * 16, dir[1] * 16));
 		p.update();
 		
-		SDL_Rect dstrect = Rect(Rectf(p.pos, p.size).to_rect()).to_sdl();
-		SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), p.m_texture, nullptr, &dstrect);
+		SDL_Rect dstrect = Rect(Rectf(p.pos, Size(p.m_texture->get_image_width(), p.m_texture->get_image_height())).to_rect()).to_sdl();
+		SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), p.m_texture->get_texture(), nullptr, &dstrect);
 
 		VideoSystem::current()->present();
 		SDL_Delay(33);

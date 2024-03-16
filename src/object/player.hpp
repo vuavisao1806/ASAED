@@ -9,26 +9,28 @@
 #include <SDL.h>
 #include <string>
 
+#include "video/texture_ptr.hpp"
+#include "video/texture.hpp"
+
 class Player {
 public:
 	Vector pos;
-	Size size;
 
 public:
 	// m_movement also temporary. But it will serve for something in the future 
 	Vector m_movement;
 	
 	// Now I only load 1 texture. It's temporary, I will upgrade!
-	SDL_Texture* m_texture;
+	TexturePtr m_texture;
 
 public:
 	Player();
 	~Player();
 
-	Player(int x, int y, Size sz);
+	Player(int x, int y);
 
 public:
-	void loadTexture(SDL_Renderer* renderer, std::string path);
+	void loadTexture(std::string path);
 
 public:
 	void moved(const Vector& add);
