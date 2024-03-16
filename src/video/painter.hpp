@@ -2,7 +2,9 @@
 #define HEADER_ASAED_VIDEO_PAINTER_HPP
 
 #include <SDL.h>
+#include <optional>
 
+struct DrawingRequest;
 struct TextureRequest;
 class VideoSystem;
 
@@ -12,9 +14,12 @@ class VideoSystem;
 */
 
 class Painter final {
+	std::optional<SDL_Rect> m_cliprect;
+
 public:
 	Painter();
 	~Painter();
+
 private:
 	Painter(const Painter&) = delete;
 	Painter& operator=(const Painter&) = delete;

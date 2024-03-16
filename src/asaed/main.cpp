@@ -226,6 +226,8 @@
 #include "video/surface_creator.hpp"
 #include "video/texture.hpp"
 #include "video/texture_ptr.hpp"
+#include "video/painter.hpp"
+#include "video/drawing_request.hpp"
 
 SDLSubsystem::SDLSubsystem() {
 	Uint32 flags = SDL_INIT_VIDEO;
@@ -272,6 +274,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 	bool quit = false;
 	SDL_Event e;
 
+
 	TexturePtr texture = TextureManager::current()->get("data/images/m_map.png");
 
 	Player p(100, 100);
@@ -284,10 +287,20 @@ int Main::run(int /* argc */, char** /* argv */) {
 			}
 			InputManager::current()->process_event(e);
 		}
+		
 		VideoSystem::current()->get_renderer().start_draw();
 		// assert(VideoSystem::current()->get_renderer().get_sdl_renderer() != nullptr);
 		
-		SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), texture->get_texture(), nullptr, nullptr);
+		std::unique_ptr<TextureRequest> textureRequest = std::make_unique<TextureRequest>();
+		textureRequest->texture = texture.get();
+		textureRequest->srcrects.push_back(Rectf(0, 0, 1280, 800));
+		textureRequest->dstrects.push_back(Rectf(0, 0, 1280, 800));
+
+		VideoSystem::current()->get_painter().draw_texture(*textureRequest);
+		textureRequest->srcrects.clear();
+		textureRequest->dstrects.clear();
+
+		// SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), texture->get_texture(), nullptr, nullptr);
 		
 		Controller& controller = InputManager::current()->get_controller(0);
 		if (controller.hold(Control::LEFT) && !controller.hold(Control::RIGHT)) {
@@ -314,8 +327,16 @@ int Main::run(int /* argc */, char** /* argv */) {
 		p.moved(Vector(dir[0] * 16, dir[1] * 16));
 		p.update();
 		
-		SDL_Rect dstrect = Rect(Rectf(p.pos, Size(p.m_texture->get_image_width(), p.m_texture->get_image_height())).to_rect()).to_sdl();
-		SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), p.m_texture->get_texture(), nullptr, &dstrect);
+		Rectf srcrect = Rectf(0, 0, p.m_texture->get_image_width(), p.m_texture->get_image_height());
+		Rectf dstrect = Rectf(p.pos, Size(p.m_texture->get_image_width(), p.m_texture->get_image_height()));
+		
+		textureRequest->texture = p.m_texture.get();
+		textureRequest->srcrects.emplace_back(srcrect);
+		textureRequest->dstrects.emplace_back(dstrect);
+
+		VideoSystem::current()->get_painter().draw_texture(*textureRequest);
+		
+		// SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), p.m_texture->get_texture(), nullptr, &dstrect);
 
 		VideoSystem::current()->present();
 		SDL_Delay(33);
