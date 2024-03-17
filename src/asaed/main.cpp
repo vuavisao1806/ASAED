@@ -97,8 +97,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 		
 		std::unique_ptr<TextureRequest> textureRequest = std::make_unique<TextureRequest>();
 		textureRequest->texture = texture.get();
-		textureRequest->srcrects.push_back(Rectf(0, 0, 1280, 800));
-		textureRequest->dstrects.push_back(Rectf(0, 0, 1280, 800));
+		textureRequest->srcrects.push_back(Rectf(0, 0, texture->get_image_width(), texture->get_image_height()));
+		textureRequest->dstrects.push_back(Rectf(0, 0, texture->get_image_width() / 2.0f, texture->get_image_height() / 2.0f));
 
 		VideoSystem::current()->get_painter().draw_texture(*textureRequest);
 		textureRequest->srcrects.clear();
@@ -134,8 +134,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 		p.update();
 		
 		Rectf srcrect = Rectf(0, 0, p.m_texture->get_image_width(), p.m_texture->get_image_height());
-		Rectf dstrect = Rectf(p.pos, Size(p.m_texture->get_image_width() * VideoSystem::current()->get_viewport().get_scale().x, 
-		                                  p.m_texture->get_image_height() * VideoSystem::current()->get_viewport().get_scale().y));
+		Rectf dstrect = Rectf(p.pos, Size(p.m_texture->get_image_width(), 
+		                                  p.m_texture->get_image_height()));
 		
 		textureRequest->texture = p.m_texture.get();
 		textureRequest->srcrects.emplace_back(srcrect);
