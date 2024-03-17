@@ -21,6 +21,7 @@ CPP_FILES = main.cpp                         \
             video/texture_manager.cpp        \
             video/texture.cpp                \
             video/video_system.cpp           \
+            video/viewport.cpp               \
             util/log.cpp                     \
 
 

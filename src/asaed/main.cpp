@@ -134,7 +134,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 		p.update();
 		
 		Rectf srcrect = Rectf(0, 0, p.m_texture->get_image_width(), p.m_texture->get_image_height());
-		Rectf dstrect = Rectf(p.pos, Size(p.m_texture->get_image_width(), p.m_texture->get_image_height()));
+		Rectf dstrect = Rectf(p.pos, Size(p.m_texture->get_image_width() * VideoSystem::current()->get_viewport().get_scale().x, 
+		                                  p.m_texture->get_image_height() * VideoSystem::current()->get_viewport().get_scale().y));
 		
 		textureRequest->texture = p.m_texture.get();
 		textureRequest->srcrects.emplace_back(srcrect);

@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "video/texture_ptr.hpp"
+#include "video/viewport.hpp"
 #include "util/currenton.hpp"
 #include "util/log.hpp"
 
@@ -16,6 +17,8 @@ class VideoSystem final : public Currenton<VideoSystem> {
 private:
 	std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> m_sdl_window;
 	std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> m_sdl_renderer;
+
+	Viewport m_viewport;
 
 	std::unique_ptr<Painter> m_painter;
 	std::unique_ptr<Renderer> m_renderer;
@@ -42,8 +45,10 @@ public:
 	/** hardcoded size of window */
 	void create_sdl_window();
 	void create_sdl_renderer();
+	void apply_config();
 
 public:
+	const Viewport& get_viewport() const;
 	Painter& get_painter() const;
 	Renderer& get_renderer() const;
 

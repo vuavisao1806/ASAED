@@ -19,6 +19,7 @@ VideoSystem::VideoSystem() :
 {
 	create_sdl_window();
 	create_sdl_renderer();
+	apply_config();
 
 	m_painter = std::make_unique<Painter>();
 	m_renderer = std::make_unique<Renderer>(m_sdl_renderer.get());
@@ -64,11 +65,17 @@ void VideoSystem::create_sdl_renderer() {
 	}
 }
 
+void VideoSystem::apply_config() {
+	Rect viewport = Rect(0, 0, g_config->window_size);
+	Vector scale = Vector(g_config->magnification, g_config->magnification);
+	m_viewport = Viewport(viewport, scale);
+}
+
 void VideoSystem::set_icon(const SDL_Surface& icon) {
 	SDL_SetWindowIcon(m_sdl_window.get(), const_cast<SDL_Surface*>(&icon));
 }
 
-
+const Viewport& VideoSystem::get_viewport() const { return m_viewport; }
 Painter& VideoSystem::get_painter() const { return *m_painter; }
 Renderer& VideoSystem::get_renderer() const { return *m_renderer; }
 
