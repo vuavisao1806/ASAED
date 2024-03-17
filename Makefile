@@ -2,6 +2,8 @@
 
 CPP_FILES = main.cpp                         \
             asaed/main.cpp                   \
+            asaed/globals.cpp                \
+            asaed/gameconfig.cpp             \
             control/controller.cpp           \
             control/input_manager.cpp        \
             control/keyboard_config.cpp      \

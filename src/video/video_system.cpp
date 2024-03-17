@@ -3,10 +3,12 @@
 #include <assert.h>
 #include <sstream>
 
+#include "asaed/globals.hpp"
+#include "asaed/gameconfig.hpp"
+#include "math/size.hpp"
 #include "video/painter.hpp"
 #include "video/renderer.hpp"
 #include "video/texture_manager.hpp"
-#include "math/size.hpp"
 
 VideoSystem::VideoSystem() :
 	m_sdl_window(nullptr, &SDL_DestroyWindow),
@@ -43,7 +45,7 @@ std::unique_ptr<VideoSystem> VideoSystem::create(VideoSystem::VideoType video_sy
 }
 
 void VideoSystem::create_sdl_window() {
-	Size size = Size(1280, 800);
+	Size size = g_config->window_size;
 	m_sdl_window.reset(SDL_CreateWindow("ASAED", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, size.width, size.height, 0));
 	
 	if(!m_sdl_window) {
