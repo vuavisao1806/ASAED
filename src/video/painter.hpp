@@ -6,6 +6,7 @@
 
 struct DrawingRequest;
 struct TextureRequest;
+struct FillRectRequest;
 class VideoSystem;
 
 /**
@@ -26,7 +27,10 @@ private:
 
 public:
 	void draw_texture(const TextureRequest& request);
+	void draw_filled_rect(const FillRectRequest& request);
 
+	void set_clip_rect(const Rect& rect);
+	void clear_clip_rect();
 };
 
 #endif
