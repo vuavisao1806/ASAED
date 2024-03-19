@@ -8,18 +8,16 @@
 Player::Player() :
 	pos(0, 0),
 	m_movement(0, 0),
-	m_texture()
+	m_surface()
 {}
 
 Player::~Player() 
 {}
 
-Player::Player(int x, int y) :
+Player::Player(int x, int y, std::string path) :
 	pos(x, y)
-{}
-
-void Player::loadTexture(std::string path) {
-	m_texture = TextureManager::current()->get(path);
+{
+	m_surface = Surface::from_file(path);
 }
 
 void Player::moved(const Vector& add) {

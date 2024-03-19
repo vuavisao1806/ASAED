@@ -35,7 +35,7 @@ private:
 
 public:
 	static SurfacePtr from_texture(const TexturePtr& texture);
-	static SurfacePtr from_file(const std::string& filename, const std::optional<Rect>& rect);
+	static SurfacePtr from_file(const std::string& filename, const std::optional<Rect>& rect = std::nullopt);
 
 public:
 	SurfacePtr region(const Rect& rect) const;

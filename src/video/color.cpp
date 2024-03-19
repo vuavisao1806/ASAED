@@ -19,7 +19,7 @@ Color Color::from_rgb(uint8_t red_, uint8_t green_, uint8_t blue_) {
 	             static_cast<float>(blue_ / 255.0f));
 }
 
-Color::Color(float red_, float green_, float blue_, float alpha_ = 1.0f) :
+Color::Color(float red_, float green_, float blue_, float alpha_) :
 	red(red_),
 	green(green_),
 	blue(blue_),

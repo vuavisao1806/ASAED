@@ -25,7 +25,7 @@ SurfacePtr Surface::from_texture(const TexturePtr& texture) {
 	return std::make_shared<Surface>(texture, NO_FLIP);
 }
 
-SurfacePtr Surface::from_file(const std::string& filename, const std::optional<Rect>& rect = std::nullopt) {
+SurfacePtr Surface::from_file(const std::string& filename, const std::optional<Rect>& rect) {
 	if (rect) {
 		TexturePtr texture = TextureManager::current()->get(filename, *rect);
 		return std::make_shared<Surface>(texture, NO_FLIP, filename);

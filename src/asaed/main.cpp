@@ -14,12 +14,15 @@
 #include "video/texture_manager.hpp"
 #include "util/log.hpp"
 
+#include "video/compositor.hpp"
+#include "video/drawing_context.hpp"
 #include "object/player.hpp"
 #include "video/drawing_request.hpp"
 #include "video/surface_creator.hpp"
 #include "video/texture.hpp"
 #include "video/texture_ptr.hpp"
 #include "video/painter.hpp"
+#include "video/layer.hpp"
 
 ConfigSubsystem::ConfigSubsystem() {
 	g_config = std::make_unique<Config>();
@@ -79,10 +82,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 	SDL_Event e;
 
 
-	TexturePtr texture = TextureManager::current()->get("data/images/m_map.png");
+	SurfacePtr m_surface_screen = Surface::from_file("data/images/m_map.png");
 
-	Player p(100, 100);
-	p.loadTexture("data/images/knight/idle-0.png");
+	Player p(100, 100, "data/images/knight/idle-0.png");
+	
 	while (!quit) {
 		int dir[2] = {0, 0};
 		while (SDL_PollEvent(&e) != 0) {
@@ -91,20 +94,25 @@ int Main::run(int /* argc */, char** /* argv */) {
 			}
 			InputManager::current()->process_event(e);
 		}
-		
-		VideoSystem::current()->get_renderer().start_draw();
-		// assert(VideoSystem::current()->get_renderer().get_sdl_renderer() != nullptr);
-		
-		std::unique_ptr<TextureRequest> textureRequest = std::make_unique<TextureRequest>();
-		textureRequest->texture = texture.get();
-		textureRequest->srcrects.push_back(Rectf(0, 0, texture->get_image_width(), texture->get_image_height()));
-		textureRequest->dstrects.push_back(Rectf(0, 0, texture->get_image_width() / 2.0f, texture->get_image_height() / 2.0f));
 
-		VideoSystem::current()->get_painter().draw_texture(*textureRequest);
-		textureRequest->srcrects.clear();
-		textureRequest->dstrects.clear();
+		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
+		DrawingContext& drawing_context = compositor->make_context();
+		
+		// drawing_context.push_transform();
+		
+		// Rectf rect = Rectf(100.0f, 100.0f, 200.0f, 200.0f);
+		// drawing_context.get_canvas().draw_filled_rect(rect, Color::BLUE, LAYER_OBJECT);
 
-		// SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), texture->get_texture(), nullptr, nullptr);
+		// drawing_context.pop_transform();
+
+		// compositor->render();
+
+		drawing_context.push_transform();
+
+		Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 2.0f, m_surface_screen->get_height() / 2.0f);
+		drawing_context.get_canvas().draw_surface_scaled(m_surface_screen, dstrect, Color::WHITE, LAYER_BACKGROUND);
+
+		drawing_context.pop_transform();
 		
 		bool m_player_flip = false;
 		Controller& controller = InputManager::current()->get_controller(0);
@@ -129,27 +137,22 @@ int Main::run(int /* argc */, char** /* argv */) {
 			dir[1] = 0;
 		}
 		
-
 		p.moved(Vector(dir[0] * 16, dir[1] * 16));
 		p.update();
-		
-		Rectf srcrect = Rectf(0, 0, p.m_texture->get_image_width(), p.m_texture->get_image_height());
-		Rectf dstrect = Rectf(p.pos, Size(p.m_texture->get_image_width(), 
-		                                  p.m_texture->get_image_height()));
-		
-		textureRequest->texture = p.m_texture.get();
-		textureRequest->srcrects.emplace_back(srcrect);
-		textureRequest->dstrects.emplace_back(dstrect);
 
-		if (m_player_flip == true) {
-			textureRequest->flip = 0b100;
+		drawing_context.push_transform();
+		
+		if (m_player_flip == false) {
+			drawing_context.get_canvas().draw_surface(p.m_surface, p.pos, LAYER_OBJECT);
+		}
+		else {
+			SurfacePtr p_flip = p.m_surface->clone_flip(HORIZONTAL_FLIP);
+			drawing_context.get_canvas().draw_surface(p_flip, p.pos, LAYER_OBJECT);
 		}
 
-		VideoSystem::current()->get_painter().draw_texture(*textureRequest);
-		
-		// SDL_RenderCopy(VideoSystem::current()->get_renderer().get_sdl_renderer(), p.m_texture->get_texture(), nullptr, &dstrect);
+		drawing_context.pop_transform();
 
-		VideoSystem::current()->present();
+		compositor->render();
 		SDL_Delay(33);
 	}
 	return 0;

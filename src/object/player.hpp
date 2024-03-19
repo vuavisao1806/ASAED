@@ -9,8 +9,8 @@
 #include <SDL.h>
 #include <string>
 
-#include "video/texture_ptr.hpp"
-#include "video/texture.hpp"
+#include "video/surface_ptr.hpp"
+#include "video/surface.hpp"
 
 class Player {
 public:
@@ -21,16 +21,13 @@ public:
 	Vector m_movement;
 	
 	// Now I only load 1 texture. It's temporary, I will upgrade!
-	TexturePtr m_texture;
+	SurfacePtr m_surface;
 
 public:
 	Player();
 	~Player();
 
-	Player(int x, int y);
-
-public:
-	void loadTexture(std::string path);
+	Player(int x, int y, std::string path = "");
 
 public:
 	void moved(const Vector& add);

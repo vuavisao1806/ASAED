@@ -4,10 +4,11 @@
 #include <SDL.h>
 #include <optional>
 
+#include "math/rect.hpp"
+
 struct DrawingRequest;
 struct TextureRequest;
 struct FillRectRequest;
-class VideoSystem;
 
 /**
  * Painter is a wrapper to draw things when given a request

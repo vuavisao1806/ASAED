@@ -14,6 +14,10 @@ CPP_FILES = main.cpp                         \
             math/rect.cpp                    \
             math/rectf.cpp                   \
             object/player.cpp                \
+            video/canvas.cpp                 \
+            video/color.cpp                  \
+            video/compositor.cpp             \
+            video/drawing_context.cpp        \
             video/painter.cpp                \
             video/renderer.cpp               \
             video/surface_creator.cpp        \
