@@ -14,15 +14,15 @@
 #include "video/texture_manager.hpp"
 #include "util/log.hpp"
 
+#include "object/player.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
-#include "object/player.hpp"
 #include "video/drawing_request.hpp"
+#include "video/layer.hpp"
 #include "video/surface_creator.hpp"
 #include "video/texture.hpp"
 #include "video/texture_ptr.hpp"
 #include "video/painter.hpp"
-#include "video/layer.hpp"
 
 ConfigSubsystem::ConfigSubsystem() {
 	g_config = std::make_unique<Config>();
@@ -139,16 +139,13 @@ int Main::run(int /* argc */, char** /* argv */) {
 		
 		p.moved(Vector(dir[0] * 16, dir[1] * 16));
 		p.update();
-
+		
 		drawing_context.push_transform();
 		
-		if (m_player_flip == false) {
-			drawing_context.get_canvas().draw_surface(p.m_surface, p.pos, LAYER_OBJECT);
+		if (m_player_flip == true) {
+			drawing_context.set_flip(HORIZONTAL_FLIP);
 		}
-		else {
-			SurfacePtr p_flip = p.m_surface->clone_flip(HORIZONTAL_FLIP);
-			drawing_context.get_canvas().draw_surface(p_flip, p.pos, LAYER_OBJECT);
-		}
+		drawing_context.get_canvas().draw_surface(p.m_surface, p.pos, LAYER_OBJECT);
 
 		drawing_context.pop_transform();
 

@@ -8,8 +8,8 @@
 #include "video/video_system.hpp"
 
 Compositor::Compositor() :
-	m_drawing_contexts(),
-	m_request_holder()
+	m_request_holder(),
+	m_drawing_contexts()
 {}
 
 Compositor::~Compositor() {

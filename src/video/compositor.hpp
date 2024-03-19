@@ -7,6 +7,16 @@
 class DrawingContext;
 class DrawingRequest;
 
+/**
+ * What is Compositor?
+ * Compositor is the boss, it holds everything relevant to drawing requests and passes it to lower-grade
+ * Moreover, it contains different drawing context (convenient to process)
+ * What is purpose?
+ * Compositor manages the memory of all requests and it's a very good
+ * It avoid leak mem or sometimes we forget to remove something after called
+ * After process, the memory of the drawing requests that needed to be removed is definitely removed (by only one line)
+*/
+
 class Compositor final {
 private:
 	/** to hold the memory of all drawing requests */

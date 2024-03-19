@@ -17,6 +17,7 @@ struct SDL_Surface;
 /** 
  * This class stores images and provides way to get them
  * creat image through VideoSystem
+ * TextureManager monopoly processes image input
 */
 
 class TextureManager final : public Currenton<TextureManager> {

@@ -14,7 +14,10 @@
 class DrawingContext;
 struct DrawingRequest;
 
-/** Class to direct give DrawingRequest to Painter */
+/**
+ * Class to direct give DrawingRequest to Painter
+ * (final processing step before the drawing)
+*/
 
 class Canvas final {
 private:

@@ -9,7 +9,10 @@
 
 #include "math/rect.hpp"
 
-/** This class wraps SDL_Texture* to do things */
+/**
+ * This class wraps SDL_Texture* to do things 
+ * Key to specific unique character with different texture (convenient to store, find, and get)
+*/
 
 class Texture final {
 	friend class TextureManager;

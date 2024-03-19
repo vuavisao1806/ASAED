@@ -3,12 +3,11 @@
 #include <algorithm>
 
 #include "video/color.hpp"
-#include "video/surface_ptr.hpp"
-#include "video/video_system.hpp"
-#include "video/painter.hpp"
-#include "video/surface.hpp"
 #include "video/drawing_request.hpp"
 #include "video/drawing_context.hpp"
+#include "video/surface.hpp"
+#include "video/video_system.hpp"
+#include "video/painter.hpp"
 
 Canvas::~Canvas()
 {}
@@ -22,6 +21,8 @@ Canvas::Canvas(DrawingContext& drawing_context, std::vector<std::unique_ptr<Draw
 }
 
 void Canvas::render() {
+	// DrawingRequest* is compulsory
+	// because if we process the sort algorithm in std::unique_ptr<>. It may contain many potentially dangerous.
 	std::stable_sort(
 		m_requests.begin(),
 		m_requests.end(),

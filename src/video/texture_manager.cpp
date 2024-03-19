@@ -5,7 +5,6 @@
 #include <sstream>
 
 #include "util/log.hpp"
-#include "video/surface_creator.hpp"
 #include "video/video_system.hpp"
 
 TextureManager::TextureManager() :

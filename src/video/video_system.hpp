@@ -13,6 +13,18 @@ class Painter;
 class Renderer;
 class TextureManager;
 
+/**
+ * What is VideoSystem?
+ * General, VideoSystem holds everything to interact (display) in screen
+ * VideoSystem holds SDL_Window*, SDL_Renderer* to display
+ * VideoSystem holds Renderer, Painter to guarantee consistent and unique
+ * VideoSystem holds TextureManager to access the storehouse (Texture and SDLSurfacePtr)
+ *
+ * Renderer holds SDL_Renderer* (m_sdl_renderer) and config some things before draw
+ * Painter is directly drawing everything (actually only drawing requests from canvas)
+ * TextureManager is storehouse and monopoly handles process image input
+*/
+
 class VideoSystem final : public Currenton<VideoSystem> {
 private:
 	std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> m_sdl_window;

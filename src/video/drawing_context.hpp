@@ -11,6 +11,11 @@
 
 struct DrawingRequest;
 
+/**
+ * This class holds and makes transforms (stack) for specific objects before passes through Canvas to continue the process
+ * In general, it makes user input flexible
+*/
+
 class DrawingContext final {
 private:
 	/**
