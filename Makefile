@@ -2,6 +2,7 @@
 
 CPP_FILES = main.cpp                         \
             asaed/main.cpp                   \
+            asaed/constants.cpp              \
             asaed/globals.cpp                \
             asaed/gameconfig.cpp             \
             control/controller.cpp           \

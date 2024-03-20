@@ -14,6 +14,7 @@
 #include "video/texture_manager.hpp"
 #include "util/log.hpp"
 
+#include "asaed/constants.hpp"
 #include "object/player.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
@@ -85,8 +86,45 @@ int Main::run(int /* argc */, char** /* argv */) {
 	SurfacePtr m_surface_screen = Surface::from_file("data/images/m_map.png");
 
 	Player p(100, 100, "data/images/knight/idle-0.png");
+
+	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
+	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
+	Uint32 elapsed_ticks = 0;
+	Uint32 last_ticks = 0;
 	
 	while (!quit) {
+		Uint32 ticks = SDL_GetTicks();
+		elapsed_ticks += ticks - last_ticks;
+		last_ticks = ticks;
+		
+		if (elapsed_ticks > ms_per_step * 8) {
+			// for future use
+			// generaly, when the game loads up or levels are switched
+			// the elapsed_ticks grows up extremely large, so we just ignore those large time jumps
+			elapsed_ticks = 0;
+		}
+
+		if (elapsed_ticks < ms_per_step) {
+			SDL_Delay(ms_per_step - elapsed_ticks);
+			continue; // temporary
+		}
+
+		g_real_time = static_cast<float>(ticks / 1000.0f);
+
+		int steps = elapsed_ticks / ms_per_step;
+		
+		// to cap max step per frame
+		// 4 steps per frame ~ 16 fps
+		// a little bit trolling to handle when lagging
+		steps = std::min(steps, 4);
+
+		for (int i = 0; i < steps; ++ i) {
+			// for future use
+			g_game_time += seconds_per_step;
+			
+			elapsed_ticks -= ms_per_step;
+		}
+
 		int dir[2] = {0, 0};
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
@@ -97,15 +135,6 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
 		DrawingContext& drawing_context = compositor->make_context();
-		
-		// drawing_context.push_transform();
-		
-		// Rectf rect = Rectf(100.0f, 100.0f, 200.0f, 200.0f);
-		// drawing_context.get_canvas().draw_filled_rect(rect, Color::BLUE, LAYER_OBJECT);
-
-		// drawing_context.pop_transform();
-
-		// compositor->render();
 
 		drawing_context.push_transform();
 
@@ -137,7 +166,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 			dir[1] = 0;
 		}
 		
-		p.moved(Vector(dir[0] * 16, dir[1] * 16));
+		p.moved(Vector(dir[0] * 6, dir[1] * 6));
 		p.update();
 		
 		drawing_context.push_transform();
@@ -150,7 +179,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 		drawing_context.pop_transform();
 
 		compositor->render();
-		SDL_Delay(33);
+		// SDL_Delay(33);
 	}
 	return 0;
 }
