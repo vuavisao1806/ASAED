@@ -28,6 +28,10 @@ CPP_FILES = main.cpp                         \
             video/video_system.cpp           \
             video/viewport.cpp               \
             util/log.cpp                     \
+            util/reader_assert.cpp           \
+            util/reader_data.cpp             \
+            util/reader_iterator.cpp         \
+            util/reader_machine.cpp          \
 
 
 

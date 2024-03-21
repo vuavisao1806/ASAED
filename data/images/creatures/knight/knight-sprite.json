@@ -1,0 +1,24 @@
+{
+	"actions": [
+		{
+			"name": "walk-right",
+			"family-name": "walk",
+			"fps": 16,
+			"hitbox": [0, 0, 16, 28],
+			"images": [
+				"idle-0.png",
+				"idle-1.png",
+				"idle-2.png",
+				"idle-3.png",
+				"idle-4.png",
+				"idle-5.png",
+				"idle-6.png"
+			]
+		},
+		{
+			"name": "walk-left",
+			"family-name": "walk",
+			"mirror-action": "walk-right"
+		}
+	]
+}

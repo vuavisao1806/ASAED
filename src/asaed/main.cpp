@@ -25,6 +25,10 @@
 #include "video/texture_ptr.hpp"
 #include "video/painter.hpp"
 
+#include "util/reader_data.hpp"
+#include "util/reader_iterator.hpp"
+#include "util/reader_machine.hpp"
+
 ConfigSubsystem::ConfigSubsystem() {
 	g_config = std::make_unique<Config>();
 }
@@ -79,13 +83,21 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
+
+	// ReaderData readerData("data/images/creatures/knight/knight-sprite.json");
+	// std::vector<int> values = {};
+	// std::cout << readerData.get("hitbox", values) << '\n';
+	// for (const auto& value : values) std::cout << value << ' ';
+	// std::cout << '\n';
+	// std::cout << readerData.get_item("mirror-action")->second.get<std::string>() << '\n';
+
 	bool quit = false;
 	SDL_Event e;
 
 
 	SurfacePtr m_surface_screen = Surface::from_file("data/images/m_map.png");
 
-	Player p(100, 100, "data/images/knight/idle-0.png");
+	Player p(100, 100, "data/images/creatures/knight/idle-0.png");
 
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
 	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
