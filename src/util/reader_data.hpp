@@ -10,23 +10,24 @@
 using json = nlohmann::json;
 
 class ReaderMachine;
-class ReaderIterator;
 
 class ReaderData final {
 private:
-	std::string m_data;
-	std::unique_ptr<ReaderMachine> m_reader;
-	std::unique_ptr<ReaderIterator> m_data_holder;
+	std::vector<std::pair<std::string, json>> m_object;
+	const std::string& m_parent_path;
 
 private:
 	ReaderData() = delete;
+
+public:
+	~ReaderData();
 
 private:
 	ReaderData(const ReaderData&) = delete;
 	ReaderData& operator=(const ReaderData&) = delete;
 
 public:
-	ReaderData(const std::string& data);
+	ReaderData(const std::string& parent_name);
 
 public:
 	const std::pair<std::string, json>* get_item(const std::string name) const;
@@ -41,8 +42,8 @@ public:
 	bool get(const std::string& name, std::vector<float>& values) const;
 	bool get(const std::string& name, std::vector<std::string>& values) const;
 
-	const ReaderMachine& get_reader() const;
-	const ReaderIterator& get_data_holder() const;
+	void apply(const std::pair<std::string, json>& data);
+	void clear();
 };
 
 #endif

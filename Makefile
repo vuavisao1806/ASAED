@@ -30,7 +30,6 @@ CPP_FILES = main.cpp                         \
             util/log.cpp                     \
             util/reader_assert.cpp           \
             util/reader_data.cpp             \
-            util/reader_iterator.cpp         \
             util/reader_machine.cpp          \
 
 

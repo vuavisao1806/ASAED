@@ -26,7 +26,6 @@
 #include "video/painter.hpp"
 
 #include "util/reader_data.hpp"
-#include "util/reader_iterator.hpp"
 #include "util/reader_machine.hpp"
 
 ConfigSubsystem::ConfigSubsystem() {
@@ -84,12 +83,19 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
 
-	// ReaderData readerData("data/images/creatures/knight/knight-sprite.json");
+	// ReaderMachine reader("data/images/creatures/knight/knight-sprite.json");
+	// std::string name;
+	// reader.get_data(0)->get("name", name);
+	// std::cout << name << '\n';
+	// int fps;
+	// reader.get_data(0)->get("fps", fps);
+	// std::cout << fps << '\n';
 	// std::vector<int> values = {};
-	// std::cout << readerData.get("hitbox", values) << '\n';
-	// for (const auto& value : values) std::cout << value << ' ';
-	// std::cout << '\n';
-	// std::cout << readerData.get_item("mirror-action")->second.get<std::string>() << '\n';
+	// reader.get_data(0)->get("hitbox", values);
+	// for (const auto& val : values) std::cout << val << '\n';
+	// std::vector<std::string> images = {};
+	// reader.get_data(0)->get("images", images);
+	// for (const auto& val : images) std::cout << val << '\n';
 
 	bool quit = false;
 	SDL_Event e;

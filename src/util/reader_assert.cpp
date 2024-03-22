@@ -1,25 +1,25 @@
 #include "util/reader_assert.hpp"
 
-void assert_isn_array(const json& data) {
-	if (data.is_array()) {
+void assert_isn_array(const std::string parent_path, const std::pair<std::string, json>* data) {
+	if (data->second.is_array()) {
 		std::ostringstream msg;
-		msg << "Data must be value, not array!!";
+		msg << "Data '"<< data->first << "' in file'" << parent_path << "' must be value, not array!!";
 		throw std::runtime_error(msg.str());
 	}
 }
 
-void assert_isn_object(const json& data) {
-	if (data.is_object()) {
+void assert_isn_object(const std::string parent_path, const std::pair<std::string, json>* data) {
+	if (data->second.is_object()) {
 		std::ostringstream msg;
-		msg << "Data must be value, not object!!";
+		msg << "Data '"<< data->first << "' in file'" << parent_path << "' must be value, not object!!";
 		throw std::runtime_error(msg.str());
 	}
 }
 
-void assert_is_array(const json& data) {
-	if (!data.is_array()) {
+void assert_is_array(const std::string parent_path, const std::pair<std::string, json>* data) {
+	if (!data->second.is_array()) {
 		std::ostringstream msg;
-		msg << "Data must be array, not value!!";
+		msg << "Data '"<< data->first << "' in file'" << parent_path << "' must be array, not value!!";
 		throw std::runtime_error(msg.str());
 	}
 }

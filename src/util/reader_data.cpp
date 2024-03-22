@@ -1,21 +1,22 @@
 #include "util/reader_data.hpp"
 
+// #include <iostream> // test
+
 #include "util/reader_assert.hpp"
-#include "util/reader_iterator.hpp"
 #include "util/reader_machine.hpp"
 
-ReaderData::ReaderData(const std::string& data) :
-	m_data(data)
-{
-	m_reader = std::make_unique<ReaderMachine>(data);
-	m_data_holder = std::make_unique<ReaderIterator>(*m_reader.get());
+ReaderData::~ReaderData() {
+	clear();
 }
 
+ReaderData::ReaderData(const std::string& parent_name) :
+	m_parent_path(parent_name)
+{}
+
 const std::pair<std::string, json>* ReaderData::get_item(const std::string name) const {
-	for (size_t i = 0; i < m_data_holder->get_size(); ++ i) {
-		const auto& m_data = m_data_holder->get_data(i);
-		if (m_data->first == name) {
-			return m_data;
+	for (const auto& it : m_object) {
+		if (it.first == name) {
+			return &it;
 		}
 	}
 	return nullptr;
@@ -27,8 +28,8 @@ const std::pair<std::string, json>* ReaderData::get_item(const std::string name)
 		return false;                             \
 	}                                             \
 	else {                                        \
-		assert_isn_array(data->second);           \
-		assert_isn_object(data->second);          \
+		assert_isn_array(m_parent_path, data);    \
+		assert_isn_object(m_parent_path, data);   \
 		value = data->second.get<type>();         \
 		return true;                              \
 	}
@@ -58,7 +59,7 @@ bool ReaderData::get(const std::string& name, std::string& value) const {
 		return false;                             \
 	}                                             \
 	else {                                        \
-		assert_is_array(data->second);            \
+		assert_is_array(m_parent_path, data);     \
 		values.clear();                           \
 		for (const auto& value : data->second) {  \
 			values.push_back(value);              \
@@ -81,5 +82,11 @@ bool ReaderData::get(const std::string& name, std::vector<std::string>& values) 
 	GET_VALUE_MARCO();
 }
 
-const ReaderMachine& ReaderData::get_reader() const { return *m_reader; }
-const ReaderIterator& ReaderData::get_data_holder() const { return *m_data_holder; }
+void ReaderData::apply(const std::pair<std::string, json>& data) {
+	m_object.push_back(data);
+	// std::cout << data.first << ' ' << data.second << '\n'; // test
+}
+
+void ReaderData::clear() {
+	m_object.clear();
+}
