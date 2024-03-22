@@ -9,8 +9,8 @@
 #include <SDL.h>
 #include <string>
 
-#include "video/surface_ptr.hpp"
-#include "video/surface.hpp"
+#include "sprite/sprite_ptr.hpp"
+#include "sprite/sprite.hpp"
 
 class Player {
 public:
@@ -20,9 +20,8 @@ public:
 	// m_movement also temporary. But it will serve for something in the future 
 	Vector m_movement;
 	
-	// Now I only load 1 texture. It's temporary, I will upgrade!
-	SurfacePtr m_surface;
-
+	// Finally! I can load sprite
+	SpritePtr m_sprite;
 public:
 	Player();
 	~Player();
@@ -32,6 +31,8 @@ public:
 public:
 	void moved(const Vector& add);
 	void update();
+
+	void draw(Canvas& canvas, bool go_left);
 };
 
 

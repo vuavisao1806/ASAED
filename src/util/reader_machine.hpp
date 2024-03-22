@@ -41,7 +41,8 @@ public:
 	std::string get_parent_name() const;
 	const json& get_json_value() const;
 
-	const std::unique_ptr<ReaderData>& get_data(int idx);
+	size_t get_size() const;
+	const ReaderData* get_data(int idx);
 };
 
 #endif

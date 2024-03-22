@@ -1,20 +1,27 @@
 # This is Makefile I learned from my big senior and I adapted it to suit myself and this project 
 
 CPP_FILES = main.cpp                         \
-            asaed/main.cpp                   \
             asaed/constants.cpp              \
-            asaed/globals.cpp                \
             asaed/gameconfig.cpp             \
+            asaed/globals.cpp                \
+            asaed/main.cpp                   \
             control/controller.cpp           \
             control/input_manager.cpp        \
             control/keyboard_config.cpp      \
             control/keyboard_manager.cpp     \
-            math/vector.cpp                  \
-            math/size.cpp                    \
-            math/sizef.cpp                   \
             math/rect.cpp                    \
             math/rectf.cpp                   \
+            math/size.cpp                    \
+            math/sizef.cpp                   \
+            math/vector.cpp                  \
             object/player.cpp                \
+            sprite/sprite_data.cpp           \
+            sprite/sprite_manager.cpp        \
+            sprite/sprite.cpp                \
+            util/log.cpp                     \
+            util/reader_assert.cpp           \
+            util/reader_data.cpp             \
+            util/reader_machine.cpp          \
             video/canvas.cpp                 \
             video/color.cpp                  \
             video/compositor.cpp             \
@@ -27,10 +34,6 @@ CPP_FILES = main.cpp                         \
             video/texture.cpp                \
             video/video_system.cpp           \
             video/viewport.cpp               \
-            util/log.cpp                     \
-            util/reader_assert.cpp           \
-            util/reader_data.cpp             \
-            util/reader_machine.cpp          \
 
 
 

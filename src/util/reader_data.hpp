@@ -14,6 +14,8 @@ class ReaderMachine;
 class ReaderData final {
 private:
 	std::vector<std::pair<std::string, json>> m_object;
+	
+public:
 	const std::string& m_parent_path;
 
 private:

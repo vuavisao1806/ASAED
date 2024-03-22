@@ -52,5 +52,5 @@ std::string ReaderMachine::get_filename() const { return m_filename; }
 std::string ReaderMachine::get_parent_name() const { return m_parent_name; }
 const json& ReaderMachine::get_json_value() const { return m_value; }
 
-
-const std::unique_ptr<ReaderData>& ReaderMachine::get_data(int idx) { return m_data_holder[idx]; }
+size_t ReaderMachine::get_size() const { return m_data_holder.size(); }
+const ReaderData* ReaderMachine::get_data(int idx) { return m_data_holder[idx].get(); }

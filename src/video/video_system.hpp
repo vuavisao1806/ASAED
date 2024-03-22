@@ -45,7 +45,7 @@ public:
 
 public:
 	VideoSystem();
-	~VideoSystem();
+	~VideoSystem() override;
 
 private:
 	VideoSystem(const VideoSystem&) = delete;

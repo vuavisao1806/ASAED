@@ -24,6 +24,8 @@
 #include "video/texture.hpp"
 #include "video/texture_ptr.hpp"
 #include "video/painter.hpp"
+#include "video/surface.hpp"
+#include "video/surface_ptr.hpp"
 
 #include "util/reader_data.hpp"
 #include "util/reader_machine.hpp"
@@ -64,6 +66,7 @@ Main::Main() :
 	m_config_subsystem(),
 	m_sdl_subsystem(),
 	m_input_manager(),
+	m_sprite_manager(),
 	m_video_system()
 {}
 
@@ -71,6 +74,7 @@ Main::~Main() {
 	m_config_subsystem.reset();
 	m_sdl_subsystem.reset();
 	m_input_manager.reset();
+	m_sprite_manager.reset();
 	m_video_system.reset();
 }
 
@@ -79,6 +83,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_sdl_subsystem = std::make_unique<SDLSubsystem>();
 
 	m_input_manager = std::make_unique<InputManager>(g_config->keyboard_config);
+	
+	m_sprite_manager = std::make_unique<SpriteManager>();
 
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
@@ -87,10 +93,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 	// std::string name;
 	// reader.get_data(0)->get("name", name);
 	// std::cout << name << '\n';
-	// int fps;
+	// float fps;
 	// reader.get_data(0)->get("fps", fps);
 	// std::cout << fps << '\n';
-	// std::vector<int> values = {};
+	// std::vector<float> values = {};
 	// reader.get_data(0)->get("hitbox", values);
 	// for (const auto& val : values) std::cout << val << '\n';
 	// std::vector<std::string> images = {};
@@ -103,8 +109,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 	SurfacePtr m_surface_screen = Surface::from_file("data/images/m_map.png");
 
-	Player p(100, 100, "data/images/creatures/knight/idle-0.png");
-
+	Player p(100, 100, "data/images/creatures/knight/knight-sprite.json");
+	// p.m_sprite->set_action("walk-right");
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
 	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
 	Uint32 elapsed_ticks = 0;
@@ -156,16 +162,16 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 		drawing_context.push_transform();
 
-		Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 2.0f, m_surface_screen->get_height() / 2.0f);
+		Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 3.0f, m_surface_screen->get_height() / 3.0f);
 		drawing_context.get_canvas().draw_surface_scaled(m_surface_screen, dstrect, Color::WHITE, LAYER_BACKGROUND);
 
 		drawing_context.pop_transform();
 		
-		bool m_player_flip = false;
+		bool m_player_go_left = false;
 		Controller& controller = InputManager::current()->get_controller(0);
 		if (controller.hold(Control::LEFT) && !controller.hold(Control::RIGHT)) {
 			dir[0] = -1;
-			m_player_flip = true;
+			m_player_go_left = true;
 		}
 		else if (!controller.hold(Control::LEFT) && controller.hold(Control::RIGHT)) {
 			dir[0] = 1;
@@ -184,17 +190,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 			dir[1] = 0;
 		}
 		
-		p.moved(Vector(dir[0] * 6, dir[1] * 6));
+		p.moved(Vector(dir[0] * 3, dir[1] * 3));
 		p.update();
 		
-		drawing_context.push_transform();
-		
-		if (m_player_flip == true) {
-			drawing_context.set_flip(HORIZONTAL_FLIP);
-		}
-		drawing_context.get_canvas().draw_surface(p.m_surface, p.pos, LAYER_OBJECT);
-
-		drawing_context.pop_transform();
+		p.draw(drawing_context.get_canvas(), m_player_go_left);
 
 		compositor->render();
 		// SDL_Delay(33);
