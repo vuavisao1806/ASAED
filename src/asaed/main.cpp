@@ -88,21 +88,6 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
-
-	// ReaderMachine reader("data/images/creatures/knight/knight-sprite.json");
-	// std::string name;
-	// reader.get_data(0)->get("name", name);
-	// std::cout << name << '\n';
-	// float fps;
-	// reader.get_data(0)->get("fps", fps);
-	// std::cout << fps << '\n';
-	// std::vector<float> values = {};
-	// reader.get_data(0)->get("hitbox", values);
-	// for (const auto& val : values) std::cout << val << '\n';
-	// std::vector<std::string> images = {};
-	// reader.get_data(0)->get("images", images);
-	// for (const auto& val : images) std::cout << val << '\n';
-
 	bool quit = false;
 	SDL_Event e;
 
@@ -116,6 +101,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 	Uint32 elapsed_ticks = 0;
 	Uint32 last_ticks = 0;
 	
+	int m_player_go = 0, m_player_last_go = 1;
 	while (!quit) {
 		Uint32 ticks = SDL_GetTicks();
 		elapsed_ticks += ticks - last_ticks;
@@ -162,22 +148,27 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 		drawing_context.push_transform();
 
-		Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 3.0f, m_surface_screen->get_height() / 3.0f);
+		Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 2.0f, m_surface_screen->get_height() / 2.0f);
 		drawing_context.get_canvas().draw_surface_scaled(m_surface_screen, dstrect, Color::WHITE, LAYER_BACKGROUND);
 
 		drawing_context.pop_transform();
 		
-		bool m_player_go_left = false;
 		Controller& controller = InputManager::current()->get_controller(0);
+		if (m_player_go != 0) {
+			// std::cout << m_player_go << '\n';
+			m_player_last_go = m_player_go;
+		}
 		if (controller.hold(Control::LEFT) && !controller.hold(Control::RIGHT)) {
 			dir[0] = -1;
-			m_player_go_left = true;
+			m_player_go = -1;
 		}
 		else if (!controller.hold(Control::LEFT) && controller.hold(Control::RIGHT)) {
 			dir[0] = 1;
+			m_player_go = 1;
 		}
 		else {
 			dir[0] = 0;
+			m_player_go = 0;
 		}
 		
 		if (controller.hold(Control::UP) && !controller.hold(Control::DOWN)) {
@@ -190,11 +181,11 @@ int Main::run(int /* argc */, char** /* argv */) {
 			dir[1] = 0;
 		}
 		
-		p.moved(Vector(dir[0] * 3, dir[1] * 3));
+		p.moved(Vector(dir[0] * 2, dir[1] * 2));
 		p.update();
 		
-		p.draw(drawing_context.get_canvas(), m_player_go_left);
-
+		p.draw(drawing_context.get_canvas(), m_player_go, m_player_last_go);
+		// std::cout << m_player_go << ' ' << m_player_last_go << '\n';
 		compositor->render();
 		// SDL_Delay(33);
 	}

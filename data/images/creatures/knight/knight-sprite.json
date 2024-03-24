@@ -6,18 +6,33 @@
 			"fps": 16,
 			"hitbox": [0, 0, 16, 28],
 			"images": [
-				"idle-0.png",
-				"idle-1.png",
-				"idle-2.png",
-				"idle-3.png",
-				"idle-4.png",
-				"idle-5.png"
+				"walk-0.png",
+				"walk-1.png",
+				"walk-2.png",
+				"walk-3.png"
 			]
 		},
 		{
 			"name": "walk-left",
 			"family-name": "walk",
 			"mirror-action": "walk-right"
+		},
+		{
+			"name": "idle-right",
+			"family-name": "idle",
+			"fps": 16,
+			"hitbox": [0, 0, 16, 28],
+			"images": [
+				"idle-0.png",
+				"idle-1.png",
+				"idle-2.png",
+				"idle-3.png"
+			]
+		},
+		{
+			"name": "idle-left",
+			"family-name": "idle",
+			"mirror-action": "idle-right"
 		}
 	]
 }

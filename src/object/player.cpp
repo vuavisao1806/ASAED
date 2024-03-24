@@ -30,12 +30,18 @@ void Player::update() {
 	m_movement = Vector();
 }
 
-void Player::draw(Canvas& canvas, bool go_left) {
-	if (go_left) {
+void Player::draw(Canvas& canvas, int go, int last_go) {
+	if (go == -1) {
 		m_sprite->set_action("walk-left");
 	}
-	else {
+	else if(go == 1) {
 		m_sprite->set_action("walk-right");
+	}
+	else if (last_go == 1) {
+		m_sprite->set_action("idle-right");
+	}
+	else {
+		m_sprite->set_action("idle-left");
 	}
 	m_sprite->draw(canvas, pos, LAYER_OBJECT);
 }

@@ -32,7 +32,7 @@ public:
 	void moved(const Vector& add);
 	void update();
 
-	void draw(Canvas& canvas, bool go_left);
+	void draw(Canvas& canvas, int go, int last_go);
 };
 
 
