@@ -15,6 +15,8 @@
 #include "util/log.hpp"
 
 #include "asaed/constants.hpp"
+#include "object/tile.hpp"
+#include "object/tile_set.hpp"
 #include "object/player.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
@@ -66,6 +68,7 @@ Main::Main() :
 	m_config_subsystem(),
 	m_sdl_subsystem(),
 	m_input_manager(),
+	m_tile_manager(),
 	m_sprite_manager(),
 	m_video_system()
 {}
@@ -74,6 +77,7 @@ Main::~Main() {
 	m_config_subsystem.reset();
 	m_sdl_subsystem.reset();
 	m_input_manager.reset();
+	m_tile_manager.reset();
 	m_sprite_manager.reset();
 	m_video_system.reset();
 }
@@ -84,15 +88,20 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 	m_input_manager = std::make_unique<InputManager>(g_config->keyboard_config);
 	
+	m_tile_manager = std::make_unique<TileManager>();
+
 	m_sprite_manager = std::make_unique<SpriteManager>();
 
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
+
 	bool quit = false;
 	SDL_Event e;
 
+	// good bye m_surface_screen
+	// SurfacePtr m_surface_screen = Surface::from_file("data/images/m_map.png");
 
-	SurfacePtr m_surface_screen = Surface::from_file("data/images/m_map.png");
+	TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/tiles/lever1/lever1-tile.json");
 
 	Player p(100, 100, "data/images/creatures/knight/knight-sprite.json");
 	// p.m_sprite->set_action("walk-right");
@@ -146,13 +155,25 @@ int Main::run(int /* argc */, char** /* argv */) {
 		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
 		DrawingContext& drawing_context = compositor->make_context();
 
+		// drawing_context.push_transform();
+
+		// Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 2.0f, m_surface_screen->get_height() / 2.0f);
+		// drawing_context.get_canvas().draw_surface_scaled(m_surface_screen, dstrect, Color::WHITE, LAYER_BACKGROUND);
+
+		// drawing_context.pop_transform();
+
 		drawing_context.push_transform();
 
-		Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 2.0f, m_surface_screen->get_height() / 2.0f);
-		drawing_context.get_canvas().draw_surface_scaled(m_surface_screen, dstrect, Color::WHITE, LAYER_BACKGROUND);
+		Vector pos(0.0f, 0.0f);
+		for (int x = 0; x < static_cast<int>(static_cast<float>(g_config->window_size.width) / BLOCK_SIZE); ++ x) {
+			for (int y = 0; y < static_cast<int>(static_cast<float>(g_config->window_size.height) / BLOCK_SIZE); ++ y) {
+				m_tile_set->get(1).draw(drawing_context.get_canvas(), pos + Vector(0.0f, BLOCK_SIZE * static_cast<float>(y)), LAYER_BACKGROUND);
+			}
+			pos += Vector(BLOCK_SIZE, 0.0f);
+		}
 
 		drawing_context.pop_transform();
-		
+
 		Controller& controller = InputManager::current()->get_controller(0);
 		if (m_player_go != 0) {
 			// std::cout << m_player_go << '\n';

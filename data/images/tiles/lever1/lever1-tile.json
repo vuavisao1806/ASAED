@@ -1,0 +1,10 @@
+{
+	"tiles": [
+		{
+			"id": 1,
+			"fps": 1,
+			"un-solid": 1,
+			"images": ["floor_1.png"]
+		}
+	]
+}

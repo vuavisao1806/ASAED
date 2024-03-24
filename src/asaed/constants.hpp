@@ -3,4 +3,6 @@
 
 extern const float LOGICAL_FPS;
 
+extern const float BLOCK_SIZE;
+
 #endif

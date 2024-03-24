@@ -15,6 +15,10 @@ CPP_FILES = main.cpp                         \
             math/sizef.cpp                   \
             math/vector.cpp                  \
             object/player.cpp                \
+            object/tile_manager.cpp          \
+            object/tile_parser.cpp           \
+            object/tile_set.cpp              \
+            object/tile.cpp                  \
             sprite/sprite_data.cpp           \
             sprite/sprite_manager.cpp        \
             sprite/sprite.cpp                \

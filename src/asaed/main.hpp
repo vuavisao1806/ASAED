@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "control/input_manager.hpp"
+#include "object/tile_manager.hpp"
 #include "sprite/sprite_manager.hpp"
 #include "video/video_system.hpp"
 
@@ -39,9 +40,9 @@ private:
 	std::unique_ptr<ConfigSubsystem> m_config_subsystem;
 	std::unique_ptr<SDLSubsystem> m_sdl_subsystem;
 	std::unique_ptr<InputManager> m_input_manager;
+	std::unique_ptr<TileManager> m_tile_manager;
 	std::unique_ptr<SpriteManager> m_sprite_manager;
 	std::unique_ptr<VideoSystem> m_video_system;
-
 public :
 	int run(int argc, char** argv);
 };
