@@ -44,6 +44,8 @@ public:
 	bool get(const std::string& name, std::vector<float>& values) const;
 	bool get(const std::string& name, std::vector<std::string>& values) const;
 
+	bool get(const std::string& name, std::vector<std::vector<uint32_t>>& values) const;
+
 	void apply(const std::pair<std::string, json>& data);
 	void clear();
 };

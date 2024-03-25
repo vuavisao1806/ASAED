@@ -53,7 +53,7 @@ bool ReaderData::get(const std::string& name, std::string& value) const {
 
 #undef GET_VALUE_MARCO
 
-#define GET_VALUE_MARCO()                         \
+#define GET_VALUE_MARCO(type)                     \
 	const auto& data = get_item(name);            \
 	if (data == nullptr) {                        \
 		return false;                             \
@@ -61,26 +61,31 @@ bool ReaderData::get(const std::string& name, std::string& value) const {
 	else {                                        \
 		assert_is_array(m_parent_path, data);     \
 		values.clear();                           \
-		for (const auto& value : data->second) {  \
-			values.push_back(value);              \
-		}                                         \
+		values = data->second.get<type>();        \
 		return true;                              \
 	}
 
 bool ReaderData::get(const std::string& name, std::vector<int>& values) const {
-	GET_VALUE_MARCO();
+	GET_VALUE_MARCO(std::vector<int>);
 }
 
 bool ReaderData::get(const std::string& name, std::vector<uint32_t>& values) const {
-	GET_VALUE_MARCO();
+	GET_VALUE_MARCO(std::vector<uint32_t>);
 }
 
 bool ReaderData::get(const std::string& name, std::vector<float>& values) const {
-	GET_VALUE_MARCO();
+	GET_VALUE_MARCO(std::vector<float>);
 }
+
 bool ReaderData::get(const std::string& name, std::vector<std::string>& values) const {
-	GET_VALUE_MARCO();
+	GET_VALUE_MARCO(std::vector<std::string>);
 }
+
+bool ReaderData::get(const std::string& name, std::vector<std::vector<uint32_t>>& values) const {
+	GET_VALUE_MARCO(std::vector<std::vector<uint32_t>>);
+}
+
+#undef GET_VALUE_MARCO
 
 void ReaderData::apply(const std::pair<std::string, json>& data) {
 	m_object.push_back(data);
