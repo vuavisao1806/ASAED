@@ -18,6 +18,7 @@
 #include "object/tile.hpp"
 #include "object/tile_set.hpp"
 #include "object/player.hpp"
+#include "object/tile_map.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
 #include "video/drawing_request.hpp"
@@ -98,12 +99,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 	bool quit = false;
 	SDL_Event e;
 
-	// good bye m_surface_screen
-	// SurfacePtr m_surface_screen = Surface::from_file("data/images/m_map.png");
+	TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
+	TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
 
-	TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/tiles/lever1/lever1-tile.json");
-
-	Player p(100, 100, "data/images/creatures/knight/knight-sprite.json");
+	// Player p(100, 100, "data/images/creatures/knight/knight-sprite.json");
 	// p.m_sprite->set_action("walk-right");
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
 	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
@@ -155,24 +154,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
 		DrawingContext& drawing_context = compositor->make_context();
 
-		// drawing_context.push_transform();
-
-		// Rectf dstrect = Rectf(0.0f, 0.0f, m_surface_screen->get_width() / 2.0f, m_surface_screen->get_height() / 2.0f);
-		// drawing_context.get_canvas().draw_surface_scaled(m_surface_screen, dstrect, Color::WHITE, LAYER_BACKGROUND);
-
-		// drawing_context.pop_transform();
-
-		drawing_context.push_transform();
-
-		Vector pos(0.0f, 0.0f);
-		for (int x = 0; x < static_cast<int>(static_cast<float>(g_config->window_size.width) / BLOCK_SIZE); ++ x) {
-			for (int y = 0; y < static_cast<int>(static_cast<float>(g_config->window_size.height) / BLOCK_SIZE); ++ y) {
-				m_tile_set->get(1).draw(drawing_context.get_canvas(), pos + Vector(0.0f, BLOCK_SIZE * static_cast<float>(y)), LAYER_BACKGROUND);
-			}
-			pos += Vector(BLOCK_SIZE, 0.0f);
-		}
-
-		drawing_context.pop_transform();
+		tile_map.draw(drawing_context);
 
 		Controller& controller = InputManager::current()->get_controller(0);
 		if (m_player_go != 0) {
@@ -202,10 +184,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 			dir[1] = 0;
 		}
 		
-		p.moved(Vector(dir[0] * 2, dir[1] * 2));
-		p.update();
+		// p.moved(Vector(dir[0] * 2, dir[1] * 2));
+		// p.update();
 		
-		p.draw(drawing_context.get_canvas(), m_player_go, m_player_last_go);
+		// p.draw(drawing_context.get_canvas(), m_player_go, m_player_last_go);
 		// std::cout << m_player_go << ' ' << m_player_last_go << '\n';
 		compositor->render();
 		// SDL_Delay(33);

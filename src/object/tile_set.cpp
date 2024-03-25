@@ -35,7 +35,7 @@ void TileSet::add_tile(uint32_t id, std::unique_ptr<Tile> tile) {
 const Tile& TileSet::get(const uint32_t id) const {
 	if (id >= static_cast<uint32_t>(m_tiles.size())) {
 		log_warning << "Tile id " << id << " is invalid\n";
-		return *m_tiles[id].get();
+		return *m_tiles[0].get();
 	}
 	else {
 		Tile* tile = m_tiles[id].get();

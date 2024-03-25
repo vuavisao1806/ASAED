@@ -16,6 +16,7 @@ CPP_FILES = main.cpp                         \
             math/vector.cpp                  \
             object/player.cpp                \
             object/tile_manager.cpp          \
+            object/tile_map.cpp              \
             object/tile_parser.cpp           \
             object/tile_set.cpp              \
             object/tile.cpp                  \
