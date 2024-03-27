@@ -14,9 +14,9 @@ void Physic::set_velocity(const Vector& vector) { vx = vector.x; vy = vector.y; 
 void Physic::set_velocity_x(float vx_) { vx = vx_; }
 void Physic::set_velocity_y(float vy_) { vy = vy_; }
 
-Vector Physic::get_velocity() const { return Vector(ax, ay); }
-float Physic::get_velocity_x() const { return ax; }
-float Physic::get_velocity_y() const { return ay; }
+Vector Physic::get_velocity() const { return Vector(vx, vy); }
+float Physic::get_velocity_x() const { return vx; }
+float Physic::get_velocity_y() const { return vy; }
 
 void Physic::set_acceleration(float ax_, float ay_) { ax = ax_; ay = ay_; }
 void Physic::set_acceleration(const Vector& vector) { ax = vector.x; ay = vector.y; }

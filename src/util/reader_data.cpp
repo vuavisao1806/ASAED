@@ -1,7 +1,5 @@
 #include "util/reader_data.hpp"
 
-// #include <iostream> // test
-
 #include "util/reader_assert.hpp"
 #include "util/reader_machine.hpp"
 
@@ -89,7 +87,6 @@ bool ReaderData::get(const std::string& name, std::vector<std::vector<uint32_t>>
 
 void ReaderData::apply(const std::pair<std::string, json>& data) {
 	m_object.push_back(data);
-	// std::cout << data.first << ' ' << data.second << '\n'; // test
 }
 
 void ReaderData::clear() {

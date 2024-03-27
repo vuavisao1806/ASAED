@@ -10,6 +10,14 @@
 
 class SpriteData;
 
+/**
+ * What is SprieManager?
+ * SpriteManager monopoly creates and stores SprireData
+ * Spritedata holds all actions (full data_set in xyz.json)
+ * Any action in SpriteData holds all images and some config to make sprite
+ * Sprite is directly related to information to drawing and gives requests to canvas
+*/
+
 class SpriteManager final : public Currenton<SpriteManager> {
 private:
 	std::map<std::string, std::unique_ptr<SpriteData>> sprites;

@@ -11,6 +11,11 @@
 class ReaderMachine;
 class ReaderData;
 
+/**
+ * Spritedata holds all actions (full data_set in xyz.json)
+ * Any action in SpriteData holds all images and some config to make sprite
+ * Spritedata helps to parse actions and query specific actions when needed
+*/
 class SpriteData {
 	friend class Sprite;
 

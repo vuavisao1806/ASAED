@@ -29,11 +29,13 @@ Player::~Player()
 void Player::update(float dt_sec) {
 	handle_input();
 	
+	// std::cout << m_physic.get_movement(dt_sec) << '\n';
 	pos += m_physic.get_movement(dt_sec);
 }
 
 void Player::draw(DrawingContext& drawing_context) {
 	std::string suffix_action = (m_direction == Direction::RIGHT ? "-right" : "-left");
+	// std::cout << math::length(m_physic.get_velocity()) << '\n';
 	if (math::length(m_physic.get_velocity()) < 1.0f) {
 		m_sprite->set_action("idle" + suffix_action);
 	}

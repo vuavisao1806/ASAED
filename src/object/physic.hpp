@@ -3,6 +3,7 @@
 
 #include "math/vector.hpp"
 
+/** To storage velocity of something (update by dt_sec to improve realism) */
 class Physic final {
 private:
 	/** horizontal and vertical velocity */

@@ -7,6 +7,7 @@
 
 #include "object/tile.hpp"
 
+/** Tileset manages its tiles */
 class TileSet final {
 private:
 	std::vector<std::unique_ptr<Tile>> m_tiles;

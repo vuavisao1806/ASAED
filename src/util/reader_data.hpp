@@ -11,6 +11,11 @@ using json = nlohmann::json;
 
 class ReaderMachine;
 
+/**
+ * ReaderData is storage (storage data_set (key by string) and value belong data_set)
+ * ReaderData helps to get item and parse in sprite_data, tile_map, tile_parse, ...
+*/
+
 class ReaderData final {
 private:
 	std::vector<std::pair<std::string, json>> m_object;

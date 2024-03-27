@@ -12,6 +12,24 @@ using json = nlohmann::json;
 
 class ReaderData;
 
+/**
+ * ReaderMachine directly reads xyz.json, parses this, and stores data in m_data_holder to query this 
+ * My pattern in xyz.json:
+ * {
+ * 		"big_object": [
+ * 			"data_set_1": 
+ * 			"data_set_2": 
+ * 			.
+ * 			.
+ * 			.
+ * 			.
+ * 			"data_set_n": 
+ * 		]
+ * }
+ * big_object should be unique
+ * data_set can be int, float, string, array, ...
+*/
+
 class ReaderMachine final {
 private:
 	std::ifstream m_is;

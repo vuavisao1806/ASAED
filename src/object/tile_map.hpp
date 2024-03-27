@@ -13,6 +13,11 @@ class TileSet;
 class Tile;
 class DrawingContext;
 
+/**
+ * TileMap stores its tileset for its map and every information about the current map 
+ * Contains parses and draws a map
+*/
+
 class TileMap final {
 private:
 	const TileSet* m_tileset;

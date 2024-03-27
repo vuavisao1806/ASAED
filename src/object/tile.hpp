@@ -10,6 +10,8 @@
 
 class Canvas;
 
+/** Tile is the lowest level (but directly manages surfaces and some information for flexible request) */
+
 class Tile final {
 public:
 	enum {

@@ -6,6 +6,8 @@
 class ReaderData;
 class TileSet;
 
+/** TileSetParser helps read Tileset from xyz.json by pattern */
+
 class TileSetParser final {
 private:
 	TileSet& m_tileset;

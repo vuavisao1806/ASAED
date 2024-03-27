@@ -39,7 +39,6 @@ void ReaderMachine::parse() {
 			for (const auto& [key, val] : object.items()) {
 				m_data_holder.back()->apply(make_pair(key, val));
 			}
-			// std::cout << "--------------------------\n"; // test
 		}
 	}
 }
