@@ -102,14 +102,13 @@ int Main::run(int /* argc */, char** /* argv */) {
 	TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
 	TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
 
-	// Player p(100, 100, "data/images/creatures/knight/knight-sprite.json");
-	// p.m_sprite->set_action("walk-right");
+	Player p(0);
+
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
 	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
 	Uint32 elapsed_ticks = 0;
 	Uint32 last_ticks = 0;
 	
-	int m_player_go = 0, m_player_last_go = 1;
 	while (!quit) {
 		Uint32 ticks = SDL_GetTicks();
 		elapsed_ticks += ticks - last_ticks;
@@ -136,61 +135,33 @@ int Main::run(int /* argc */, char** /* argv */) {
 		// a little bit trolling to handle when lagging
 		steps = std::min(steps, 4);
 
+		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
+		DrawingContext& drawing_context = compositor->make_context();
 		for (int i = 0; i < steps; ++ i) {
-			// for future use
+			// now using
 			g_game_time += seconds_per_step;
+
+			while (SDL_PollEvent(&e) != 0) {
+				if (e.type == SDL_QUIT) {
+					quit = true;
+				}
+				InputManager::current()->process_event(e);
+			}
+
+
+			tile_map.draw(drawing_context);
+			// bye bye direct handle player
+			p.update(seconds_per_step);
+			p.draw(drawing_context);
 			
 			elapsed_ticks -= ms_per_step;
 		}
 
-		int dir[2] = {0, 0};
-		while (SDL_PollEvent(&e) != 0) {
-			if (e.type == SDL_QUIT) {
-				quit = true;
-			}
-			InputManager::current()->process_event(e);
+		if (steps > 0) {
+			compositor->render();
 		}
 
-		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
-		DrawingContext& drawing_context = compositor->make_context();
 
-		tile_map.draw(drawing_context);
-
-		Controller& controller = InputManager::current()->get_controller(0);
-		if (m_player_go != 0) {
-			// std::cout << m_player_go << '\n';
-			m_player_last_go = m_player_go;
-		}
-		if (controller.hold(Control::LEFT) && !controller.hold(Control::RIGHT)) {
-			dir[0] = -1;
-			m_player_go = -1;
-		}
-		else if (!controller.hold(Control::LEFT) && controller.hold(Control::RIGHT)) {
-			dir[0] = 1;
-			m_player_go = 1;
-		}
-		else {
-			dir[0] = 0;
-			m_player_go = 0;
-		}
-		
-		if (controller.hold(Control::UP) && !controller.hold(Control::DOWN)) {
-			dir[1] = -1;
-		}
-		else if (!controller.hold(Control::UP) && controller.hold(Control::DOWN)) {
-			dir[1] = 1;
-		}
-		else {
-			dir[1] = 0;
-		}
-		
-		// p.moved(Vector(dir[0] * 2, dir[1] * 2));
-		// p.update();
-		
-		// p.draw(drawing_context.get_canvas(), m_player_go, m_player_last_go);
-		// std::cout << m_player_go << ' ' << m_player_last_go << '\n';
-		compositor->render();
-		// SDL_Delay(33);
 	}
 	return 0;
 }

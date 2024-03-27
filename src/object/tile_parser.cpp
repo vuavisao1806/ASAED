@@ -30,7 +30,7 @@ void TileSetParser::parse_tile(const ReaderData* data) {
 	uint32_t attributes = 0;
 	int value = 0;
 	if (data->get("solid", value) && value) attributes |= Tile::SOLID;
-	if (data->get("un-solid", value) && value) attributes |= Tile::SOLID;
+	if (data->get("un-solid", value) && value) attributes |= Tile::UNSOLID;
 	
 	float fps = 1.0f;
 	data->get("fps", fps);

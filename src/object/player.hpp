@@ -1,38 +1,51 @@
 #ifndef HEADER_ASAED_OBJECT_PLAYER_HPP
 #define HEADER_ASAED_OBJECT_PLAYER_HPP
 
-#include "math/vector.hpp"
-#include "math/rect.hpp"
-#include "math/rectf.hpp"
-#include "math/size.hpp"
 
 #include <SDL.h>
 #include <string>
 
+#include "math/vector.hpp"
+#include "object/physic.hpp"
+#include "object/direction.hpp"
 #include "sprite/sprite_ptr.hpp"
-#include "sprite/sprite.hpp"
+
+class Controller;
+class DrawingContext;
 
 class Player {
-public:
-	Vector pos;
+private:
+	Vector pos; // temporary, will be soon update
+	
+	int m_id;
+	const Controller* m_controller;
+	
+	Direction m_direction;
+	Physic m_physic;
+	SpritePtr m_sprite;
 
 public:
-	// m_movement also temporary. But it will serve for something in the future 
-	Vector m_movement;
-	
-	// Finally! I can load sprite
-	SpritePtr m_sprite;
-public:
-	Player();
 	~Player();
 
-	Player(int x, int y, std::string path = "");
+public:
+	Player(int player_id); // temporary, will be soon update
+
+private:
+	Player(const Player&) = delete;
+	Player& operator=(const Player&) = delete;
 
 public:
-	void moved(const Vector& add);
-	void update();
+	void update(float dt_sec); // temporary, will be soon override
+	void draw(DrawingContext& drawing_context); // temporary, will be soon override
 
-	void draw(Canvas& canvas, int go, int last_go);
+public:
+	void handle_input(); // temporary, will be soon update
+	/** specific handle movement */
+	void handle_movement_input();
+
+public:
+	int get_id() const;
+	void set_id(int id);
 };
 
 

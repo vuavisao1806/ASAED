@@ -5,6 +5,12 @@
 			"fps": 1,
 			"un-solid": 1,
 			"images": ["floor_1.png"]
+		},
+		{
+			"id": 2,
+			"fps": 1,
+			"solid": 1,
+			"images": ["pixil-frame-0.png"]
 		}
 	]
 }

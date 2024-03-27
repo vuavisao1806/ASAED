@@ -14,6 +14,7 @@ CPP_FILES = main.cpp                         \
             math/size.cpp                    \
             math/sizef.cpp                   \
             math/vector.cpp                  \
+            object/physic.cpp                \
             object/player.cpp                \
             object/tile_manager.cpp          \
             object/tile_map.cpp              \
