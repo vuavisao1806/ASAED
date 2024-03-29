@@ -33,6 +33,7 @@ public:
 namespace math {
 	float length(const Vector& vector);
 	float distance(const Vector& lhs, const Vector& rhs);
+	Vector normalize(const Vector& vector);
 } // namespace math
 
 #endif

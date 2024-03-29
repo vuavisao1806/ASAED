@@ -46,4 +46,7 @@ namespace math {
 	float distance(const Vector& lhs, const Vector& rhs) {
 		return std::hypot(lhs.x - rhs.x, lhs.y - rhs.y);
 	}
+	Vector normalize(const Vector& vector) {
+		return vector / length(vector);
+	}
 } // namespace math

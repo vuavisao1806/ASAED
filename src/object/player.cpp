@@ -15,34 +15,53 @@ namespace {
 }
 
 Player::Player(int player_id) :
-	pos(100, 100),
 	m_id(player_id),
 	m_controller(&(InputManager::current()->get_controller(player_id))),
 	m_direction(Direction::RIGHT),
 	m_sprite(SpriteManager::current()->create("data/images/creatures/knight/knight-sprite.json"))
-{}
+{
+	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
+	set_pos(Vector(100.0f, 100.0f));
+}
 
 Player::~Player() 
 {}
 
+void Player::collision_solid(const CollisionHit& hit) {
+	if (hit.left || hit.right) {
+		m_physic.set_velocity_x(0);
+	}
+	if (hit.top || hit.bottom) {
+		m_physic.set_velocity_y(0);
+	}
+}
+
+HitResponse Player::collision(CollisionObject& other, const CollisionHit& hit) {
+	
+	return CONTINUE;
+}
+
+void Player::collision_tile(uint32_t tile_attributes) {
+
+}
+
+bool Player::is_valid() const { return MovingObject::is_valid(); }
 
 void Player::update(float dt_sec) {
 	handle_input();
-	
-	// std::cout << m_physic.get_movement(dt_sec) << '\n';
-	pos += m_physic.get_movement(dt_sec);
+
+	set_movement(m_physic.get_movement(dt_sec));
 }
 
 void Player::draw(DrawingContext& drawing_context) {
 	std::string suffix_action = (m_direction == Direction::RIGHT ? "-right" : "-left");
-	// std::cout << math::length(m_physic.get_velocity()) << '\n';
 	if (math::length(m_physic.get_velocity()) < 1.0f) {
 		m_sprite->set_action("idle" + suffix_action);
 	}
 	else {
 		m_sprite->set_action("walk" + suffix_action);
 	}
-	m_sprite->draw(drawing_context.get_canvas(), pos, LAYER_OBJECT + 1);
+	m_sprite->draw(drawing_context.get_canvas(), get_pos(), get_layer());
 }
 
 void Player::handle_input() {
@@ -76,3 +95,5 @@ void Player::set_id(int id) {
 	m_id = id;
 	m_controller = &(InputManager::current()->get_controller(m_id));
 }
+
+int Player::get_layer() const { return LAYER_OBJECT + 1; }

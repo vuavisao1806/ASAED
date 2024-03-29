@@ -35,6 +35,7 @@ TileMap::~TileMap() {
 // 	std::unique_ptr<TileMap> tilemap = std::make_unique<TileMap>(tileset);
 // }
 
+void TileMap::update(float /* dt_sec */) {}
 
 void TileMap::draw(DrawingContext& context) {
 	context.push_transform();
@@ -131,8 +132,8 @@ Rect TileMap::get_tiles_overlapping(const Rectf& rect) const {
 
 	int t_left = std::max(0, static_cast<int>(std::floor(m_rect.get_left() / BLOCK_SIZE)));
 	int t_top = std::max(0, static_cast<int>(std::floor(m_rect.get_top() / BLOCK_SIZE)));
-	int t_right = std::min(m_width, static_cast<int>(std::floor(m_rect.get_right() / BLOCK_SIZE)));
-	int t_bottom = std::min(m_height, static_cast<int>(std::floor(m_rect.get_bottom() / BLOCK_SIZE)));
+	int t_right = std::min(m_width, static_cast<int>(std::ceil(m_rect.get_right() / BLOCK_SIZE)));
+	int t_bottom = std::min(m_height, static_cast<int>(std::ceil(m_rect.get_bottom() / BLOCK_SIZE)));
 
 	return Rect(t_left, t_top, t_right, t_bottom);
 }

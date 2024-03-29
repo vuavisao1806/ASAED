@@ -1,6 +1,7 @@
 #ifndef HEADER_ASAED_UTIL_UID_HPP
 #define HEADER_ASAED_UTIL_UID_HPP
 
+#include <assert.h>
 #include <iosfwd>
 #include <stdint.h>
 #include <functional>
@@ -12,7 +13,7 @@ namespace std {
 	struct hash<UID> {
 		size_t operator()(const UID& uid) const;
 	};
-}
+} // namespace std
 
 class UID {
 	friend class UIDGenerator;

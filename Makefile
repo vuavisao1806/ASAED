@@ -5,6 +5,10 @@ CPP_FILES = main.cpp                         \
             asaed/gameconfig.cpp             \
             asaed/globals.cpp                \
             asaed/main.cpp                   \
+            asaed/room.cpp                   \
+            collision/collision_object.cpp   \
+            collision/collision_system.cpp   \
+            collision/collision.cpp          \
             control/controller.cpp           \
             control/input_manager.cpp        \
             control/keyboard_config.cpp      \
@@ -14,6 +18,10 @@ CPP_FILES = main.cpp                         \
             math/size.cpp                    \
             math/sizef.cpp                   \
             math/vector.cpp                  \
+            object/game_object_manager.cpp   \
+            object/game_object.cpp           \
+            object/moving_object.cpp         \
+            object/moving_sprite.cpp         \
             object/physic.cpp                \
             object/player.cpp                \
             object/tile_manager.cpp          \
@@ -28,6 +36,8 @@ CPP_FILES = main.cpp                         \
             util/reader_assert.cpp           \
             util/reader_data.cpp             \
             util/reader_machine.cpp          \
+            util/uid_generator.cpp           \
+            util/uid.cpp                     \
             video/canvas.cpp                 \
             video/color.cpp                  \
             video/compositor.cpp             \

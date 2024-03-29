@@ -2,6 +2,8 @@
 
 #include "util/log.hpp"
 
+uint8_t UIDGenerator::s_magic_counter = 1;
+
 UIDGenerator::UIDGenerator() :
 	m_magic(s_magic_counter ++),
 	m_id_counter()

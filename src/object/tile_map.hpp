@@ -8,6 +8,7 @@
 #include "math/vector.hpp"
 #include "math/size.hpp"
 #include "math/rectf.hpp"
+#include "object/game_object.hpp"
 
 class TileSet;
 class Tile;
@@ -18,7 +19,7 @@ class DrawingContext;
  * Contains parses and draws a map
 */
 
-class TileMap final {
+class TileMap final : public GameObject {
 private:
 	const TileSet* m_tileset;
 
@@ -47,8 +48,8 @@ private:
 // 	static std::unique_ptr<TileMap> fromfile(const TileSet* tileset, const std::string& filename);
 
 public:
-	// virtual void update(float dt_sec) override; // will appear soon
-	void draw(DrawingContext& context); // will appear virtual (??), override soon
+	virtual void update(float /* dt_sec */) override; // finally
+	virtual void draw(DrawingContext& context) override; // finally
 
 	int get_width() const;
 	int get_height() const;

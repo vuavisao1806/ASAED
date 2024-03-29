@@ -12,6 +12,7 @@
 #include "util/log.hpp"
 
 #include "asaed/constants.hpp"
+#include "asaed/room.hpp"
 #include "object/player.hpp"
 #include "object/tile_map.hpp"
 #include "video/compositor.hpp"
@@ -86,10 +87,13 @@ int Main::run(int /* argc */, char** /* argv */) {
 	bool quit = false;
 	SDL_Event e;
 
-	TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
-	TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
+	std::unique_ptr<Room> room = std::make_unique<Room>();
+	room->add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever1/lever1-map.json");
+	// TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
+	// TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
 
-	Player p(0);
+	room->add<Player>(0);
+	// Player p(0);
 
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
 	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
@@ -125,8 +129,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
 		DrawingContext& drawing_context = compositor->make_context();
 		for (int i = 0; i < steps; ++ i) {
-			// now using
-			g_game_time += seconds_per_step;
+			float dt_sec = seconds_per_step;
+			g_game_time += dt_sec;
 
 			while (SDL_PollEvent(&e) != 0) {
 				if (e.type == SDL_QUIT) {
@@ -135,16 +139,16 @@ int Main::run(int /* argc */, char** /* argv */) {
 				InputManager::current()->process_event(e);
 			}
 
-
-			tile_map.draw(drawing_context);
-			// bye bye direct handle player
-			p.update(seconds_per_step);
-			p.draw(drawing_context);
+			room->update(dt_sec);
+			// tile_map.draw(drawing_context);
+			// p.update(seconds_per_step);
+			// p.draw(drawing_context);
 			
 			elapsed_ticks -= ms_per_step;
 		}
 
 		if (steps > 0) {
+			room->draw(drawing_context);
 			compositor->render();
 		}
 

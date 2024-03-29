@@ -4,7 +4,11 @@
 enum {
 	LAYER_BACKGROUND = -100,
 
-	LAYER_OBJECT = 100
+	LAYER_TILE = 0,
+
+	LAYER_OBJECT = 100,
+	
+	LAYER_FOREGROUND = 200
 };
 
 #endif

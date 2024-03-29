@@ -65,7 +65,7 @@ public:
 	float distance(const Vector& other) const;
 	float distance(const Rectf& other) const;
 
-	Rectf grown(float border);
+	Rectf grown(float border) const;
 
 	Vector p1() const;
 	Vector p2() const;

@@ -17,7 +17,11 @@ public:
 	enum {
 		/** to add tile attributes */
 		SOLID           = 0x0001,
-		UNSOLID         = 0x0002
+		UNSOLID         = 0x0002,
+
+		/** to add some special attributest */
+		FIRST_INTERESTING_FLAG = 0x0100,
+		GOAL =                   0x0100
 	};
 
 private:
