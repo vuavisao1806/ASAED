@@ -4,12 +4,16 @@
 #include <iosfwd>
 #include <string>
 
+#include "math/vector.hpp"
+
 enum class Control {
 	LEFT = 0,
 	RIGHT,
 	UP,
 	DOWN,
 	
+	ATTACK,
+
 	CONTROLCOUNT
 };
 
@@ -20,6 +24,12 @@ protected:
 
 	/** control status at last frame */
 	bool m_old_controls[static_cast<int>(Control::CONTROLCOUNT)];
+
+	/**
+	 * control position cursor on screen (only one)
+	 * if 2 players appear then only one uses the mouse (gun)
+	*/
+	Vector m_cursor_position;
 
 public:
 	Controller();
@@ -54,6 +64,9 @@ public:
 		}
 		return false;
 	}
+
+	Vector get_cursor_position() const;
+	void set_cursor_position(Vector cursor_position);
 };
 
 #endif

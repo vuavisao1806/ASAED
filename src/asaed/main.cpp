@@ -75,7 +75,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_config_subsystem = std::make_unique<ConfigSubsystem>();
 	m_sdl_subsystem = std::make_unique<SDLSubsystem>();
 
-	m_input_manager = std::make_unique<InputManager>(g_config->keyboard_config);
+	m_input_manager = std::make_unique<InputManager>(g_config->keyboard_config, g_config->mouse_config);
 	
 	m_tile_manager = std::make_unique<TileManager>();
 
@@ -137,6 +137,11 @@ int Main::run(int /* argc */, char** /* argv */) {
 					quit = true;
 				}
 				InputManager::current()->process_event(e);
+				
+				if(InputManager::current()->get_controller().hold(Control::ATTACK)) {
+					Vector position = InputManager::current()->get_controller(0).get_cursor_position();
+					std::cout << position << '\n';
+				}
 			}
 
 			room->update(dt_sec);

@@ -36,3 +36,9 @@ void Controller::reset() {
 		m_controls[i] = false;
 	}
 }
+
+Vector Controller::get_cursor_position() const { return m_cursor_position; }
+
+void Controller::set_cursor_position(Vector cursor_position) {
+	m_cursor_position = cursor_position;
+}

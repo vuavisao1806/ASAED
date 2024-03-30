@@ -13,6 +13,9 @@ CPP_FILES = main.cpp                         \
             control/input_manager.cpp        \
             control/keyboard_config.cpp      \
             control/keyboard_manager.cpp     \
+            control/mouse_button_manager.cpp \
+            control/mouse_config.cpp         \
+            control/mouse_motion_manager.cpp \
             math/rect.cpp                    \
             math/rectf.cpp                   \
             math/size.cpp                    \

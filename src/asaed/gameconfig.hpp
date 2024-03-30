@@ -2,6 +2,7 @@
 #define HEADER_ASAED_ASAED_GAMECONFIG_HPP
 
 #include "control/keyboard_config.hpp"
+#include "control/mouse_config.hpp"
 #include "math/size.hpp"
 
 /**
@@ -26,7 +27,8 @@ public:
 	bool debug;
 
 	KeyboardConfig keyboard_config;
-	
+	MouseConfig mouse_config;
+
 public:
 	Config();
 };

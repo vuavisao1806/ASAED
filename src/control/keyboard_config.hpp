@@ -32,7 +32,7 @@ private:
 public:
 	KeyboardConfig();
 
-	/** Use for change key in the future*/
+	/** Use for change key in the future */
 	SDL_Keycode reversemap_key(int player, Control c) const;
 
 private:

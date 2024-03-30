@@ -13,15 +13,21 @@
 class KeyboardManager;
 class KeyboardConfig;
 
+class MouseButtonManager;
+class MouseMotionManager;
+class MouseConfig;
+
 class InputManager final : public Currenton<InputManager> {
 private:
 	std::vector<std::unique_ptr<Controller>> m_controllers;
 
 public:
 	std::unique_ptr<KeyboardManager> keyboard_manager;
+	std::unique_ptr<MouseButtonManager> mouse_button_manager;
+	std::unique_ptr<MouseMotionManager> mouse_motion_manager;
 
 public:
-	InputManager(KeyboardConfig& keyboard_config);
+	InputManager(KeyboardConfig& keyboard_config, MouseConfig& mouse_config);
 	~InputManager() override;
 
 public:

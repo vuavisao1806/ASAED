@@ -16,7 +16,7 @@
 
 namespace {
 	// arbitrary (pixel / frame)
-	const float MAX_SPEED = 8.0f; 
+	const float MAX_SPEED = 12.0f; 
 }
 
 CollisionSystem::CollisionSystem(Room& room) :
