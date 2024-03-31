@@ -59,7 +59,8 @@ Main::Main() :
 	m_input_manager(),
 	m_tile_manager(),
 	m_sprite_manager(),
-	m_video_system()
+	m_video_system(),
+	m_weapon_set()
 {}
 
 Main::~Main() {
@@ -69,6 +70,7 @@ Main::~Main() {
 	m_tile_manager.reset();
 	m_sprite_manager.reset();
 	m_video_system.reset();
+	m_weapon_set.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -83,6 +85,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
+	m_weapon_set = std::make_unique<WeaponSet>();
+
 
 	bool quit = false;
 	SDL_Event e;
@@ -92,7 +96,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 	// TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
 	// TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
 
-	room->add<Player>(0);
+	room->add<Player>(0, 1);
 	// Player p(0);
 
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
@@ -138,12 +142,13 @@ int Main::run(int /* argc */, char** /* argv */) {
 				}
 				InputManager::current()->process_event(e);
 				
-				if(InputManager::current()->get_controller().hold(Control::ATTACK)) {
-					Vector position = InputManager::current()->get_controller(0).get_cursor_position();
-					std::cout << position << '\n';
-				}
 			}
 
+			if(InputManager::current()->get_controller().hold(Control::ATTACK)) {
+				Vector position = InputManager::current()->get_controller(0).get_cursor_position();
+				std::cout << position << '\n';
+			}
+			
 			room->update(dt_sec);
 			// tile_map.draw(drawing_context);
 			// p.update(seconds_per_step);

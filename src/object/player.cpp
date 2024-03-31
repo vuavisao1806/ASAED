@@ -14,7 +14,7 @@ namespace {
 	const float WALK_SPEED = 100.0f; // That funny setup because I don't think another more beautiful
 }
 
-Player::Player(int player_id) :
+Player::Player(int player_id, int weapon_id) :
 	m_id(player_id),
 	m_controller(&(InputManager::current()->get_controller(player_id))),
 	m_direction(Direction::RIGHT),
@@ -22,6 +22,12 @@ Player::Player(int player_id) :
 {
 	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 	set_pos(Vector(100.0f, 100.0f));
+	
+	m_weapon = WeaponSet::current()->get(weapon_id).clone();
+	// m_weapon->set_pos(get_pos());
+	m_weapon->set_parent(this);
+	
+	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
 }
 
 Player::~Player() 
@@ -62,6 +68,10 @@ void Player::draw(DrawingContext& drawing_context) {
 		m_sprite->set_action("walk" + suffix_action);
 	}
 	m_sprite->draw(drawing_context.get_canvas(), get_pos(), get_layer());
+
+	if (m_weapon) {
+		m_weapon->draw(drawing_context);
+	}
 }
 
 void Player::handle_input() {

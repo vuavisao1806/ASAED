@@ -1,6 +1,5 @@
 #include "sprite/sprite_data.hpp"
 
-// #include <iostream> // test
 
 #include "util/reader_data.hpp"
 #include "util/reader_machine.hpp"
@@ -41,7 +40,6 @@ void SpriteData::parse_action(const ReaderData* data) {
 			throw std::runtime_error("If there are more than one action, they MUST have names!");
 		}
 	}
-	// std::cout << action->name << '\n'; // test
 
 	data->get("family-name", action->family_name);
 

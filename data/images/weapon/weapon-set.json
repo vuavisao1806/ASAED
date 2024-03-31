@@ -1,0 +1,8 @@
+{
+	"weapon": [
+		{
+			"id": 1,
+			"filename": "weapons/AK47.json"
+		}
+	]
+}

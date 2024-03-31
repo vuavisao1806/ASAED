@@ -53,6 +53,8 @@ CPP_FILES = main.cpp                         \
             video/texture.cpp                \
             video/video_system.cpp           \
             video/viewport.cpp               \
+            weapon/weapon_set.cpp            \
+            weapon/weapon.cpp                \
 
 
 

@@ -3,6 +3,7 @@
 
 
 #include <SDL.h>
+#include <memory>
 #include <string>
 
 #include "math/vector.hpp"
@@ -10,6 +11,8 @@
 #include "object/direction.hpp"
 #include "object/moving_object.hpp"
 #include "sprite/sprite_ptr.hpp"
+#include "weapon/weapon.hpp"
+#include "weapon/weapon_set.hpp"
 
 class Controller;
 class DrawingContext;
@@ -23,11 +26,12 @@ private:
 	Physic m_physic;
 	SpritePtr m_sprite;
 
+	std::unique_ptr<Weapon> m_weapon;
 public:
 	~Player() override;
 
 public:
-	Player(int player_id); // temporary, will be soon update
+	Player(int player_id, int weapon_id);
 
 private:
 	Player(const Player&) = delete;
