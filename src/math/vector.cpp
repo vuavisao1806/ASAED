@@ -55,6 +55,6 @@ namespace math {
 	Vector rotate(const Vector& vector, float angle) {
 		// A little linear algebra!!
 		return Vector(vector.x * cos_degree(angle) - vector.y * sin_degree(angle),
-		              vector.y * sin_degree(angle) + vector.y * cos_degree(angle));
+		              vector.x * sin_degree(angle) + vector.y * cos_degree(angle));
 	}
 } // namespace math

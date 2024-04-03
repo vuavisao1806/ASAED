@@ -16,6 +16,9 @@ namespace math {
 	float sin_degree(float angle) {
 		int quo;
 		float x90 = std::remquof(std::fabs(angle), 90.0f, &quo);
+		if (angle < 0.0f) {
+			return -sin_degree(-angle);
+		}
 		switch (quo % 4) {
 			case 0:
 				// Use * 1.0 to avoid -0.0

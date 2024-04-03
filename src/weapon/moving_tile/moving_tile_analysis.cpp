@@ -71,6 +71,9 @@ void MovingTileAnalysis::collision_tile(uint32_t /* tile_attributes */) {}
 std::string MovingTileAnalysis::class_name() { return "moving_tile_analysis"; }
 std::string MovingTileAnalysis::get_class_name() const { return class_name(); }
 
+#include "util/log.hpp"
+#include "math/util.hpp"
+
 std::unique_ptr<MovingTile> MovingTileAnalysis::clone(const Vector& pos, uint32_t hurt_attributes, float angle) const {
 	auto movingtile = std::make_unique<MovingTileAnalysis>(m_sprite_name);
 	movingtile->set_pos(pos);
@@ -78,7 +81,9 @@ std::unique_ptr<MovingTile> MovingTileAnalysis::clone(const Vector& pos, uint32_
 	movingtile->set_angle(angle);
 	movingtile->m_wall_bounce_count = m_wall_bounce_count;
 
-	Vector velocity = Vector(math::length(m_physic.get_velocity()), 0.0f);
+	Vector velocity = Vector(math::length(m_physic.get_velocity()), 0.0f);;
+	// log_info << angle << ' ' << m_physic.get_velocity() << ' ' << math::rotate(velocity, angle) << '\n';
+	// log_info << math::sin_degree(135.0f) << ' ' << math::sin_degree(-135.0f) << '\n';
 	movingtile->m_physic.set_velocity(math::rotate(velocity, angle));
 	movingtile->m_damage = m_damage;
 	movingtile->m_ratio_crit = m_ratio_crit;

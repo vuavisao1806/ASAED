@@ -2,13 +2,14 @@
 
 #include "util/reader_data.hpp"
 #include "util/reader_machine.hpp"
+#include "math/random.hpp"
+#include "asaed/globals.hpp"
 
 ShootingAnalysis::ShootingAnalysis(const std::string& filename) :
 	Shooting(filename),
 	m_moving_tile_id(0),
 	m_spawn_position(Vector(0.0f, 0.0f))
 {}
-
 
 std::unique_ptr<Weapon> ShootingAnalysis::from_file(const ReaderData* data) {
 	int attack_per_turn = 1;
@@ -22,6 +23,10 @@ std::unique_ptr<Weapon> ShootingAnalysis::from_file(const ReaderData* data) {
 	float attack_per_sec = 1.0f;
 	data->get("attack-per-sec", attack_per_sec);
 
+	float accuracy = 1.0f;
+	data->get("accuracy", accuracy);
+	accuracy = std::max(accuracy, 1.0f);
+
 	std::string weapon_filename;
 	if (!data->get("filename", weapon_filename)) {
 		throw std::runtime_error("Weapon doesn't exist !!");
@@ -31,12 +36,21 @@ std::unique_ptr<Weapon> ShootingAnalysis::from_file(const ReaderData* data) {
 	weapon->m_moving_tile_id = id;
 	weapon->m_attack_per_turn = attack_per_turn;
 	weapon->m_timer.start(1.0f / attack_per_sec, true);
+	weapon->m_accuracy = accuracy;
 	return weapon;
 }
 
+#include "util/log.hpp"
+
 uint32_t ShootingAnalysis::get_moving_tile_id() const { return m_moving_tile_id; }
 Vector ShootingAnalysis::get_spawn_position() const { return get_bounding_box().get_middle(); }
-float ShootingAnalysis::get_shoot_angle() const { return get_angle(); }; // temporary, will update
+float ShootingAnalysis::get_shoot_angle() const {
+	double ret = g_game_random.randf(get_angle() - m_accuracy, get_angle() + m_accuracy);
+	log_info << ret << '\n';
+	// log_info << m_accuracy << '\n';
+	return ret;
+	// return g_game_random.randf(get_angle() - m_accuracy, get_angle() + m_accuracy);
+};
 
 std::string ShootingAnalysis::class_name() { return "shooting-analysis"; }
 std::string ShootingAnalysis::get_class_name() const { return class_name(); };
@@ -50,6 +64,7 @@ std::unique_ptr<Weapon> ShootingAnalysis::clone(MovingObject* parent, const Vect
 	weapon->m_hurt_attributes = m_hurt_attributes;
 
 	weapon->m_attack_per_turn = m_attack_per_turn;
+	weapon->m_accuracy = m_accuracy;
 	weapon->m_timer.start(m_timer.get_period(), true);
 
 	weapon->m_spawn_position = m_spawn_position;

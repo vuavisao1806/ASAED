@@ -8,6 +8,7 @@
 class Shooting : public Weapon {
 protected:
 	int m_attack_per_turn;
+	float m_accuracy;
 	Timer m_timer;
 
 public:

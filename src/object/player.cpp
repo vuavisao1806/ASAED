@@ -9,6 +9,7 @@
 #include "video/drawing_context.hpp"
 #include "sprite/sprite.hpp"
 #include "sprite/sprite_manager.hpp"
+#include "math/util.hpp"
 
 namespace {
 	const float WALK_SPEED = 100.0f; // That funny setup because I don't think another more beautiful
@@ -101,6 +102,23 @@ void Player::handle_movement_input() {
 }
 
 void Player::handle_attack_input() {
+	Vector mouse_position = m_controller->get_cursor_position();
+	Vector to_logical = VideoSystem::current()->get_viewport().to_logical(mouse_position.x, mouse_position.y) - get_bounding_box().get_middle();
+	
+	float angle = math::angle(math::normalize(to_logical));
+
+	// log_info << to_logical << '\n';
+	// log_info << angle << '\n';
+	m_weapon->set_angle(angle);
+	// m_weapon->set_angle(-180.0f);
+	
+	if(std::fabs(angle) >= 90.0f) {
+		m_weapon->set_flip(VERTICAL_FLIP);
+	}
+	else {
+		m_weapon->set_flip(NO_FLIP);
+	}
+	
 	if (m_weapon) {
 		if (m_controller->hold(Control::ATTACK)) {
 			m_weapon->attack();

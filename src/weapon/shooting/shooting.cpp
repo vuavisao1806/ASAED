@@ -8,6 +8,7 @@
 Shooting::Shooting(const std::string& filename) :
 	Weapon(filename),
 	m_attack_per_turn(1),
+	m_accuracy(1.0f),
 	m_timer()
 {}
 

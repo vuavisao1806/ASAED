@@ -15,11 +15,9 @@
 #include "asaed/room.hpp"
 #include "object/player.hpp"
 #include "object/tile_map.hpp"
+// #include "math/random.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
-
-#include "util/reader_data.hpp"
-#include "util/reader_machine.hpp"
 
 ConfigSubsystem::ConfigSubsystem() {
 	g_config = std::make_unique<Config>();
@@ -82,13 +80,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_input_manager = std::make_unique<InputManager>(g_config->keyboard_config, g_config->mouse_config);
 	
 	m_tile_manager = std::make_unique<TileManager>();
-
 	m_sprite_manager = std::make_unique<SpriteManager>();
-
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
 	m_weapon_set = std::make_unique<WeaponSet>();
-
 	m_moving_set = std::make_unique<MovingTileSet>();
 
 	bool quit = false;
@@ -148,10 +143,10 @@ int Main::run(int /* argc */, char** /* argv */) {
 				
 			}
 
-			if(InputManager::current()->get_controller().hold(Control::ATTACK)) {
-				Vector position = InputManager::current()->get_controller(0).get_cursor_position();
-				std::cout << position << '\n';
-			}
+			// if(InputManager::current()->get_controller().hold(Control::ATTACK)) {
+			// 	Vector position = InputManager::current()->get_controller(0).get_cursor_position();
+			// 	// std::cout << position << '\n';
+			// }
 			
 			room->update(dt_sec);
 			// tile_map.draw(drawing_context);

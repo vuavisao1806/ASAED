@@ -32,5 +32,5 @@ Size Viewport::get_screen_size() const {
 
 Vector Viewport::to_logical(int physical_x, int physical_y) const {
 	return Vector(static_cast<float>(physical_x - m_rect.left) / m_scale.x,
-	              static_cast<float>(physical_y - m_rect.right) / m_scale.y);
+	              static_cast<float>(physical_y - m_rect.top) / m_scale.y);
 }

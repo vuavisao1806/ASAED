@@ -16,12 +16,13 @@ CPP_FILES = main.cpp                                               \
             control/mouse_button_manager.cpp                       \
             control/mouse_config.cpp                               \
             control/mouse_motion_manager.cpp                       \
+            math/random.cpp                                        \
             math/rect.cpp                                          \
             math/rectf.cpp                                         \
             math/size.cpp                                          \
             math/sizef.cpp                                         \
             math/vector.cpp                                        \
-            math/util.cpp                                        \
+            math/util.cpp                                          \
             object/game_object_manager.cpp                         \
             object/game_object.cpp                                 \
             object/moving_object.cpp                               \

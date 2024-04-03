@@ -7,7 +7,9 @@ Random g_game_random;
 
 Random::Random() :
 	m_generator()
-{}
+{
+	seed(0);
+}
 
 void Random::seed(int v) {
 	if (v <= 0) {
@@ -26,5 +28,6 @@ float Random::randf(float v) {
 }
 
 float Random::randf(float u, float v) {
+	if (u < 0.0f) { u = 0.0f; }
 	return std::uniform_real_distribution<float>(u, v)(m_generator);
 }
