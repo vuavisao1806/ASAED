@@ -8,7 +8,7 @@
 #include "object/moving_sprite.hpp"
 #include "math/vector.hpp"
 
-class Weapon final : public MovingSprite {
+class Weapon : public MovingSprite {
 protected:
 	/** m_parent is character to hold a weapon */
 	MovingObject* m_parent;
@@ -31,12 +31,14 @@ public:
 public:
 	virtual void update(float dt_sec) override;
 	virtual void draw(DrawingContext& drawing_context) override;
+	virtual void attack() = 0;
 
-public:
-	std::unique_ptr<Weapon> clone() const;
+	virtual int get_attack_per_turn() const = 0;
+	virtual std::unique_ptr<Weapon> clone(MovingObject* parent, const Vector& pos = Vector(0.0f, 0.0f)) const = 0;
 
 public:
 	void set_parent(MovingObject* parent);
+	void re_set_hurt_attributes();
 
 	void set_hurt_attributes(uint32_t hurt_attributes);
 	uint32_t get_hurt_attributes() const;

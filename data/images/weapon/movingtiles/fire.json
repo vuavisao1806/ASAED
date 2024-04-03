@@ -1,0 +1,11 @@
+{
+	"fire": [
+		{
+			"name": "bullet",
+			"family-name": "bullet",
+			"fps": 1,
+			"hitbox": [0, 0, 8, 8],
+			"images": ["fire.png"]
+		}
+	]
+}

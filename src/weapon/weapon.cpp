@@ -1,7 +1,9 @@
 #include "weapon/weapon.hpp"
 
+#include "object/player.hpp"
 #include "video/canvas.hpp"
 #include "util/log.hpp"
+#include "weapon/hurt.hpp"
 
 Weapon::Weapon(const std::string& filename) :
 	MovingSprite(Vector(0.0f, 0.0f), filename, LAYER_WEAPON),
@@ -32,15 +34,25 @@ void Weapon::draw(DrawingContext& drawing_context) {
 	MovingSprite::draw(drawing_context);
 }
 
-std::unique_ptr<Weapon> Weapon::clone() const {
-	return std::make_unique<Weapon>(*this);
-}
-
 void Weapon::set_parent(MovingObject* parent) {
 	if (!parent) {
 		log_warning << "The character holding the weapon doesn't exist!!\n";
 	}
 	m_parent = parent;
+	re_set_hurt_attributes();
+}
+
+void Weapon::re_set_hurt_attributes() {
+	if (m_parent == nullptr) {
+		return;
+	}
+	if (dynamic_cast<Player*>(m_parent)) {
+		m_hurt_attributes = HURT_BADGUY;
+	}
+	// if (dynamic_cast<BadGuy*>(m_parent)) {
+	// 	m_hurt_attributes = HURT_PLAYER;
+	// }
+	// will appear soon
 }
 
 void Weapon::set_hurt_attributes(uint32_t hurt_attributes) { m_hurt_attributes = hurt_attributes; }

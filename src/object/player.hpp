@@ -53,6 +53,8 @@ public:
 	void handle_input(); // temporary, will be soon update
 	/** specific handle movement */
 	void handle_movement_input();
+	/** specific handle attack */
+	void handle_attack_input();
 
 public:
 	int get_id() const;

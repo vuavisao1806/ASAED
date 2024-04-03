@@ -1,0 +1,10 @@
+{
+	"movingtile": [
+		{
+			"id": 1,
+			"bounce-wall-count": 2,
+			"speed": 200.0,
+			"filename": "movingtiles/fire.json"
+		}
+	]
+}

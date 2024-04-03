@@ -3,7 +3,9 @@
 #include <iostream>
 #include <cmath>
 
-Vector::Vector(): 
+#include "math/util.hpp"
+
+Vector::Vector():
 	x(0), 
 	y(0)
 {}
@@ -13,7 +15,7 @@ Vector::Vector(const Vector& other):
 	y(other.y)
 {}
 
-Vector& Vector::operator=(const Vector& other)  {
+Vector& Vector::operator=(const Vector& other) {
 	x = other.x;
 	y = other.y;
 	return *this;
@@ -48,5 +50,11 @@ namespace math {
 	}
 	Vector normalize(const Vector& vector) {
 		return vector / length(vector);
+	}
+
+	Vector rotate(const Vector& vector, float angle) {
+		// A little linear algebra!!
+		return Vector(vector.x * cos_degree(angle) - vector.y * sin_degree(angle),
+		              vector.y * sin_degree(angle) + vector.y * cos_degree(angle));
 	}
 } // namespace math

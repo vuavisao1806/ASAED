@@ -60,6 +60,7 @@ public:
 	Rectf moved(const Vector& v) const;
 	
 	bool contains(const Vector& v) const;
+	bool contains(const Rectf& rect) const;
 	bool overlaps(const Rectf& other) const;
 
 	float distance(const Vector& other) const;

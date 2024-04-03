@@ -26,6 +26,9 @@ public:
 	float get_velocity_x() const;
 	float get_velocity_y() const;
 
+	void set_inverse_velocity_x();
+	void set_inverse_velocity_y();
+
 	void set_acceleration(float ax_, float ay_);
 	void set_acceleration(const Vector& vector);
 	void set_acceleration_x(float ax_);

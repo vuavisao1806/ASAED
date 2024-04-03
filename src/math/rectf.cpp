@@ -73,6 +73,13 @@ void Rectf::move(const Vector& v) { m_p1 += v; }
 Rectf Rectf::moved(const Vector& v) const { return Rectf(m_p1 + v, m_size); }
 
 bool Rectf::contains(const Vector& v) const { return (m_p1.x <= v.x && v.x < get_right() && m_p1.y <= v.y && v.y < get_bottom()); }
+bool Rectf::contains(const Rectf& rect) const {
+	return (get_left() <= rect.get_left() &&
+	        get_top() <= rect.get_top() &&
+	        rect.get_right() <= get_right() &&
+	        rect.get_bottom() <= get_bottom());
+}
+
 bool Rectf::overlaps(const Rectf& other) const { 
 	if (get_right() < other.get_left() || get_left() > other.get_right()) return false;
 	if (get_bottom() < other.get_top() || get_top() > other.get_bottom()) return false;

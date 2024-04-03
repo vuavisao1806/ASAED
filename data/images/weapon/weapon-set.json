@@ -2,6 +2,9 @@
 	"weapon": [
 		{
 			"id": 1,
+			"moving-tile-id": 1,
+			"attack-per-turn": 3,
+			"attack-per-sec": 3.0,
 			"filename": "weapons/AK47.json"
 		}
 	]

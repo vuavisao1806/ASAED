@@ -3,8 +3,9 @@
 #include "util/reader_machine.hpp"
 #include "util/reader_data.hpp"
 #include "util/log.hpp"
-#include "video/surface.hpp"
 #include "weapon/weapon.hpp"
+#include "weapon/shooting/shooting.hpp"
+#include "weapon/shooting/shooting_analysis.hpp"
 
 
 WeaponSet::WeaponSet() :
@@ -62,13 +63,7 @@ void WeaponSet::parse_weapon(const ReaderData* data) {
 	if (!data->get("id", id)) {
 		throw std::runtime_error("Missing weapon id");
 	}
-	
-	std::string weapon_filename;
-	if (!data->get("filename", weapon_filename)) {
-		throw std::runtime_error("Weapon doesn't exist !!");
-	}
-	// log_warning << data->m_parent_path << ' ' << weapon_filename << '\n';
-	
-	auto weapon = std::make_unique<Weapon>(data->m_parent_path + weapon_filename);
+
+	auto weapon = ShootingAnalysis::from_file(data);
 	add_weapon(id, std::move(weapon));
 }

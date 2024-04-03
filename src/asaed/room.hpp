@@ -9,6 +9,7 @@
 #include "object/game_object_manager.hpp"
 
 class Player;
+class Rectf;
 
 class Room final : public GameObjectManager {
 public:
@@ -41,6 +42,8 @@ public:
 public:
 	std::vector<Player*> get_player() const;
 	Player* get_nearest_player(const Vector& pos) const;
+
+	bool inside(const Rectf& rect) const;
 };
 
 #endif

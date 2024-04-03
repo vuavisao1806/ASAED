@@ -23,9 +23,8 @@ Player::Player(int player_id, int weapon_id) :
 	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 	set_pos(Vector(100.0f, 100.0f));
 	
-	m_weapon = WeaponSet::current()->get(weapon_id).clone();
-	// m_weapon->set_pos(get_pos());
-	m_weapon->set_parent(this);
+	m_weapon = WeaponSet::current()->get(weapon_id).clone(this);
+	
 	
 	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
 }
@@ -76,6 +75,7 @@ void Player::draw(DrawingContext& drawing_context) {
 
 void Player::handle_input() {
 	handle_movement_input();
+	handle_attack_input();
 }
 
 void Player::handle_movement_input() {
@@ -98,6 +98,14 @@ void Player::handle_movement_input() {
 	}
 	
 	m_physic.set_velocity(Vector(m_dir_x, m_dir_y) * WALK_SPEED);
+}
+
+void Player::handle_attack_input() {
+	if (m_weapon) {
+		if (m_controller->hold(Control::ATTACK)) {
+			m_weapon->attack();
+		}
+	}
 }
 
 int Player::get_id() const { return m_id; };

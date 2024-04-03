@@ -8,6 +8,7 @@
 #include "sprite/sprite_manager.hpp"
 #include "video/video_system.hpp"
 #include "weapon/weapon_set.hpp"
+#include "weapon/moving_tile/moving_tile_set.hpp"
 
 /** 
  * Class to manage g_config to avoid global (!!!) 
@@ -45,6 +46,7 @@ private:
 	std::unique_ptr<SpriteManager> m_sprite_manager;
 	std::unique_ptr<VideoSystem> m_video_system;
 	std::unique_ptr<WeaponSet> m_weapon_set;
+	std::unique_ptr<MovingTileSet> m_moving_set;
 public :
 	int run(int argc, char** argv);
 };

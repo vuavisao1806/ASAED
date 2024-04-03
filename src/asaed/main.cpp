@@ -60,7 +60,8 @@ Main::Main() :
 	m_tile_manager(),
 	m_sprite_manager(),
 	m_video_system(),
-	m_weapon_set()
+	m_weapon_set(),
+	m_moving_set()
 {}
 
 Main::~Main() {
@@ -71,6 +72,7 @@ Main::~Main() {
 	m_sprite_manager.reset();
 	m_video_system.reset();
 	m_weapon_set.reset();
+	m_moving_set.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -87,11 +89,13 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 	m_weapon_set = std::make_unique<WeaponSet>();
 
+	m_moving_set = std::make_unique<MovingTileSet>();
 
 	bool quit = false;
 	SDL_Event e;
 
 	std::unique_ptr<Room> room = std::make_unique<Room>();
+	Room::get();
 	room->add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever1/lever1-map.json");
 	// TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
 	// TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");

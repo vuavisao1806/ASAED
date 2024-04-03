@@ -7,12 +7,15 @@
 #include "asaed/gameconfig.hpp"
 #include "object/player.hpp"
 #include "object/moving_object.hpp"
+#include "object/tile_map.hpp"
+#include "math/rectf.hpp"
 #include "video/drawing_context.hpp"
 #include "util/log.hpp"
 
 Room* Room::s_current = nullptr;
 
 Room::Room() {
+	s_current = this;
 	m_collision_system = std::make_unique<CollisionSystem>(*this);
 }
 
@@ -84,4 +87,12 @@ Player* Room::get_nearest_player(const Vector& pos) const {
 		}
 	}
 	return nearest_player;
+}
+
+bool Room::inside(const Rectf& rect) const {
+	for (const auto& solid : get_solid_tilemaps()) {
+		Rectf bounding_box = solid->get_bounding_box();
+		if (!bounding_box.contains(rect)) return false;
+	}
+	return true;
 }
