@@ -31,6 +31,9 @@ public:
 
 public:
 	Config();
+
+public:
+	void load();
 };
 
 #endif

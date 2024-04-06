@@ -25,8 +25,6 @@ Player::Player(int player_id, int weapon_id) :
 	set_pos(Vector(100.0f, 100.0f));
 	
 	m_weapon = WeaponSet::current()->get(weapon_id).clone(this);
-	
-	
 	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
 }
 

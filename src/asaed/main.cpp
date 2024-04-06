@@ -21,6 +21,8 @@
 
 ConfigSubsystem::ConfigSubsystem() {
 	g_config = std::make_unique<Config>();
+	g_config->load();
+	// g_game_random.seed(0);
 }
 
 ConfigSubsystem::~ConfigSubsystem() {
