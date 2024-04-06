@@ -13,7 +13,7 @@
 
 namespace {
 	const float WALK_SPEED = 100.0f; // That funny setup because I don't think another more beautiful
-}
+} // namespace
 
 Player::Player(int player_id, int weapon_id) :
 	m_id(player_id),
@@ -106,8 +106,8 @@ void Player::handle_attack_input() {
 	float angle = math::angle(math::normalize(to_logical));
 
 	// log_info << to_logical << '\n';
-	// log_info << angle << '\n';
 	m_weapon->set_angle(angle);
+	// log_info << "Weapon have angle: " << angle << '\n';
 	// m_weapon->set_angle(-180.0f);
 	
 	if(std::fabs(angle) >= 90.0f) {
@@ -119,6 +119,7 @@ void Player::handle_attack_input() {
 	
 	if (m_weapon) {
 		if (m_controller->hold(Control::ATTACK)) {
+			// log_info << "Weapon have angle shoot: " << angle << '\n';
 			m_weapon->attack();
 		}
 	}

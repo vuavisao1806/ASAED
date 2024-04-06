@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "badguy/badguy_manager.hpp"
 #include "control/input_manager.hpp"
 #include "object/tile_manager.hpp"
 #include "sprite/sprite_manager.hpp"
@@ -47,6 +48,8 @@ private:
 	std::unique_ptr<VideoSystem> m_video_system;
 	std::unique_ptr<WeaponSet> m_weapon_set;
 	std::unique_ptr<MovingTileSet> m_moving_set;
+	std::unique_ptr<BadGuyManager> m_badguy_manager;
+	
 public :
 	int run(int argc, char** argv);
 };

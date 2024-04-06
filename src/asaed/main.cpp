@@ -15,14 +15,12 @@
 #include "asaed/room.hpp"
 #include "object/player.hpp"
 #include "object/tile_map.hpp"
-// #include "math/random.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
 
 ConfigSubsystem::ConfigSubsystem() {
 	g_config = std::make_unique<Config>();
 	g_config->load();
-	// g_game_random.seed(0);
 }
 
 ConfigSubsystem::~ConfigSubsystem() {
@@ -61,7 +59,8 @@ Main::Main() :
 	m_sprite_manager(),
 	m_video_system(),
 	m_weapon_set(),
-	m_moving_set()
+	m_moving_set(),
+	m_badguy_manager()
 {}
 
 Main::~Main() {
@@ -73,6 +72,7 @@ Main::~Main() {
 	m_video_system.reset();
 	m_weapon_set.reset();
 	m_moving_set.reset();
+	m_badguy_manager.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -87,18 +87,18 @@ int Main::run(int /* argc */, char** /* argv */) {
 
 	m_weapon_set = std::make_unique<WeaponSet>();
 	m_moving_set = std::make_unique<MovingTileSet>();
+	m_badguy_manager = std::make_unique<BadGuyManager>();
 
 	bool quit = false;
 	SDL_Event e;
 
 	std::unique_ptr<Room> room = std::make_unique<Room>();
-	Room::get();
 	room->add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever1/lever1-map.json");
 	// TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
 	// TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
 
 	room->add<Player>(0, 1);
-	// Player p(0);
+	Room::get().add_object(BadGuyManager::current()->get("ogre").clone(Vector(200.0f, 200.0f)));
 
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
 	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;

@@ -28,6 +28,5 @@ float Random::randf(float v) {
 }
 
 float Random::randf(float u, float v) {
-	if (u < 0.0f) { u = 0.0f; }
 	return std::uniform_real_distribution<float>(u, v)(m_generator);
 }

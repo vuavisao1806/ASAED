@@ -1,0 +1,10 @@
+{
+	"badguy": [
+		{
+			"id": 0,
+			"name": "ogre",
+			"sec-per-turn": 3.0,
+			"filename": "ogre/ogre-sprite.json"
+		}
+	]
+}

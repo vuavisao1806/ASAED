@@ -6,6 +6,9 @@ CPP_FILES = main.cpp                                               \
             asaed/globals.cpp                                      \
             asaed/main.cpp                                         \
             asaed/room.cpp                                         \
+            badguy/badguy_manager.cpp                              \
+            badguy/badguy.cpp                                      \
+            badguy/ogre.cpp                                        \
             collision/collision_object.cpp                         \
             collision/collision_system.cpp                         \
             collision/collision.cpp                                \

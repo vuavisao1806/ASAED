@@ -43,7 +43,7 @@ std::unique_ptr<Weapon> ShootingAnalysis::from_file(const ReaderData* data) {
 uint32_t ShootingAnalysis::get_moving_tile_id() const { return m_moving_tile_id; }
 Vector ShootingAnalysis::get_spawn_position() const { return get_bounding_box().get_middle(); }
 float ShootingAnalysis::get_shoot_angle() const {
-	double ret = g_game_random.randf(get_angle() - m_accuracy, get_angle() + m_accuracy);
+	float ret = g_game_random.randf(get_angle() - m_accuracy, get_angle() + m_accuracy);
 	return ret;
 };
 

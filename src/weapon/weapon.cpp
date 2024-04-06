@@ -25,9 +25,6 @@ Weapon::~Weapon()
 void Weapon::update(float /* dt_sec */) {}
 void Weapon::draw(DrawingContext& drawing_context) {
 	if (m_parent) {
-		log_warning << m_parent->get_bounding_box().get_middle() << '\n';
-		log_warning << m_parent->get_bounding_box().get_middle() << '\n';
-		log_warning << m_offset << '\n';
 		set_pos(m_parent->get_bounding_box().get_middle() - m_offset);
 	}
 	else {
