@@ -1,5 +1,6 @@
 #include "weapon/weapon.hpp"
 
+#include "badguy/badguy.hpp"
 #include "object/player.hpp"
 #include "video/canvas.hpp"
 #include "util/log.hpp"
@@ -48,10 +49,9 @@ void Weapon::re_set_hurt_attributes() {
 	if (dynamic_cast<Player*>(m_parent)) {
 		m_hurt_attributes = HURT_BADGUY;
 	}
-	// if (dynamic_cast<BadGuy*>(m_parent)) {
-	// 	m_hurt_attributes = HURT_PLAYER;
-	// }
-	// will appear soon
+	if (dynamic_cast<BadGuy*>(m_parent)) {
+		m_hurt_attributes = HURT_PLAYER;
+	}
 }
 
 void Weapon::set_hurt_attributes(uint32_t hurt_attributes) { m_hurt_attributes = hurt_attributes; }

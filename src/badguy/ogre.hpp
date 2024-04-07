@@ -24,6 +24,8 @@ public:
 	virtual void update(float dt_sec) override;
 	virtual void draw(DrawingContext& drawing_context) override;
 
+	virtual void wandering() override; 
+
 	virtual void activated();
 	virtual void deactivated();
 	virtual void active_update(float dt_sec);

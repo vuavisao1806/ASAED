@@ -3,7 +3,12 @@
 		{
 			"id": 0,
 			"name": "ogre",
-			"sec-per-turn": 3.0,
+			"health": 10,
+			"sec-per-dead": 2.0,
+			"radius-wander": 30.0,
+			"ser-per-wander": 2.5,
+			"radius-detect": 30.0,
+			"sec-per-shoot": 3.0,
 			"filename": "ogre/ogre-sprite.json"
 		}
 	]

@@ -43,7 +43,7 @@ void Timer::pause() {
 	m_cycle_pause = left;
 }
 
-void Timer::resume() {}
+void Timer::resume() { start(m_cycle_pause, true); }
 
 float Timer::get_period() const { return m_period; }
 float Timer::get_timeleft() const { return m_period - (g_game_time - m_cycle_start); }

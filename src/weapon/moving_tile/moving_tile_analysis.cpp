@@ -1,6 +1,7 @@
 #include "weapon/moving_tile/moving_tile_analysis.hpp"
 
 #include "object/player.hpp"
+#include "badguy/badguy.hpp"
 #include "weapon/hurt.hpp"
 #include "util/reader_data.hpp"
 #include "util/reader_machine.hpp"
@@ -35,6 +36,7 @@ std::unique_ptr<MovingTile> MovingTileAnalysis::from_file(const ReaderData* data
 	return movingtile;
 }
 
+
 void MovingTileAnalysis::collision_solid(const CollisionHit& hit) {
 	if (m_wall_bounce_count > 0) {
 		-- m_wall_bounce_count;
@@ -57,11 +59,11 @@ HitResponse MovingTileAnalysis::collision(CollisionObject& other, const Collisio
 		}
 		remove_me();
 		return FORCE_MOVE;
-	}	
-	if (dynamic_cast<Player*>(&other)) {
+	}
 
-	if (!(m_hurt_attributes & HURT_BADGUY)) {
-			return ABORT_MOVE;
+	if (dynamic_cast<BadGuy*>(&other)) {
+		if (!(m_hurt_attributes & HURT_BADGUY)) {
+				return ABORT_MOVE;
 		}
 		remove_me();
 		return FORCE_MOVE;

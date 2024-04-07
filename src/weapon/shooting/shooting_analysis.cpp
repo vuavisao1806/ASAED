@@ -56,7 +56,6 @@ std::unique_ptr<Weapon> ShootingAnalysis::clone(MovingObject* parent, const Vect
 	weapon->set_parent(parent);
 	weapon->set_pos(pos);
 	weapon->m_offset = m_offset;
-	weapon->m_hurt_attributes = m_hurt_attributes;
 
 	weapon->m_attack_per_turn = m_attack_per_turn;
 	weapon->m_accuracy = m_accuracy;

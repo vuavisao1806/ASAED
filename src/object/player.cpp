@@ -2,6 +2,7 @@
 
 #include <SDL_image.h>
 
+#include "badguy/badguy.hpp"
 #include "control/controller.hpp"
 #include "control/input_manager.hpp"
 #include "video/layer.hpp"
@@ -41,7 +42,10 @@ void Player::collision_solid(const CollisionHit& hit) {
 }
 
 HitResponse Player::collision(CollisionObject& other, const CollisionHit& hit) {
-	
+	if (dynamic_cast<BadGuy*>(&other)) {
+		collision_solid(hit);
+		return FORCE_MOVE;
+	}
 	return CONTINUE;
 }
 
@@ -105,10 +109,7 @@ void Player::handle_attack_input() {
 	
 	float angle = math::angle(math::normalize(to_logical));
 
-	// log_info << to_logical << '\n';
 	m_weapon->set_angle(angle);
-	// log_info << "Weapon have angle: " << angle << '\n';
-	// m_weapon->set_angle(-180.0f);
 	
 	if(std::fabs(angle) >= 90.0f) {
 		m_weapon->set_flip(VERTICAL_FLIP);
@@ -119,7 +120,6 @@ void Player::handle_attack_input() {
 	
 	if (m_weapon) {
 		if (m_controller->hold(Control::ATTACK)) {
-			// log_info << "Weapon have angle shoot: " << angle << '\n';
 			m_weapon->attack();
 		}
 	}
