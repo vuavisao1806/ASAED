@@ -27,6 +27,7 @@ public:
 	/**  Generate random floats between [u, v) */
 	float randf(float u, float v);
 
+	bool test_lucky(float percent = 5.0f);
 };
 
 extern Random g_game_random;

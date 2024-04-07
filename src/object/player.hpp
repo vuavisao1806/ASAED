@@ -11,6 +11,7 @@
 #include "object/direction.hpp"
 #include "object/moving_object.hpp"
 #include "sprite/sprite_ptr.hpp"
+#include "util/timer.hpp"
 #include "weapon/weapon.hpp"
 #include "weapon/weapon_set.hpp"
 
@@ -22,11 +23,15 @@ private:
 	int m_id;
 	const Controller* m_controller;
 	
+	int m_health;
+	Timer m_timer_dead;
+
 	Direction m_direction;
 	Physic m_physic;
 	SpritePtr m_sprite;
 
 	std::unique_ptr<Weapon> m_weapon;
+
 public:
 	~Player() override;
 

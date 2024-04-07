@@ -118,3 +118,7 @@ bool Room::inside(const Rectf& rect) const {
 	}
 	return true;
 }
+
+Rectf Room::get_bounding_box() const {
+	return get_solid_tilemaps()[0]->get_bounding_box();
+}

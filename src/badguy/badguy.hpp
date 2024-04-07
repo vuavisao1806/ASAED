@@ -34,8 +34,6 @@ protected:
 	float m_radius_wander;
 	Timer m_timer_wander;
 
-	float m_radius_detect;
-
 	Timer m_timer_shoot;
 	State m_state;
 
@@ -69,6 +67,9 @@ public:
 public:
 	void set_state(State state);
 	State get_state() const;
+
+	void set_start_position(Vector start_position);
+	Vector get_start_position() const;
 
 protected:
 	void try_active();

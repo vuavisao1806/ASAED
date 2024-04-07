@@ -48,5 +48,5 @@ void Timer::resume() { start(m_cycle_pause, true); }
 float Timer::get_period() const { return m_period; }
 float Timer::get_timeleft() const { return m_period - (g_game_time - m_cycle_start); }
 float Timer::get_timegone() const { return g_game_time - m_cycle_start; }
-bool Timer::started() const { return m_period != 0 && get_timeleft() > 0; }
+bool Timer::started() const { return (m_period != 0.0f && get_timeleft() > 0); }
 bool Timer::paused() const { return m_cycle_pause != 0; }

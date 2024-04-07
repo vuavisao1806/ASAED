@@ -1,6 +1,7 @@
 #include "badguy/ogre.hpp"
 
 #include "asaed/room.hpp"
+#include "object/player.hpp"
 #include "math/random.hpp"
 #include "math/util.hpp"
 #include "sprite/sprite.hpp"
@@ -30,10 +31,12 @@ void Ogre::update(float dt_sec) {
 		return;
 	}
 
+	try_active();
+	// log_warning << "m_state: " << (m_state == STATE_ACTIVE ? "state_active" : "state_inactive") << '\n';
+
 	switch (m_state) {
 		case STATE_INACTIVE:
 			inactive_update(dt_sec);
-			try_active();
 			break;
 		case STATE_ACTIVE:
 			active_update(dt_sec);
@@ -67,19 +70,20 @@ void Ogre::draw(DrawingContext& drawing_context) {
 		else {
 			m_sprite->set_action("walk" + suffix_action);
 		}
+
+		if (m_weapon) {
+			m_weapon->draw(drawing_context);
+		}
 	}
 	
 	MovingSprite::draw(drawing_context);
-	if (m_health > 0 && m_weapon) {
-		m_weapon->draw(drawing_context);
-	}
 }
 
 void Ogre::wandering() {
 	if (math::distance(get_bounding_box().get_middle(), m_start_position) > m_radius_wander) {
 		Vector to_rotate = m_start_position - get_bounding_box().get_middle();
 		float angle = math::angle(to_rotate);
-		m_physic.set_velocity(math::rotate(Vector(1.0f, 0.0f), angle) * WALK_SPEED);
+		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), angle) * WALK_SPEED);
 	} 
 	else if (m_timer_wander.check()) {
 		m_physic.set_velocity(Vector(g_game_random.randf(-1.0f, 1.0f), g_game_random.randf(-1.0f, 1.0f)) * WALK_SPEED);
@@ -106,15 +110,59 @@ void Ogre::deactivated() {
 }
 
 void Ogre::active_update(float dt_sec) {
-	const auto* player = Room::get().get_nearest_player(get_bounding_box().get_middle());
-	if (!player) return;
-	
-	
+	auto player_ptr = Room::get().get_nearest_player(m_bounding_box.get_middle());
+	Vector to_rotate = player_ptr->get_bounding_box().get_middle() - m_bounding_box.get_middle();
+	float dist = math::length(to_rotate);
+
+	if (dist <= m_radius_wander && g_game_random.test_lucky()) {
+		int try_new_start_position = g_game_random.rand(1, 4);
+		const Rectf rect = Room::get().get_bounding_box();
+		for (int i = 1; i < try_new_start_position; ++ i) {
+			Vector new_start_position = Vector(g_game_random.randf(rect.get_left(), rect.get_right()),
+			                                   g_game_random.randf(rect.get_top(), rect.get_bottom()));
+			log_warning << "new position: " << new_start_position << '\n';
+			Rectf rect = Rectf(new_start_position, get_bounding_box().get_size());
+			if (!Room::get().is_free_of_tiles(rect)) {
+				continue;
+			}
+			float new_dist = math::distance(rect.get_middle(), player_ptr->get_bounding_box().get_middle());
+			if (new_dist > dist) {
+				dist = new_dist;
+				set_start_position(rect.get_middle());
+			}
+		}
+		log_warning << rect.get_middle() << '\n';
+	}
+
+	wandering();
+
+	float angle = math::angle(to_rotate);
+	if (m_weapon) {
+		m_weapon->set_angle(angle);
+	}
+
+	if (std::fabs(angle) >= 90.0f) {
+		m_weapon->set_flip(VERTICAL_FLIP);
+	}
+	else {
+		m_weapon->set_flip(NO_FLIP);
+	}
+
+	if (m_timer_shoot.check()) {
+		m_weapon->attack();
+	}
 }
 
 void Ogre::inactive_update(float dt_sec) {
 	if (m_health <= 0) return;
 	wandering();
+
+	if (m_physic.get_velocity_x() < 0.0f) {
+		m_weapon->set_flip(VERTICAL_FLIP);
+	}
+	else{
+		m_weapon->set_flip(NO_FLIP);
+	}
 }
 
 std::unique_ptr<BadGuy> Ogre::from_file(const ReaderData* data) {
@@ -138,8 +186,6 @@ std::unique_ptr<BadGuy> Ogre::from_file(const ReaderData* data) {
 	data->get("sec-per-wander", sec_per_wander);
 	badguy->m_timer_wander.start(sec_per_wander, true);
 
-	data->get("radius-detect", badguy->m_radius_detect);
-
 	float sec_per_shoot = 2.0f;
 	data->get("sec-per-shoot", sec_per_shoot);
 	badguy->m_timer_shoot.start(sec_per_shoot, true);
@@ -160,8 +206,6 @@ std::unique_ptr<BadGuy> Ogre::clone(const Vector& pos) const {
 
 	badguy->m_radius_wander = m_radius_wander;
 	badguy->m_timer_wander.start(m_timer_wander.get_period(), true);
-
-	badguy->m_radius_detect = m_radius_detect;
 
 	badguy->m_timer_shoot.start(m_timer_shoot.get_period(), true);
 	return badguy;

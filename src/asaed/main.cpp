@@ -93,11 +93,11 @@ int Main::run(int /* argc */, char** /* argv */) {
 	SDL_Event e;
 
 	std::unique_ptr<Room> room = std::make_unique<Room>();
-	room->add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever1/lever1-map.json");
+	Room::get().add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever1/lever1-map.json");
 	// TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
 	// TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
 
-	room->add<Player>(0, 1);
+	Room::get().add<Player>(0, 1);
 	Room::get().add_object(BadGuyManager::current()->get("ogre").clone(Vector(200.0f, 200.0f)));
 
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);

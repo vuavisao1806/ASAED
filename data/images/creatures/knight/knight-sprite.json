@@ -33,6 +33,20 @@
 			"name": "idle-left",
 			"family-name": "idle",
 			"mirror-action": "idle-right"
+		},
+		{
+			"name": "dead-right",
+			"family-name": "dead",
+			"fps": 1,
+			"hitbox": [0, 8, 16, 20],
+			"images": [
+				"dead-0.png"
+			]
+		},
+		{
+			"name": "dead-left",
+			"family-name": "dead",
+			"mirror-action": "dead-right"
 		}
 	]
 }

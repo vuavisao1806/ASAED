@@ -30,3 +30,7 @@ float Random::randf(float v) {
 float Random::randf(float u, float v) {
 	return std::uniform_real_distribution<float>(u, v)(m_generator);
 }
+
+bool Random::test_lucky(float percent) {
+	return randf(0.0f, 100.0f) <= percent;
+}

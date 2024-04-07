@@ -48,6 +48,7 @@ public:
 	bool can_see_player(const Vector& eye, Player* player_ = nullptr) const;
 
 	bool inside(const Rectf& rect) const;
+	Rectf get_bounding_box() const;
 };
 
 #endif
