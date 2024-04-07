@@ -48,8 +48,8 @@ private:
 // 	static std::unique_ptr<TileMap> fromfile(const TileSet* tileset, const std::string& filename);
 
 public:
-	virtual void update(float /* dt_sec */) override; // finally
-	virtual void draw(DrawingContext& context) override; // finally
+	virtual void update(float /* dt_sec */) override;
+	virtual void draw(DrawingContext& context) override;
 
 	int get_width() const;
 	int get_height() const;

@@ -43,6 +43,10 @@ public:
 	std::vector<Player*> get_player() const;
 	Player* get_nearest_player(const Vector& pos) const;
 
+	bool is_free_of_tiles(const Rectf& rect) const;
+	bool free_light_of_sight(const Vector& line_start, const Vector& line_end) const;
+	bool can_see_player(const Vector& eye, Player* player_ = nullptr) const;
+
 	bool inside(const Rectf& rect) const;
 };
 

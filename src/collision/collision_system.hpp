@@ -33,6 +33,9 @@ public:
 	/** Most important!! Check for all possible collisions and calls the suitable collision_handler to handle this */
 	void update();
 
+	bool is_free_of_tiles(const Rectf& rect) const;
+	bool free_light_of_sight(const Vector& line_start, const Vector& line_end) const;
+
 private:
 	void collision_static(collision::Constraints* constraints,
 	                      const Vector& movement, const Rectf& dest,

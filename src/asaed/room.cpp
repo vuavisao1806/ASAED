@@ -65,7 +65,6 @@ void Room::before_object_remove(GameObject& object) {
 	}
 }
 
-
 std::vector<Player*> Room::get_player() const {
 	std::vector<Player*> players;
 	for (const auto& player_ptr : get_objects_by_type_index(std::type_index(typeid(Player)))) {
@@ -87,6 +86,29 @@ Player* Room::get_nearest_player(const Vector& pos) const {
 		}
 	}
 	return nearest_player;
+}
+
+bool Room::is_free_of_tiles(const Rectf& rect) const { return m_collision_system->is_free_of_tiles(rect); }
+bool Room::free_light_of_sight(const Vector& line_start, const Vector& line_end) const { return m_collision_system->free_light_of_sight(line_start, line_end); }
+
+bool Room::can_see_player(const Vector& eye, Player* player_) const {
+	std::vector<Player*> players;
+	if (player_) {
+		players.push_back(player_);
+	}
+	else {
+		players = get_player();
+	}
+	for (auto player_ptr : players) {
+		Player& player = *static_cast<Player*>(player_ptr);
+		// check for free line of sight to all four corners and the middle of the player's bounding box
+		if (free_light_of_sight(eye, player.get_bounding_box().p1())) return true;
+		if (free_light_of_sight(eye, player.get_bounding_box().p2())) return true;
+		if (free_light_of_sight(eye, Vector(player.get_bounding_box().get_right(), player.get_bounding_box().get_top()))) return true;
+		if (free_light_of_sight(eye, Vector(player.get_bounding_box().get_left(), player.get_bounding_box().get_bottom()))) return true;
+		if (free_light_of_sight(eye, player.get_bounding_box().get_middle())) return true;
+	}
+	return false;
 }
 
 bool Room::inside(const Rectf& rect) const {

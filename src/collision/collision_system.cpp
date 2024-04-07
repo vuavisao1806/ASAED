@@ -1,5 +1,8 @@
 #include "collision/collision_system.hpp"
 
+#include <vector>
+#include <cmath>
+
 #include "asaed/constants.hpp"
 #include "asaed/room.hpp"
 #include "collision/collision_object.hpp"
@@ -11,9 +14,6 @@
 #include "video/drawing_context.hpp"
 #include "video/color.hpp"
 #include "video/layer.hpp"
-
-#include <iostream> // test
-
 namespace {
 	// arbitrary (pixel / frame)
 	const float MAX_SPEED = 12.0f; 
@@ -98,8 +98,6 @@ namespace {
 					constraints.hit.right = true;
 				}
 				else {
-					// std::cout << moving_object_rect.get_right() << '\n';
-					// std::cout << "collision " << grown_other_object_rect.get_right() << '\n';
 					constraints.constrain_left(grown_other_object_rect.get_right());
 					constraints.hit.left = true;
 				}
@@ -149,6 +147,69 @@ namespace {
 			}
 		}
 	}
+
+	struct VectorInt {
+		int x, y;
+		VectorInt() = delete;
+		VectorInt(int x_, int y_) :
+			x(x_),
+			y(y_)
+		{}
+
+		Vector operator*(float factor) const { return Vector(static_cast<float>(x) * factor, static_cast<float>(y) * factor); }
+	};
+
+	int iPart(float x) { return static_cast<int>(std::floor(x)); }
+	float fPart(float x) { return x - std::floor(x); }
+	float rfPart(float x) { return 1.0f - fPart(x); }
+
+	void drawLine(int x, int y, float ratio, std::vector<VectorInt>& line) {
+		if (ratio <= 0.0f) return;
+		line.push_back(VectorInt(x, y));
+	}
+
+	// https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm for more details
+	std::vector<VectorInt> Xiaolin_Wu_line(float x1, float y1, float x2, float y2) {
+		const bool steep = std::fabs(y2 - y1) > std::fabs(x2 - x1);
+
+		if (steep) {
+			std::swap(x1, y1);
+			std::swap(x2, y2);
+		}
+		if (x1 > x2) {
+			std::swap(x1, x2);
+			std::swap(y1, y2);
+		}
+
+		const float dx = x2 - x1;
+		const float dy = y2 - y1;
+		const float slope = (dx == 0.0f ? 1.0f : dy / dx);
+
+		std::vector<VectorInt> line;
+
+		int x_start = static_cast<int>(std::round(x1));
+		int x_end = static_cast<int>(std::round(x2));
+		float intersectY = y1;
+
+		if (steep) {
+			while (x1 <= x2) {
+				drawLine(iPart(intersectY), x1, rfPart(intersectY), line);
+				drawLine(iPart(intersectY) - 1, x1, fPart(intersectY), line);
+				++ x1;
+				intersectY += slope;
+			}
+		}
+		else {
+			while (x1 <= x2) {
+				drawLine(x1, iPart(intersectY), rfPart(intersectY), line);
+				drawLine(x1, iPart(intersectY) - 1, fPart(intersectY), line);
+				++ x1;
+				intersectY += slope;
+			}
+		}
+
+		return line;
+	}
 }
 
 void CollisionSystem::update() {
@@ -196,6 +257,46 @@ void CollisionSystem::update() {
 		object->m_bounding_box = object->m_dest;
 		object->set_movement(Vector(0.0f, 0.0f));
 	}
+}
+
+
+bool CollisionSystem::is_free_of_tiles(const Rectf& rect) const {
+	for (const auto& solid : m_room.get_solid_tilemaps()) {
+		const Rect test_tiles = solid->get_tiles_overlapping(rect);
+		for (int x = test_tiles.get_left(); x < test_tiles.get_right(); ++ x) {
+			for (int y = test_tiles.get_top(); y < test_tiles.get_bottom(); ++ y) {
+				const auto& Tile = solid->get_tile(x, y);
+				if (!Tile.is_solid()) {
+					continue;
+				}
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+bool CollisionSystem::free_light_of_sight(const Vector& line_start, const Vector& line_end) const {
+	// fix fixel duplicate in 1 BLOCK
+	const float x1 = line_start.x / BLOCK_SIZE;
+	const float y1 = line_start.y / BLOCK_SIZE;
+	const float x2 = line_end.x / BLOCK_SIZE;
+	const float y2 = line_end.y / BLOCK_SIZE;
+
+	std::vector<VectorInt> test_line = Xiaolin_Wu_line(x1, y1, x2, y2);
+	for (const auto& solid : m_room.get_solid_tilemaps()) {
+		for (const auto& point : test_line) {
+			Vector test_point = point * BLOCK_SIZE;
+			if (solid->is_outside_bounds(test_point)) {
+				continue;
+			}
+			const Tile& tile = solid->get_tile_at(test_point);
+			if (tile.is_solid()) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 void CollisionSystem::collision_static(collision::Constraints* constraints,
@@ -247,8 +348,6 @@ void CollisionSystem::collision_static_constraints(CollisionObject& object) cons
 		if (!constraints.has_constrains()) {
 			break;
 		}
-		// std::cout << "bottom: " << constraints.has_constrains_bottom() << '\n';
-		// std::cout << "top: " << constraints.has_constrains_top() << '\n';
 		if (constraints.has_constrains_bottom()) {
 			dest.set_bottom(constraints.get_position_bottom() - EPSILON);
 			dest.set_top(dest.get_bottom() - object.get_bounding_box().get_height());
@@ -274,8 +373,6 @@ void CollisionSystem::collision_static_constraints(CollisionObject& object) cons
 		if (!constraints.has_constrains()) {
 			break;
 		}
-		// std::cout << "right: " << constraints.has_constrains_right() << '\n';
-		// std::cout << "left: " << constraints.has_constrains_left() << '\n';
 		if (constraints.has_constrains_right()) {
 			dest.set_right(constraints.get_position_right() - EPSILON);
 			dest.set_left(dest.get_right() - object.get_bounding_box().get_width());
