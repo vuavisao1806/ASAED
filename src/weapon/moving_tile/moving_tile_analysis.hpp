@@ -7,9 +7,11 @@
 
 class ReaderData;
 
+/** Class to help analyze (parse) the parameter of the movingtile from file */
+
 class MovingTileAnalysis : public MovingTile {
 private:
-	int m_wall_bounce_count; // will appear soon
+	int m_wall_bounce_count;
 
 public:
 	MovingTileAnalysis(const std::string& filename);

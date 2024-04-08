@@ -12,6 +12,13 @@ class DrawingContext;
 class Rectf;
 class Room;
 
+/**
+ * What is CollisionSystem?
+ * CollisionSystem holds all of CollisionObject in the current room to handle collision
+ * Help to do all things relevant to collision and detect
+ * CollisionObject holds all of the specific objects in the current room
+*/
+
 class CollisionSystem final {
 	Room& m_room;
 	std::vector<CollisionObject*> m_objects;

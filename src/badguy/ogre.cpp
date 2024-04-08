@@ -32,7 +32,7 @@ void Ogre::update(float dt_sec) {
 	}
 
 	try_active();
-	// log_warning << "m_state: " << (m_state == STATE_ACTIVE ? "state_active" : "state_inactive") << '\n';
+	log_warning << "m_state: " << (m_state == STATE_ACTIVE ? "state_active" : "state_inactive") << '\n';
 
 	switch (m_state) {
 		case STATE_INACTIVE:

@@ -10,6 +10,7 @@
 
 class ReaderData;
 
+/** Class to help analysis (parse) the weapon from file and directly link with suitable movingtile (bullet) */
 class ShootingAnalysis : public Shooting {
 private:
 	uint32_t m_moving_tile_id;

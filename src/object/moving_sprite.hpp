@@ -7,6 +7,11 @@
 #include "video/drawing_context.hpp"
 #include "video/layer.hpp"
 
+/**
+ * Class MovingSprite is the base for every moving sprite (used for inheritance) 
+ * What is movingsprite?
+ * It's like badguy, weapon, or movingtile (it's can move but not controlled by the user)
+*/
 class MovingSprite : public MovingObject {
 protected:
 	std::string m_sprite_name;

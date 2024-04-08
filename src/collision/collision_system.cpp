@@ -192,18 +192,18 @@ namespace {
 		float intersectY = y1;
 
 		if (steep) {
-			while (x1 <= x2) {
-				drawLine(iPart(intersectY), x1, rfPart(intersectY), line);
-				drawLine(iPart(intersectY) - 1, x1, fPart(intersectY), line);
-				++ x1;
+			while (x_start <= x_end) {
+				drawLine(iPart(intersectY), x_start, rfPart(intersectY), line);
+				drawLine(iPart(intersectY) - 1, x_start, fPart(intersectY), line);
+				++ x_start;
 				intersectY += slope;
 			}
 		}
 		else {
-			while (x1 <= x2) {
-				drawLine(x1, iPart(intersectY), rfPart(intersectY), line);
-				drawLine(x1, iPart(intersectY) - 1, fPart(intersectY), line);
-				++ x1;
+			while (x_start <= x_end) {
+				drawLine(x_start, iPart(intersectY), rfPart(intersectY), line);
+				drawLine(x_start, iPart(intersectY) - 1, fPart(intersectY), line);
+				++ x_start;
 				intersectY += slope;
 			}
 		}

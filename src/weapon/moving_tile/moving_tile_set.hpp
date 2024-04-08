@@ -10,6 +10,12 @@
 class ReaderData;
 class MovingTile;
 
+/**
+ * What is MovingTileSet?
+ * MovingTileSet holds every MovingTile (also like weapon and ...)
+ * It helps get and clone MovingTile when needed
+*/
+
 class MovingTileSet final : public Currenton<MovingTileSet> {
 	std::string m_filename;
 	std::vector<std::unique_ptr<MovingTile>> m_movingtiles;

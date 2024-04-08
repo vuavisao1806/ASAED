@@ -3,6 +3,8 @@
 
 #include <random>
 
+/** Class helps to make something random in the game */
+
 class Random {
 private:
 	std::mt19937 m_generator;

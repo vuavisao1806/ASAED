@@ -11,7 +11,7 @@ BadGuyManager::BadGuyManager() :
 	m_badguys()
 {
 	ReaderMachine reader(m_filename);
-	for (int i = 0; i < reader.get_size(); ++ i) {
+	for (size_t i = 0; i < reader.get_size(); ++ i) {
 		parse_badguy(reader.get_data(i));
 	}
 }

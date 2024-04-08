@@ -8,6 +8,10 @@
 #include "object/moving_sprite.hpp"
 #include "math/vector.hpp"
 
+/**
+ * Weapon is the base class for every weapon
+ * (Actually, now only gun)
+*/
 class Weapon : public MovingSprite {
 protected:
 	/** m_parent is character to hold a weapon */

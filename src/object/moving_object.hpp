@@ -5,6 +5,7 @@
 #include "collision/collision_system.hpp"
 #include "object/game_object.hpp"
 
+/** Class MovingObject is the base for every object that can move in game (used for inheritance) */
 class MovingObject : public GameObject, public CollisionObject {
 	friend class Room;
 	friend class CollisionSystem;

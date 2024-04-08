@@ -29,10 +29,10 @@ Vector::Vector(float x_, float y_):
 Vector Vector::operator+(const Vector& other) const { return Vector(x + other.x, y + other.y); }
 Vector Vector::operator-(const Vector& other) const { return Vector(x - other.x, y - other.y); }
 Vector Vector::operator*(const float& factor) const { return Vector(x * factor, y * factor); }
-Vector Vector::operator/(const float& factor) const { return Vector(x * factor, y * factor); }
+Vector Vector::operator/(const float& divisor) const { return Vector(x / divisor, y / divisor); }
 
 Vector& Vector::operator+=(const Vector& other) { *this = (*this) + other; return *this; }
-Vector& Vector::operator-=(const Vector& other) { *this = (*this) + other; return *this; }
+Vector& Vector::operator-=(const Vector& other) { *this = (*this) - other; return *this; }
 Vector& Vector::operator*=(const float& factor) { *this = (*this) * factor; return *this; }
 
 bool Vector::operator==(const Vector& other) const { return (x == other.x && y == other.y); }

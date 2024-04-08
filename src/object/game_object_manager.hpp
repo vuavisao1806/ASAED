@@ -13,6 +13,13 @@
 class DrawingContext;
 class TileMap;
 
+/**
+ * What is GameObjectManager?
+ * GameObjectManager holds all of object in game (including map)
+ * Room help to handle add, get everything like game_object, map, ...
+ * Room is inheritance GameObjectManager to manage object in current room
+*/
+
 class GameObjectManager {
 private:
 	UIDGenerator m_uid_generator;

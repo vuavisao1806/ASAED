@@ -16,6 +16,8 @@ enum BadGuyData {
 	MAGICIAN
 };
 
+/** Class BadGuy (base) to help inheritance and manage all of types badguy */
+
 class BadGuy : public MovingSprite {
 protected:
 	enum State {

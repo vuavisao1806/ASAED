@@ -5,6 +5,8 @@
 #include "util/timer.hpp"
 
 #include <string>
+
+/** Class to holds the parameter of the weapon and how the weapon actually makes damage */
 class Shooting : public Weapon {
 protected:
 	int m_attack_per_turn;

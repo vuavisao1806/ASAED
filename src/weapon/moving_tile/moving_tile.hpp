@@ -7,6 +7,11 @@
 #include <stdint.h>
 #include <string>
 
+/**
+ * Class MovingTile holds specific objects that can cause damage, ... when reaching other objects
+ * It can be used for bullet in guns (more flexible)
+*/
+
 class MovingTile : public MovingSprite {
 protected:
 	uint32_t m_hurt_attributes;

@@ -12,6 +12,12 @@ class Weapon;
 
 /** This design like complex between tile_manager, tileset, tileparse */
 
+/**
+ * What is WeaponSet?
+ * WeaponSet manages every weapon to help clone when needed
+ * Weapon is the base class for every weapon
+*/
+
 class WeaponSet final : public Currenton<WeaponSet> {
 private:
 	std::string m_filename;

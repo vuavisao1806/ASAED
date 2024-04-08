@@ -8,6 +8,8 @@
 class BadGuy;
 class ReaderData;
 
+/** Class to hold all types of badguy to help clone when needed */
+
 class BadGuyManager final : public Currenton<BadGuyManager> {
 private:
 	std::string m_filename;

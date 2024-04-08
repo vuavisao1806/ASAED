@@ -7,6 +7,11 @@
 
 class DrawingContext;
 
+/**
+ * GameObject is the base form of every object in the game that can inheritance
+ * GameObject helps to draw and update automatically by only one function (actually is one for loops)
+*/
+
 class GameObject {
 	friend class GameObjectManager;
 private:
