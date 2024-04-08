@@ -8,6 +8,7 @@
 #include "collision/collision_system.hpp"
 #include "object/game_object_manager.hpp"
 
+class Camera;
 class Player;
 class Rectf;
 
@@ -49,6 +50,8 @@ public:
 
 	bool inside(const Rectf& rect) const;
 	Rectf get_bounding_box() const;
+
+	Camera& get_camera() const;
 };
 
 #endif

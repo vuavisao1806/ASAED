@@ -2,9 +2,11 @@
 
 #include <SDL_image.h>
 
+#include "asaed/room.hpp"
 #include "badguy/badguy.hpp"
 #include "control/controller.hpp"
 #include "control/input_manager.hpp"
+#include "object/camera.hpp"
 #include "weapon/hurt.hpp"
 #include "weapon/moving_tile/moving_tile.hpp"
 #include "video/layer.hpp"
@@ -143,10 +145,17 @@ void Player::handle_movement_input() {
 	m_physic.set_velocity(Vector(m_dir_x, m_dir_y) * WALK_SPEED);
 }
 
+#include "util/log.hpp"
+
 void Player::handle_attack_input() {
 	Vector mouse_position = m_controller->get_cursor_position();
-	Vector to_logical = VideoSystem::current()->get_viewport().to_logical(mouse_position.x, mouse_position.y) - get_bounding_box().get_middle();
-	
+	// Vector to_logical = mouse_position - get_bounding_box().get_middle();
+	// log_warning << Room::get().get_camera().get_translation() << '\n';
+	// log_warning << get_bounding_box().get_middle() << ' ' << mouse_position << '\n';
+	log_warning << (get_bounding_box().get_middle() - Room::get().get_camera().get_translation()) << ' ' << mouse_position << '\n';
+	Vector to_logical = VideoSystem::current()->get_viewport().to_logical(mouse_position.x, mouse_position.y)
+	                    - (get_bounding_box().get_middle() - Room::get().get_camera().get_translation());
+	// log_warning << VideoSystem::current()->get_viewport().to_logical(mouse_position.x, mouse_position.y) << ' ' << get_bounding_box().get_middle() << '\n';
 	float angle = math::angle(math::normalize(to_logical));
 
 	m_weapon->set_angle(angle);

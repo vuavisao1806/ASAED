@@ -5,6 +5,7 @@
 
 #include "asaed/globals.hpp"
 #include "asaed/gameconfig.hpp"
+#include "object/camera.hpp"
 #include "object/player.hpp"
 #include "object/moving_object.hpp"
 #include "object/tile_map.hpp"
@@ -36,6 +37,9 @@ void Room::update(float dt_sec) {
 
 void Room::draw(DrawingContext& drawing_context) {
 	drawing_context.push_transform();
+
+	Camera& camera = Room::get().get_camera();
+	drawing_context.set_translation(camera.get_translation());
 	
 	GameObjectManager::draw(drawing_context);
 	if (g_config->debug) {
@@ -121,4 +125,8 @@ bool Room::inside(const Rectf& rect) const {
 
 Rectf Room::get_bounding_box() const {
 	return get_solid_tilemaps()[0]->get_bounding_box();
+}
+
+Camera& Room::get_camera() const {
+	return get_singleton_by_type<Camera>();
 }

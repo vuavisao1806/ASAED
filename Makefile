@@ -26,6 +26,7 @@ CPP_FILES = main.cpp                                               \
             math/sizef.cpp                                         \
             math/vector.cpp                                        \
             math/util.cpp                                          \
+            object/camera.cpp                                      \
             object/game_object_manager.cpp                         \
             object/game_object.cpp                                 \
             object/moving_object.cpp                               \

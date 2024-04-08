@@ -3,7 +3,15 @@
 
 #include <memory>
 
+#include <video/video_system.hpp>
+#include <video/viewport.hpp>
+
 // Managing global (??). Hope it's working the right way
+
+// little bit of trolling! DON'T TOUCH UP
+#define SCREEN_WIDTH (VideoSystem::current()->get_viewport().get_screen_width())
+// little bit of trolling! DON'T TOUCH UP
+#define SCREEN_HEIGHT (VideoSystem::current()->get_viewport().get_screen_height())
 
 class Config;
 

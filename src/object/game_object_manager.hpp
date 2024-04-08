@@ -59,7 +59,7 @@ public:
 		const auto& range = get_objects_by_type_index(typeid(T));
 		assert(range.begin() != range.end());
 		assert((*range.begin())->is_singleton());
-		return *range.begin();
+		return *static_cast<T*>(*range.begin());
 	}
 
 	template<class T>
