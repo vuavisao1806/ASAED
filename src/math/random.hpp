@@ -20,7 +20,7 @@ public:
 	/** Seed the generator */
 	void seed(int v);
 
-	/**  Generate random integers between [u, v) */
+	/**  Generate random integers between [u, v] */
 	int rand(int u, int v);
 
 	/**  Generate random floats between [u, v) */

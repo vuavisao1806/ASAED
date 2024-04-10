@@ -9,6 +9,7 @@
 #include "util/reader_data.hpp"
 #include "util/reader_machine.hpp"
 #include "video/drawing_context.hpp"
+#include "video/layer.hpp"
 
 TileMap::TileMap(const TileSet* tileset) :
 	m_tileset(tileset),
@@ -16,10 +17,20 @@ TileMap::TileMap(const TileSet* tileset) :
 	m_is_solid(true),
 	m_width(),
 	m_height(),
-	m_layer(),
+	m_layer(LAYER_BACKGROUND),
 	m_offset()
 {}
 
+
+TileMap::TileMap(const TileMap& other) :
+	m_tileset(other.m_tileset),
+	m_tiles(other.m_tiles),
+	m_is_solid(true),
+	m_width(other.m_width),
+	m_height(other.m_height),
+	m_layer(other.m_layer),
+	m_offset(other.m_offset)
+{}
 
 TileMap::TileMap(const TileSet* tileset, const std::string& filename) :
 	TileMap(tileset)
@@ -37,15 +48,21 @@ TileMap::~TileMap() {
 
 void TileMap::update(float /* dt_sec */) {}
 
+#include "util/log.hpp"
+
 void TileMap::draw(DrawingContext& context) {
 	context.push_transform();
 	
 	Canvas& canvas = context.get_canvas();
 
 	Rectf draw_rect = context.get_cliprect();
+	// log_warning << "current: " << draw_rect << '\n';
+	// log_warning << "bouding box: " << get_bounding_box() << '\n';
 	Rect t_draw_rect = get_tiles_overlapping(draw_rect);
+	// log_warning << "fake: " << t_draw_rect << '\n';
+	// log_warning << "offset: " << m_offset << '\n';
 	Vector start_draw = get_tile_position(t_draw_rect.get_left(), t_draw_rect.get_top());
-
+	// log_warning << "real: " << start_draw << '\n';
 	Vector pos(0.0f, 0.0f);
 	int tx = 0;
 	int ty = 0;
@@ -55,13 +72,14 @@ void TileMap::draw(DrawingContext& context) {
 			int index = ty * m_width + tx;
 			assert(index >= 0);
 			assert(index < m_width * m_height);
-
+			// log_warning << "pos: " << pos << '\n';
 			if (m_tiles[index] == 0) continue;
 			const Tile& tile = m_tileset->get(m_tiles[index]);
 			tile.draw(canvas, pos, m_layer);
 		}
 	}
 
+	// log_warning << "------------------------\n";
 	context.pop_transform();
 }
 
@@ -128,7 +146,8 @@ Rectf TileMap::get_tile_bounding_box(int x, int y) const {
 
 Rect TileMap::get_tiles_overlapping(const Rectf& rect) const {
 	Rectf m_rect = rect;
-	m_rect.moved(-m_offset);
+	m_rect.move(-m_offset);
+	// log_warning << "overlap: " << m_rect << '\n';
 
 	int t_left = std::max(0, static_cast<int>(std::floor(m_rect.get_left() / BLOCK_SIZE)));
 	int t_top = std::max(0, static_cast<int>(std::floor(m_rect.get_top() / BLOCK_SIZE)));
@@ -182,4 +201,10 @@ void TileMap::parse(const std::string& filename) {
 	for (int i = 0; i < m_height; ++ i) {
 		std::move(board[i].begin(), board[i].end(), m_tiles.begin() + i * m_width);
 	}
+}
+
+std::unique_ptr<TileMap> TileMap::clone(const Vector& offset) const {
+	auto tilemap = std::make_unique<TileMap>(*this);
+	tilemap->set_offset(offset);
+	return tilemap;
 }

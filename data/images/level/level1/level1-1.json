@@ -1,0 +1,15 @@
+{
+	"room": [
+		{
+			"id": 2,
+			"type-room": "normal",
+			"filename": "tilemap-1.json",
+			"turn": 3,
+			"min-spawn": 3,
+			"max-spawn": 4,
+			"badguy": [
+				"ogre"
+			]
+		}
+	]
+}

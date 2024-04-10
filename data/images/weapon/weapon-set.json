@@ -3,9 +3,9 @@
 		{
 			"id": 1,
 			"moving-tile-id": 1,
-			"attack-per-turn": 4,
+			"attack-per-turn": 2,
 			"attack-per-sec": 3.0,
-			"accuracy": 10.0,
+			"accuracy": 5.0,
 			"filename": "weapons/AK47.json"
 		}
 	]

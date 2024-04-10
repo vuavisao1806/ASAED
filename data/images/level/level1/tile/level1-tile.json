@@ -1,0 +1,28 @@
+{
+	"tiles": [
+		{
+			"id": 1,
+			"fps": 1,
+			"un-solid": 1,
+			"images": ["floor_1.png"]
+		},
+		{
+			"id": 2,
+			"fps": 1,
+			"solid": 1,
+			"images": ["brick.png"]
+		},
+		{
+			"id": 3,
+			"fps": 1,
+			"un-solid": 1,
+			"images": ["gate.png"]
+		},
+		{
+			"id": 4,
+			"fps": 1,
+			"solid": 1,
+			"images": ["brick.png"]
+		}
+	]
+}

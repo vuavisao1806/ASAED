@@ -4,7 +4,12 @@ CPP_FILES = main.cpp                                               \
             asaed/constants.cpp                                    \
             asaed/gameconfig.cpp                                   \
             asaed/globals.cpp                                      \
+            asaed/level_data.cpp                                   \
+            asaed/level_manager.cpp                                \
+            asaed/level.cpp                                        \
             asaed/main.cpp                                         \
+            asaed/room_analysis.cpp                                \
+            asaed/room_type.cpp                                    \
             asaed/room.cpp                                         \
             badguy/badguy_manager.cpp                              \
             badguy/badguy.cpp                                      \

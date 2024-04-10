@@ -63,6 +63,7 @@ public:
 	virtual void inactive_update(float dt_sec);
 	
 	virtual void wandering();
+	virtual bool is_boss() const = 0;
 
 	virtual std::unique_ptr<BadGuy> clone(const Vector& pos) const = 0;
 

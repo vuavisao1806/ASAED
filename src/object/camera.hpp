@@ -3,6 +3,8 @@
 
 #include "object/game_object.hpp"
 
+#include <memory>
+
 #include "math/vector.hpp"
 #include "math/rectf.hpp"
 
@@ -13,10 +15,10 @@ private:
 
 public:
 	Camera();
+	Camera(const Camera& other);
 	~Camera() override;
 
 private:
-	Camera(const Camera&) = delete;
 	Camera& operator=(const Camera&) = delete;
 
 public:
@@ -44,9 +46,13 @@ public:
 	/** return the (width, height) of the screen */
 	const Sizef& get_screen_size() const;
 
+	/** to clone camera to other room */
+	std::unique_ptr<Camera> clone() const;
+
 private:
 	/** follow camera to the player */
 	void update_normal(float dt_sec);
+
 };
 
 #endif

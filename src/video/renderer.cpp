@@ -21,7 +21,7 @@ void Renderer::start_draw() {
 	SDL_RenderSetViewport(m_renderer, &sdl_viewport);
 	SDL_RenderSetScale(m_renderer, scale.x, scale.y);
 
-	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0x00);
+	SDL_SetRenderDrawColor(m_renderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(m_renderer);
 }
 

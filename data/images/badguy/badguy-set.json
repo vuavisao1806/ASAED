@@ -3,7 +3,7 @@
 		{
 			"id": 0,
 			"name": "ogre",
-			"health": 100,
+			"health": 15,
 			"sec-per-dead": 2.0,
 			"radius-wander": 40.0,
 			"ser-per-wander": 2.5,

@@ -29,7 +29,8 @@ Sprite::Sprite(SpriteData& data) :
 {}
 
 SpritePtr Sprite::clone() const {
-	return std::make_unique<Sprite>(*this);
+	auto sprite = std::make_unique<Sprite>(*this);
+	return sprite;
 }
 
 void Sprite::update() {

@@ -10,6 +10,12 @@ Camera::Camera() :
 	m_screen_size(static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT))
 {}
 
+
+Camera::Camera(const Camera& other) :
+	m_translation(other.m_translation),
+	m_screen_size(other.m_screen_size)
+{}
+
 Camera::~Camera()
 {}
 
@@ -44,6 +50,13 @@ Vector Camera::get_center() const { return m_translation + (m_screen_size.as_vec
 const Sizef& Camera::get_screen_size() const { return m_screen_size; }
 
 void Camera::update_normal(float /* dt_sec */) {
-	Player& player = *Room::get().get_player()[0];
-	reset(player.get_pos());
+	if (!Room::get().get_player().empty()) {
+		Player& player = *Room::get().get_player()[0];
+		reset(player.get_pos());
+	}
+}
+
+std::unique_ptr<Camera> Camera::clone() const {
+	auto camera = std::make_unique<Camera>(*this);
+	return camera;
 }

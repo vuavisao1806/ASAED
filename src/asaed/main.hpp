@@ -10,6 +10,7 @@
 #include "video/video_system.hpp"
 #include "weapon/weapon_set.hpp"
 #include "weapon/moving_tile/moving_tile_set.hpp"
+#include "asaed/level_manager.hpp"
 
 /** 
  * Class to manage g_config to avoid global (!!!) 
@@ -49,6 +50,7 @@ private:
 	std::unique_ptr<WeaponSet> m_weapon_set;
 	std::unique_ptr<MovingTileSet> m_moving_set;
 	std::unique_ptr<BadGuyManager> m_badguy_manager;
+	std::unique_ptr<LevelManager> m_level_manager;
 	
 public :
 	int run(int argc, char** argv);

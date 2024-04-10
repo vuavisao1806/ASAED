@@ -26,10 +26,12 @@ public:
 
 	virtual void wandering() override; 
 
-	virtual void activated();
-	virtual void deactivated();
-	virtual void active_update(float dt_sec);
-	virtual void inactive_update(float dt_sec);
+	virtual void activated() override;
+	virtual void deactivated() override;
+	virtual void active_update(float dt_sec) override;
+	virtual void inactive_update(float dt_sec) override;
+
+	virtual bool is_boss() const override;
 
 	virtual std::unique_ptr<BadGuy> clone(const Vector& pos) const override;
 };

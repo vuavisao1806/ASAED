@@ -1,0 +1,14 @@
+{
+	"leves": [
+		{
+			"level": "level1",
+			"next-level": "level2",
+			"tileset": "level1/tile/level1-tile.json",
+			"room": [
+				"level1/level1-start.json",
+				"level1/level1-1.json",
+				"level1/level1-end.json"
+			]
+		}
+	]
+}

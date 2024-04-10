@@ -12,6 +12,8 @@
 #include "util/log.hpp"
 
 #include "asaed/constants.hpp"
+#include "asaed/level.hpp"
+#include "asaed/level_data.hpp"
 #include "asaed/room.hpp"
 #include "object/camera.hpp"
 #include "object/player.hpp"
@@ -61,7 +63,8 @@ Main::Main() :
 	m_video_system(),
 	m_weapon_set(),
 	m_moving_set(),
-	m_badguy_manager()
+	m_badguy_manager(),
+	m_level_manager()
 {}
 
 Main::~Main() {
@@ -74,6 +77,7 @@ Main::~Main() {
 	m_weapon_set.reset();
 	m_moving_set.reset();
 	m_badguy_manager.reset();
+	m_level_manager.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -89,19 +93,29 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_weapon_set = std::make_unique<WeaponSet>();
 	m_moving_set = std::make_unique<MovingTileSet>();
 	m_badguy_manager = std::make_unique<BadGuyManager>();
+	m_level_manager = std::make_unique<LevelManager>();
 
 	bool quit = false;
 	SDL_Event e;
 
-	std::unique_ptr<Room> room = std::make_unique<Room>();
+	std::unique_ptr<Level> level = LevelManager::current()->get("level1").creat_level_from_leveldata();
+	level->start_level();
+	// auto player_ptr = Room::get().get_player()[0];
+	// auto player_new = player_ptr->clone();
+	// for (const auto& object : Room::get().get_objects_non_const()) {
+	// 	if (dynamic_cast<Player*>(object.get())) {
+	// 		auto player_new = dynamic_cast<Player*>(object.get())->clone();
+	// 	}
+	// }
+	// std::unique_ptr<Room> room = std::make_unique<Room>();
 	// Room::get().add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever1/lever1-map.json");
-	Room::get().add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever_test-map.json");
+	// Room::get().add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever_test-map.json");
 	// TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
 	// TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
 
-	Room::get().add<Player>(0, 1);
-	Room::get().add<Camera>();
-	Room::get().add_object(BadGuyManager::current()->get("ogre").clone(Vector(200.0f, 200.0f)));
+	// // Room::get().add<Player>(0, 1);
+	// // Room::get().add<Camera>();
+	// // Room::get().add_object(BadGuyManager::current()->get("ogre").clone(Vector(200.0f, 200.0f)));
 
 	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
 	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
@@ -153,7 +167,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 			// 	// std::cout << position << '\n';
 			// }
 			
-			room->update(dt_sec);
+			level->update(dt_sec);
+			// room->update(dt_sec);
 			// tile_map.draw(drawing_context);
 			// p.update(seconds_per_step);
 			// p.draw(drawing_context);
@@ -162,7 +177,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 		}
 
 		if (steps > 0) {
-			room->draw(drawing_context);
+			level->draw(drawing_context);
 			compositor->render();
 		}
 

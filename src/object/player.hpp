@@ -33,13 +33,13 @@ private:
 	std::unique_ptr<Weapon> m_weapon;
 
 public:
+	Player(const Player& other);
 	~Player() override;
 
 public:
 	Player(int player_id, int weapon_id);
 
 private:
-	Player(const Player&) = delete;
 	Player& operator=(const Player&) = delete;
 
 public:
@@ -65,6 +65,7 @@ public:
 	int get_id() const;
 	void set_id(int id);
 
+	std::unique_ptr<Player> clone() const;
 };
 
 

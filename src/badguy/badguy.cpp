@@ -29,13 +29,10 @@ void BadGuy::collision_solid(const CollisionHit& hit) {
 	}
 }
 
-#include "util/log.hpp"
-
 HitResponse BadGuy::collision(CollisionObject& other, const CollisionHit& hit) {
 	if (auto bullet = dynamic_cast<MovingTile*>(&other)) {
 		if ((bullet->get_hurt_attributes() & HURT_BADGUY)) {
 			m_health -= bullet->get_damage();
-			log_info << "badguy health: " << m_health << '\n';
 		}
 		return ABORT_MOVE;
 	}

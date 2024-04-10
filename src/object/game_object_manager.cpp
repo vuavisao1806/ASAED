@@ -20,9 +20,11 @@ GameObjectManager::~GameObjectManager() {
 
 GameObject& GameObjectManager::add_object(std::unique_ptr<GameObject> object) {
 	assert(object);
-	assert(!object->get_uid());
+	// assert(!object->get_uid());
 
-	object->set_uid(m_uid_generator.next());
+	if (!object->get_uid()) {
+		object->set_uid(m_uid_generator.next());
+	}
 
 	GameObject& temp = *object;
 	m_game_objects_new.push_back(std::move(object));

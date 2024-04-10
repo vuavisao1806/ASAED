@@ -22,8 +22,6 @@ Ogre::Ogre(const std::string& filename) :
 	set_action("idle-right");
 }
 
-#include "util/log.hpp"
-
 void Ogre::update(float dt_sec) {
 	if (m_health <= 0) {
 		set_state(STATE_INACTIVE);
@@ -32,7 +30,6 @@ void Ogre::update(float dt_sec) {
 	}
 
 	try_active();
-	log_warning << "m_state: " << (m_state == STATE_ACTIVE ? "state_active" : "state_inactive") << '\n';
 
 	switch (m_state) {
 		case STATE_INACTIVE:
@@ -120,7 +117,6 @@ void Ogre::active_update(float dt_sec) {
 		for (int i = 1; i < try_new_start_position; ++ i) {
 			Vector new_start_position = Vector(g_game_random.randf(rect.get_left(), rect.get_right()),
 			                                   g_game_random.randf(rect.get_top(), rect.get_bottom()));
-			log_warning << "new position: " << new_start_position << '\n';
 			Rectf rect = Rectf(new_start_position, get_bounding_box().get_size());
 			if (!Room::get().is_free_of_tiles(rect)) {
 				continue;
@@ -131,7 +127,6 @@ void Ogre::active_update(float dt_sec) {
 				set_start_position(rect.get_middle());
 			}
 		}
-		log_warning << rect.get_middle() << '\n';
 	}
 
 	wandering();
@@ -192,6 +187,8 @@ std::unique_ptr<BadGuy> Ogre::from_file(const ReaderData* data) {
 
 	return badguy;
 }
+
+bool Ogre::is_boss() const { return false; }
 
 std::unique_ptr<BadGuy> Ogre::clone(const Vector& pos) const {
 	auto badguy = std::make_unique<Ogre>(m_sprite_name);

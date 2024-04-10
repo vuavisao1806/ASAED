@@ -34,6 +34,7 @@ private:
 	Vector m_offset;
 
 public:
+	TileMap(const TileMap& other);
 	~TileMap();
 
 public:
@@ -41,7 +42,6 @@ public:
 	TileMap(const TileSet* tileset, const std::string& filename);
 
 private:
-	TileMap(const TileMap&) = delete;
 	TileMap& operator=(const TileMap&) = delete;
 
 // public:
@@ -96,6 +96,8 @@ public:
 	void set_tileset(const TileSet* new_tileset);
 	/** read map */
 	void parse(const std::string& filename);
+
+	std::unique_ptr<TileMap> clone(const Vector& offset) const;
 };
 
 #endif

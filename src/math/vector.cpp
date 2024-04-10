@@ -21,7 +21,7 @@ Vector& Vector::operator=(const Vector& other) {
 	return *this;
 }
 
-Vector::Vector(float x_, float y_): 
+Vector::Vector(float x_, float y_):
 	x(x_),
 	y(y_)
 {}

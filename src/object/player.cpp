@@ -28,13 +28,29 @@ Player::Player(int player_id, int weapon_id) :
 	m_health(5),
 	m_timer_dead(),
 	m_direction(Direction::RIGHT),
-	m_sprite(SpriteManager::current()->create("data/images/creatures/knight/knight-sprite.json"))
+	m_sprite(SpriteManager::current()->create("data/images/creatures/knight/knight-sprite.json")),
+	m_weapon(WeaponSet::current()->get(weapon_id).clone(this))
 {
 	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 	set_pos(Vector(100.0f, 100.0f));
-	
-	m_weapon = WeaponSet::current()->get(weapon_id).clone(this);
 	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
+
+	m_timer_dead.start(TIME_DEAD, true);
+	m_timer_dead.pause();
+}
+
+
+Player::Player(const Player& other) :
+	m_id(other.m_id),
+	m_controller(other.m_controller),
+	m_health(other.m_health),
+	m_timer_dead(),
+	m_direction(other.m_direction),
+	m_sprite(other.m_sprite->clone()),
+	m_weapon(other.m_weapon->clone(this))
+{
+	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
+	set_pos(other.get_pos());
 
 	m_timer_dead.start(TIME_DEAD, true);
 	m_timer_dead.pause();
@@ -149,13 +165,8 @@ void Player::handle_movement_input() {
 
 void Player::handle_attack_input() {
 	Vector mouse_position = m_controller->get_cursor_position();
-	// Vector to_logical = mouse_position - get_bounding_box().get_middle();
-	// log_warning << Room::get().get_camera().get_translation() << '\n';
-	// log_warning << get_bounding_box().get_middle() << ' ' << mouse_position << '\n';
-	log_warning << (get_bounding_box().get_middle() - Room::get().get_camera().get_translation()) << ' ' << mouse_position << '\n';
 	Vector to_logical = VideoSystem::current()->get_viewport().to_logical(mouse_position.x, mouse_position.y)
 	                    - (get_bounding_box().get_middle() - Room::get().get_camera().get_translation());
-	// log_warning << VideoSystem::current()->get_viewport().to_logical(mouse_position.x, mouse_position.y) << ' ' << get_bounding_box().get_middle() << '\n';
 	float angle = math::angle(math::normalize(to_logical));
 
 	m_weapon->set_angle(angle);
@@ -181,3 +192,10 @@ void Player::set_id(int id) {
 }
 
 int Player::get_layer() const { return LAYER_OBJECT + 1; }
+
+
+std::unique_ptr<Player> Player::clone() const {
+	assert(this != nullptr);
+	auto player = std::make_unique<Player>(*this);
+	return player;
+}
