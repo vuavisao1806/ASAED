@@ -29,7 +29,6 @@ const LevelData& LevelManager::get(const std::string& filename) const {
 	return *it->second.get();
 }
 
-#include "util/log.hpp"
 void LevelManager::parse_level(const ReaderData* data) {
 	auto level_data = std::make_unique<LevelData>();
 	std::string level_name;

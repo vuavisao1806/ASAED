@@ -2,6 +2,7 @@
 
 CPP_FILES = main.cpp                                               \
             asaed/constants.cpp                                    \
+            asaed/game_session.cpp                                 \
             asaed/gameconfig.cpp                                   \
             asaed/globals.cpp                                      \
             asaed/level_data.cpp                                   \
@@ -11,6 +12,8 @@ CPP_FILES = main.cpp                                               \
             asaed/room_analysis.cpp                                \
             asaed/room_type.cpp                                    \
             asaed/room.cpp                                         \
+            asaed/screen_manager.cpp                               \
+            asaed/screen.cpp                                       \
             badguy/badguy_manager.cpp                              \
             badguy/badguy.cpp                                      \
             badguy/ogre.cpp                                        \
@@ -80,19 +83,27 @@ CC = g++
 
 SDL2_PATH = D:\libs\SDL2-2.28.5\x86_64-w64-mingw32
 SDL2_IMAGE_PATH = D:\libs\SDL2_image-2.8.1\x86_64-w64-mingw32
+SDL2_TTF_PATH = D:\libs\SDL2_ttf-2.22.0\x86_64-w64-mingw32
+SDL2_MIXER_PATH = D:\libs\SDL2_mixer-2.8.0\x86_64-w64-mingw32
 
 # $ to reference to the path, if doesn't use this, it like -I SDL2_PATH\include\SDl2 instead of D:\libs\SDL2-2.28.5\x86_64-w64-mingw32\....
 INCLUDE_PATHS = -I$(SDL2_PATH)\include\SDL2         \
                 -I$(SDL2_IMAGE_PATH)\include\SDL2   \
+                -I$(SDL2_TTF_PATH)\include\SDL2     \
+                -I$(SDL2_MIXER_PATH)\include\SDL2   \
                 -I./src                             \
 
 LIBRARY_PATHS = -L$(SDL2_PATH)\lib          \
                 -L$(SDL2_IMAGE_PATH)\lib    \
+                -L$(SDL2_TTF_PATH)\lib      \
+                -L$(SDL2_MIXER_PATH)\lib    \
 
 LINKER_FLAGS = -lmingw32        \
                -lSDL2main       \
                -lSDL2           \
                -lSDL2_image     \
+               -lSDL2_ttf       \
+               -lSDL2_mixer     \
 
 #COMPILER_FLAGS specifies the additional compilation options we're using
 COMPILER_FLAGS = -std=c++17 -Wall -Wextra

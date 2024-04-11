@@ -91,19 +91,14 @@ bool Player::is_valid() const { return MovingObject::is_valid(); }
 
 void Player::update(float dt_sec) {
 	if (m_health <= 0) {
-		// log_warning << m_timer_dead.get_period() << ' ' << m_timer_dead.started() << '\n';
 		if (m_timer_dead.paused()) {
-			// log_warning << "set_up\n";
 			set_group(COLLISION_DISABLED);
 			m_timer_dead.resume();
 
 			std::string suffix_action = (m_direction == Direction::RIGHT ? "-right" : "-left");
 			m_sprite->set_action("dead" + suffix_action);
 		}
-		// log_warning << "period: " << m_timer_dead.get_period() << '\n';
-		// log_warning << "time-left: " << m_timer_dead.get_timeleft() << '\n';
 		if (m_timer_dead.check()) {
-			// log_warning << "remove\n";
 			remove_me();
 		}
 		return;

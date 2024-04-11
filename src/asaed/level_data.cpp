@@ -133,7 +133,7 @@ std::unique_ptr<Room> LevelData::creat_room(std::unique_ptr<RoomAnalysis> room_a
 		int id = g_game_random.rand(0, static_cast<int>(next_direction.size()) - 1);
 		room->set_next_room(next_direction[id]);
 	}
-
+	
 	return room;
 }
 

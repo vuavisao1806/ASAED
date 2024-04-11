@@ -49,7 +49,6 @@ RoomAnalysis::~RoomAnalysis() {
 	m_badguys.clear();
 }
 
-#include "util/log.hpp"
 std::unique_ptr<RoomAnalysis> RoomAnalysis::fromfile(const TileSet* tileset, const ReaderData* data) {
 	auto room = std::make_unique<RoomAnalysis>();
 	
@@ -57,12 +56,11 @@ std::unique_ptr<RoomAnalysis> RoomAnalysis::fromfile(const TileSet* tileset, con
 	if (!data->get("type-room", type_room)) {
 		throw std::runtime_error("Missing type room!!");
 	}
-	// log_warning << type_room << '\n';
 	std::string filename;
 	if (!data->get("filename", filename)) {
 		throw std::runtime_error("Missing tilemap in room!!");
 	}
-	log_warning << "filename: " << filename << '\n';
+	
 	data->get("turn", room->m_turns);
 	data->get("min-spawn", room->m_min_turn_spawn_badguy);
 	data->get("max-spawn", room->m_max_turn_spawn_badguy);
@@ -81,10 +79,13 @@ void RoomAnalysis::update() {
 		case RoomType::BRIDGE:
 			break;
 		case RoomType::NORMAL:
+			if (!is_room_clear() && is_turn_clear()) {
+				start_next_turn();
+			}
 			if (!m_parent->get_player().empty()) {
-				if (!is_room_clear() && is_turn_clear()) {
+				if (!is_room_clear()) {
 					m_parent->start_room();
-					start_next_turn();
+					// start_next_turn();
 				}
 			
 				if (is_room_clear() && is_turn_clear()) {

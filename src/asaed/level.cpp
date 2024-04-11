@@ -4,6 +4,7 @@
 #include "object/camera.hpp"
 #include "object/player.hpp"
 #include "video/drawing_context.hpp"
+#include "asaed/room_analysis.hpp"
 
 namespace {
 	const uint32_t GATE_DOWN = 3;
@@ -47,11 +48,17 @@ void Level::draw(DrawingContext& drawing_context) {
 
 void Level::start_level() {
 	for (auto& room : m_rooms) {
-		if (room->get_room_type() == RoomType::START) {
-			room->add<Player>(0, 1);
-			room->add<Camera>();
-			room->flush_game_objects();
-			room->activate();
+		switch (room->get_room_type()) {
+			case RoomType::START:
+				room->add<Player>(0, 1);
+				room->add<Camera>();
+				room->flush_game_objects();
+				room->activate();
+				break;
+			case RoomType::NORMAL:
+				room->update(1.0f);
+		default:
+			break;
 		}
 		for (int i = 1; i <= 4; ++ i) {
 			Direction m_direction = static_cast<Direction>(i);

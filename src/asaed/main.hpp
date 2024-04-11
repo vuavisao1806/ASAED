@@ -3,6 +3,7 @@
 
 #include <memory>
 
+#include "asaed/screen_manager.hpp"
 #include "badguy/badguy_manager.hpp"
 #include "control/input_manager.hpp"
 #include "object/tile_manager.hpp"
@@ -51,6 +52,7 @@ private:
 	std::unique_ptr<MovingTileSet> m_moving_set;
 	std::unique_ptr<BadGuyManager> m_badguy_manager;
 	std::unique_ptr<LevelManager> m_level_manager;
+	std::unique_ptr<ScreenManager> m_screen_manager;
 	
 public :
 	int run(int argc, char** argv);

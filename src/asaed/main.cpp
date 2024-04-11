@@ -14,6 +14,7 @@
 #include "asaed/constants.hpp"
 #include "asaed/level.hpp"
 #include "asaed/level_data.hpp"
+#include "asaed/game_session.hpp"
 #include "asaed/room.hpp"
 #include "object/camera.hpp"
 #include "object/player.hpp"
@@ -64,7 +65,8 @@ Main::Main() :
 	m_weapon_set(),
 	m_moving_set(),
 	m_badguy_manager(),
-	m_level_manager()
+	m_level_manager(),
+	m_screen_manager()
 {}
 
 Main::~Main() {
@@ -78,6 +80,7 @@ Main::~Main() {
 	m_moving_set.reset();
 	m_badguy_manager.reset();
 	m_level_manager.reset();
+	m_screen_manager.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -94,94 +97,9 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_moving_set = std::make_unique<MovingTileSet>();
 	m_badguy_manager = std::make_unique<BadGuyManager>();
 	m_level_manager = std::make_unique<LevelManager>();
+	m_screen_manager = std::make_unique<ScreenManager>();
 
-	bool quit = false;
-	SDL_Event e;
-
-	std::unique_ptr<Level> level = LevelManager::current()->get("level1").creat_level_from_leveldata();
-	level->start_level();
-	// auto player_ptr = Room::get().get_player()[0];
-	// auto player_new = player_ptr->clone();
-	// for (const auto& object : Room::get().get_objects_non_const()) {
-	// 	if (dynamic_cast<Player*>(object.get())) {
-	// 		auto player_new = dynamic_cast<Player*>(object.get())->clone();
-	// 	}
-	// }
-	// std::unique_ptr<Room> room = std::make_unique<Room>();
-	// Room::get().add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever1/lever1-map.json");
-	// Room::get().add<TileMap>(TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json"), "data/images/lever/lever_test-map.json");
-	// TileSet* m_tile_set = TileManager::current()->get_tileset("data/images/lever/lever1/tile/lever1-tile.json");
-	// TileMap tile_map(m_tile_set, "data/images/lever/lever1/lever1-map.json");
-
-	// // Room::get().add<Player>(0, 1);
-	// // Room::get().add<Camera>();
-	// // Room::get().add_object(BadGuyManager::current()->get("ogre").clone(Vector(200.0f, 200.0f)));
-
-	const Uint32 ms_per_step = static_cast<Uint32>(1000.0f / LOGICAL_FPS);
-	const float seconds_per_step = static_cast<float>(ms_per_step) / 1000.0f;
-	Uint32 elapsed_ticks = 0;
-	Uint32 last_ticks = 0;
-	
-	while (!quit) {
-		Uint32 ticks = SDL_GetTicks();
-		elapsed_ticks += ticks - last_ticks;
-		last_ticks = ticks;
-		
-		if (elapsed_ticks > ms_per_step * 8) {
-			// for future use
-			// generaly, when the game loads up or levels are switched
-			// the elapsed_ticks grows up extremely large, so we just ignore those large time jumps
-			elapsed_ticks = 0;
-		}
-
-		if (elapsed_ticks < ms_per_step) {
-			SDL_Delay(ms_per_step - elapsed_ticks);
-			continue; // temporary
-		}
-
-		g_real_time = static_cast<float>(ticks / 1000.0f);
-
-		int steps = elapsed_ticks / ms_per_step;
-		
-		// to cap max step per frame
-		// 4 steps per frame ~ 16 fps
-		// a little bit trolling to handle when lagging
-		steps = std::min(steps, 4);
-
-		std::unique_ptr<Compositor> compositor = std::make_unique<Compositor>();
-		DrawingContext& drawing_context = compositor->make_context();
-		for (int i = 0; i < steps; ++ i) {
-			float dt_sec = seconds_per_step;
-			g_game_time += dt_sec;
-
-			while (SDL_PollEvent(&e) != 0) {
-				if (e.type == SDL_QUIT) {
-					quit = true;
-				}
-				InputManager::current()->process_event(e);
-				
-			}
-
-			// if(InputManager::current()->get_controller().hold(Control::ATTACK)) {
-			// 	Vector position = InputManager::current()->get_controller(0).get_cursor_position();
-			// 	// std::cout << position << '\n';
-			// }
-			
-			level->update(dt_sec);
-			// room->update(dt_sec);
-			// tile_map.draw(drawing_context);
-			// p.update(seconds_per_step);
-			// p.draw(drawing_context);
-			
-			elapsed_ticks -= ms_per_step;
-		}
-
-		if (steps > 0) {
-			level->draw(drawing_context);
-			compositor->render();
-		}
-
-
-	}
+	m_screen_manager->push_screen(std::make_unique<GameSession>("level1"));
+	m_screen_manager->run();
 	return 0;
 }

@@ -68,7 +68,6 @@ void Room::draw(DrawingContext& drawing_context) {
 
 	Camera& camera = Room::get().get_camera();
 	drawing_context.set_translation(camera.get_translation());
-	// log_warning << camera.get_translation() << '\n';
 	
 	GameObjectManager::draw(drawing_context);
 	if (g_config->debug) {

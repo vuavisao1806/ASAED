@@ -62,17 +62,9 @@ void Canvas::draw_surface(const SurfacePtr& surface, const Vector& position, flo
 	if (!surface) return;
 
 	const auto& cliprect = m_drawing_context.get_cliprect();
-	// log_warning << cliprect << '\n';
-	// log_warning << position << ' ' << layer << '\n';
-	// log_warning << "lock: " << position.x + static_cast<float>(surface->get_width()) << ' ' << position.y + static_cast<float>(surface->get_height()) << '\n';
-	// if (position.x > cliprect.get_right() || position.y > cliprect.get_bottom()) return;
-	// log_warning << "lock2: " << position.x + static_cast<float>(surface->get_width()) << ' ' << position.y + static_cast<float>(surface->get_height()) << '\n';
-	// log_warning <<  "check_lock: " << cliprect.get_left() << ' ' << cliprect.get_top() << '\n';
+
 	if (position.x + static_cast<float>(surface->get_width()) < cliprect.get_left() ||
 	    position.y + static_cast<float>(surface->get_height()) < cliprect.get_top()) return;
-	// log_warning << position << ' ' << layer << '\n';
-	// log_warning << "unlock\n";
-	// log_warning << "-----------------------------" << '\n';
 
 	m_request_holder.push_back(static_cast<std::unique_ptr<DrawingRequest>>(std::make_unique<TextureRequest>()));
 	
