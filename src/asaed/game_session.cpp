@@ -3,6 +3,7 @@
 #include "asaed/level.hpp"
 #include "asaed/level_data.hpp"
 #include "asaed/level_manager.hpp"
+#include "audio/sound_manager.hpp"
 #include "control/controller.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
@@ -43,6 +44,7 @@ void GameSession::update(float dt_sec, const Controller& /* controller */) {
 
 void GameSession::setup() {
 	m_level->start_level();
+	SoundManager::current()->play_music("boss.mp3");
 }
 
 void GameSession::leave() {

@@ -32,7 +32,7 @@ ConfigSubsystem::~ConfigSubsystem() {
 }
 
 SDLSubsystem::SDLSubsystem() {
-	Uint32 flags = SDL_INIT_VIDEO;
+	Uint32 flags = SDL_INIT_VIDEO | SDL_INIT_AUDIO;
 	if (SDL_Init(flags) < 0) {
 		std::ostringstream msg;
 		msg << "Couldn't init SDL: " << SDL_GetError();
@@ -46,11 +46,19 @@ SDLSubsystem::SDLSubsystem() {
 		throw std::runtime_error(msg.str());
 	}
 
+	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 2048) < 0) {
+		std::ostringstream msg;
+		msg << "Couldn't init SDL_mixer: " << Mix_GetError();
+		throw std::runtime_error(msg.str());
+	}
+
+	atexit(Mix_Quit);
 	atexit(IMG_Quit);
 	atexit(SDL_Quit);
 }
 
 SDLSubsystem::~SDLSubsystem() {
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
@@ -66,7 +74,8 @@ Main::Main() :
 	m_moving_set(),
 	m_badguy_manager(),
 	m_level_manager(),
-	m_screen_manager()
+	m_screen_manager(),
+	m_sound_manager()
 {}
 
 Main::~Main() {
@@ -81,6 +90,7 @@ Main::~Main() {
 	m_badguy_manager.reset();
 	m_level_manager.reset();
 	m_screen_manager.reset();
+	m_sound_manager.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -98,6 +108,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_badguy_manager = std::make_unique<BadGuyManager>();
 	m_level_manager = std::make_unique<LevelManager>();
 	m_screen_manager = std::make_unique<ScreenManager>();
+	m_sound_manager = std::make_unique<SoundManager>();
 
 	m_screen_manager->push_screen(std::make_unique<GameSession>("level1"));
 	m_screen_manager->run();

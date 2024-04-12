@@ -14,6 +14,9 @@ CPP_FILES = main.cpp                                               \
             asaed/room.cpp                                         \
             asaed/screen_manager.cpp                               \
             asaed/screen.cpp                                       \
+            audio/mix_chunk.cpp                                    \
+            audio/mix_music_ptr.cpp                                \
+            audio/sound_manager.cpp                                \
             badguy/badguy_manager.cpp                              \
             badguy/badguy.cpp                                      \
             badguy/ogre.cpp                                        \
