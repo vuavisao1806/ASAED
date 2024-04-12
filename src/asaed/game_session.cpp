@@ -5,6 +5,7 @@
 #include "asaed/level_manager.hpp"
 #include "audio/sound_manager.hpp"
 #include "control/controller.hpp"
+#include "gui/mouse_cursor.hpp" // temporary
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
 #include "video/layer.hpp"
@@ -28,6 +29,8 @@ void GameSession::draw(Compositor& compositor) {
 	if (m_game_pause) {
 		draw_pause(drawing_context);
 	}
+	
+	MouseCursor::current()->draw(drawing_context); // temporary
 }
 
 void GameSession::draw_pause(DrawingContext& drawing_context) {

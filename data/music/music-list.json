@@ -3,6 +3,10 @@
 		{
 			"filename": "boss.mp3",
 			"type": "music"
+		},
+		{
+			"filename": "Estavius.mp3",
+			"type": "music"
 		}
 	]
 }

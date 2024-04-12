@@ -32,7 +32,7 @@ void SoundManager::play_music(const std::string& name) {
 		Mix_HaltMusic();
 		Mix_PlayMusic(get_music(name), -1);
 	}
-	else {
+	else if (Mix_PlayingMusic() == 0) {
 		Mix_ResumeMusic();
 	}
 }

@@ -2,25 +2,17 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <assert.h>
-#include <iostream>
-#include <string>
-#include <sstream>
+#include <SDL_mixer.h>
+
+#include <chrono>
+#include <random>
 
 #include "asaed/gameconfig.hpp"
 #include "asaed/globals.hpp"
-#include "util/log.hpp"
 
-#include "asaed/constants.hpp"
-#include "asaed/level.hpp"
-#include "asaed/level_data.hpp"
+#include "math/random.hpp"
 #include "asaed/game_session.hpp"
-#include "asaed/room.hpp"
-#include "object/camera.hpp"
-#include "object/player.hpp"
-#include "object/tile_map.hpp"
-#include "video/compositor.hpp"
-#include "video/drawing_context.hpp"
+#include "asaed/title_screen.hpp"
 
 ConfigSubsystem::ConfigSubsystem() {
 	g_config = std::make_unique<Config>();
@@ -75,7 +67,8 @@ Main::Main() :
 	m_badguy_manager(),
 	m_level_manager(),
 	m_screen_manager(),
-	m_sound_manager()
+	m_sound_manager(),
+	m_resources()
 {}
 
 Main::~Main() {
@@ -91,6 +84,7 @@ Main::~Main() {
 	m_level_manager.reset();
 	m_screen_manager.reset();
 	m_sound_manager.reset();
+	m_resources.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -109,8 +103,15 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_level_manager = std::make_unique<LevelManager>();
 	m_screen_manager = std::make_unique<ScreenManager>();
 	m_sound_manager = std::make_unique<SoundManager>();
+	m_resources = std::make_unique<Resources>();
 
-	m_screen_manager->push_screen(std::make_unique<GameSession>("level1"));
+	// It's like the time I was a student in high school!! So nostalgic
+	g_game_random.seed(std::chrono::system_clock::now().time_since_epoch().count());
+
+	SDL_ShowCursor(SDL_DISABLE);
+
+	// m_screen_manager->push_screen(std::make_unique<GameSession>("level1"));
+	m_screen_manager->push_screen(std::make_unique<TitleScreen>());
 	m_screen_manager->run();
 	return 0;
 }

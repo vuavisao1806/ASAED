@@ -9,11 +9,13 @@ CPP_FILES = main.cpp                                               \
             asaed/level_manager.cpp                                \
             asaed/level.cpp                                        \
             asaed/main.cpp                                         \
+            asaed/resources.cpp                                    \
             asaed/room_analysis.cpp                                \
             asaed/room_type.cpp                                    \
             asaed/room.cpp                                         \
             asaed/screen_manager.cpp                               \
             asaed/screen.cpp                                       \
+            asaed/title_screen.cpp                                 \
             audio/mix_chunk.cpp                                    \
             audio/mix_music_ptr.cpp                                \
             audio/sound_manager.cpp                                \
@@ -30,6 +32,7 @@ CPP_FILES = main.cpp                                               \
             control/mouse_button_manager.cpp                       \
             control/mouse_config.cpp                               \
             control/mouse_motion_manager.cpp                       \
+            gui/mouse_cursor.cpp                                   \
             math/random.cpp                                        \
             math/rect.cpp                                          \
             math/rectf.cpp                                         \

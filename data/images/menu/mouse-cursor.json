@@ -1,0 +1,22 @@
+{
+	"actions": [
+		{
+			"name": "normal",
+			"family-name": "normal",
+			"fps": 1,
+			"hitbox": [0, 0, 32, 32],
+			"images": [
+				"cursor-1.png"
+			]
+		},
+		{
+			"name": "click",
+			"family-name": "click",
+			"fps": 1,
+			"hitbox": [0, 0, 32, 32],
+			"images": [
+				"cursor-2.png"
+			]
+		}
+	]
+}

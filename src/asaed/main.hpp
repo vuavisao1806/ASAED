@@ -3,6 +3,8 @@
 
 #include <memory>
 
+#include "asaed/level_manager.hpp"
+#include "asaed/resources.hpp"
 #include "asaed/screen_manager.hpp"
 #include "audio/sound_manager.hpp"
 #include "badguy/badguy_manager.hpp"
@@ -12,7 +14,6 @@
 #include "video/video_system.hpp"
 #include "weapon/weapon_set.hpp"
 #include "weapon/moving_tile/moving_tile_set.hpp"
-#include "asaed/level_manager.hpp"
 
 /** 
  * Class to manage g_config to avoid global (!!!) 
@@ -55,6 +56,7 @@ private:
 	std::unique_ptr<LevelManager> m_level_manager;
 	std::unique_ptr<ScreenManager> m_screen_manager;
 	std::unique_ptr<SoundManager> m_sound_manager;
+	std::unique_ptr<Resources> m_resources;
 	
 public :
 	int run(int argc, char** argv);
