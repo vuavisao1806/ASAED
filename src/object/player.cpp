@@ -156,8 +156,6 @@ void Player::handle_movement_input() {
 	m_physic.set_velocity(Vector(m_dir_x, m_dir_y) * WALK_SPEED);
 }
 
-#include "util/log.hpp"
-
 void Player::handle_attack_input() {
 	Vector mouse_position = m_controller->get_cursor_position();
 	Vector to_logical = VideoSystem::current()->get_viewport().to_logical(mouse_position.x, mouse_position.y)

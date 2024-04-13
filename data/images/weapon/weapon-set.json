@@ -6,7 +6,23 @@
 			"attack-per-turn": 2,
 			"attack-per-sec": 3.0,
 			"accuracy": 5.0,
-			"filename": "weapons/AK47.json"
+			"filename": "weapons/AK47/AK47.json"
+		},
+		{
+			"id": 2,
+			"moving-tile-id": 2,
+			"attack-per-turn": 1,
+			"attack-per-sec": 5.0,
+			"accuracy": 2.0,
+			"filename": "weapons/Sgun/Sgun.json"
+		},
+		{
+			"id": 3,
+			"moving-tile-id": 1,
+			"attack-per-turn": 3,
+			"attack-per-sec": 5.0,
+			"accuracy": 5.0,
+			"filename": "weapons/Gatling/Gatling.json"
 		}
 	]
 }

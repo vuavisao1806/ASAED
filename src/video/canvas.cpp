@@ -138,6 +138,14 @@ void Canvas::draw_filled_rect(const Rectf& rect, const Color& color, int layer) 
 	m_requests.push_back(static_cast<DrawingRequest*>(request));
 }
 
+void Canvas::draw_text(const TTFFont& font, const std::string& text, const Vector& position, FontAlignment alignment, int layer, const Color& color) {
+	// font.draw_text(*this, text, position, alignment, layer, color);
+	font.draw_text(*this, text, position, alignment, layer, color);
+}
+
+void Canvas::draw_center_text(const TTFFont& font, const std::string& text, const Vector& position, int layer, const Color& color) {
+	draw_text(font, text, Vector(position.x + static_cast<float>(m_drawing_context.get_width()) / 2.0f, position.y), ALIGN_CENTER, layer, color);
+}
 
 void Canvas::clear() {
 	m_requests.clear();

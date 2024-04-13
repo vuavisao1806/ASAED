@@ -15,6 +15,7 @@
 #include "video/video_system.hpp"
 #include "weapon/weapon_set.hpp"
 #include "weapon/moving_tile/moving_tile_set.hpp"
+#include "video/ttf_surface_manager.hpp"
 
 /** 
  * Class to manage g_config to avoid global (!!!) 
@@ -59,6 +60,7 @@ private:
 	std::unique_ptr<SoundManager> m_sound_manager;
 	std::unique_ptr<Resources> m_resources;
 	std::unique_ptr<GameManager> m_game_manager;
+	std::unique_ptr<TTFSurfaceManager> m_ttf_surface_manager;
 	
 public :
 	int run(int argc, char** argv);

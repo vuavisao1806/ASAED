@@ -1,11 +1,11 @@
 {
-	"AK47": [
+	"Sgun": [
 		{
 			"name": "gun",
 			"family-name": "gun",
 			"fps": 1,
-			"hitbox": [0, 0, 18, 12],
-			"images": ["AK472.png"]
+			"hitbox": [0, 0, 32, 13],
+			"images": ["Sgun.png"]
 		}
 	]
 }

@@ -2,6 +2,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
 #include <chrono>
@@ -38,6 +39,12 @@ SDLSubsystem::SDLSubsystem() {
 		throw std::runtime_error(msg.str());
 	}
 
+	if(TTF_Init() == -1) {
+		std::ostringstream msg;
+		msg << "Couldn't init SDL_ttf: " << TTF_GetError();
+		throw std::runtime_error(msg.str());
+	}
+
 	if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 2048) < 0) {
 		std::ostringstream msg;
 		msg << "Couldn't init SDL_mixer: " << Mix_GetError();
@@ -45,6 +52,7 @@ SDLSubsystem::SDLSubsystem() {
 	}
 
 	atexit(Mix_Quit);
+	atexit(TTF_Quit);
 	atexit(IMG_Quit);
 	atexit(SDL_Quit);
 }
@@ -69,7 +77,8 @@ Main::Main() :
 	m_screen_manager(),
 	m_sound_manager(),
 	m_resources(),
-	m_game_manager()
+	m_game_manager(),
+	m_ttf_surface_manager()
 {}
 
 Main::~Main() {
@@ -86,6 +95,7 @@ Main::~Main() {
 	m_screen_manager.reset();
 	m_sound_manager.reset();
 	m_resources.reset();
+	m_ttf_surface_manager.reset();
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -106,6 +116,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_sound_manager = std::make_unique<SoundManager>();
 	m_resources = std::make_unique<Resources>();
 	m_game_manager = std::make_unique<GameManager>();
+	m_ttf_surface_manager = std::make_unique<TTFSurfaceManager>();
 
 	// It's like the time I was a student in high school!! So nostalgic
 	g_game_random.seed(std::chrono::system_clock::now().time_since_epoch().count());

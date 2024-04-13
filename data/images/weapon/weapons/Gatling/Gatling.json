@@ -1,0 +1,11 @@
+{
+	"Gatling": [
+		{
+			"name": "gun",
+			"family-name": "gun",
+			"fps": 1,
+			"hitbox": [0, 0, 20, 10],
+			"images": ["Gatling.png"]
+		}
+	]
+}

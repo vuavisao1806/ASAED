@@ -58,6 +58,7 @@ CPP_FILES = main.cpp                                               \
             sprite/sprite_data.cpp                                 \
             sprite/sprite_manager.cpp                              \
             sprite/sprite.cpp                                      \
+            util/line_iterator.cpp                                 \
             util/log.cpp                                           \
             util/reader_assert.cpp                                 \
             util/reader_data.cpp                                   \
@@ -75,6 +76,9 @@ CPP_FILES = main.cpp                                               \
             video/surface.cpp                                      \
             video/texture_manager.cpp                              \
             video/texture.cpp                                      \
+            video/ttf_font.cpp                                     \
+            video/ttf_surface_manager.cpp                          \
+            video/ttf_surface.cpp                                  \
             video/video_system.cpp                                 \
             video/viewport.cpp                                     \
             weapon/moving_tile/moving_tile_analysis.cpp            \
