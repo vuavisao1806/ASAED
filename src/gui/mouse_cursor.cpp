@@ -23,8 +23,17 @@ void MouseCursor::draw(DrawingContext& drawing_context) {
 
 	Vector mouse_pos = VideoSystem::current()->get_viewport().to_logical(x, y);
 	
-	Vector middle_position = mouse_pos - (Vector(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_width()) / 2.0f);
-	m_sprite->draw(drawing_context.get_canvas(), middle_position, LAYER_GUI + 10);
+	// Vector middle_position = mouse_pos - (Vector(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_width()) / 2.0f);
+	// m_sprite->draw(drawing_context.get_canvas(), middle_position, LAYER_GUI + 10);
+
+	// trolling!! I will find a new mouse cursor or :(((
+	// but sdl2 helps scale so good
+	Vector middle_position = mouse_pos - (Vector(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_width()) / (2.0f * 2.0f));
+	
+	drawing_context.push_transform();
+	drawing_context.scale(1.0f / 2.0f);
+	m_sprite->draw(drawing_context.get_canvas(), middle_position * 2.0f, LAYER_GUI + 10);
+	drawing_context.pop_transform();
 }
 
 void MouseCursor::apply_state(MouseCursorState state) { 

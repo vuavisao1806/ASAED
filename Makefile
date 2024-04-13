@@ -2,6 +2,7 @@
 
 CPP_FILES = main.cpp                                               \
             asaed/constants.cpp                                    \
+            asaed/game_manager.cpp                                 \
             asaed/game_session.cpp                                 \
             asaed/gameconfig.cpp                                   \
             asaed/globals.cpp                                      \
@@ -9,10 +10,12 @@ CPP_FILES = main.cpp                                               \
             asaed/level_manager.cpp                                \
             asaed/level.cpp                                        \
             asaed/main.cpp                                         \
+            asaed/player_status.cpp                                \
             asaed/resources.cpp                                    \
             asaed/room_analysis.cpp                                \
             asaed/room_type.cpp                                    \
             asaed/room.cpp                                         \
+            asaed/save_game.cpp                                    \
             asaed/screen_manager.cpp                               \
             asaed/screen.cpp                                       \
             asaed/title_screen.cpp                                 \

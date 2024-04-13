@@ -3,9 +3,9 @@
 #include <assert.h>
 
 #include "asaed/constants.hpp"
-#include "asaed/game_session.hpp"
 #include "asaed/globals.hpp"
 #include "asaed/screen.hpp"
+#include "asaed/game_manager.hpp"
 #include "control/input_manager.hpp"
 #include "video/compositor.hpp"
 #include "util/log.hpp"
@@ -160,8 +160,8 @@ void ScreenManager::update_game_logic(float dt_sec) {
 	static bool is_active = false; // temporary
 	if (controller.hold(Control::ATTACK) && !is_active) {
 		is_active = true; // temporary
-		pop_screen();
-		push_screen(std::make_unique<GameSession>("level1"));
+		// pop_screen();
+		GameManager::current()->start_level("level1");
 	}
 }
 

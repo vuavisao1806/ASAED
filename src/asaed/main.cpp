@@ -68,7 +68,8 @@ Main::Main() :
 	m_level_manager(),
 	m_screen_manager(),
 	m_sound_manager(),
-	m_resources()
+	m_resources(),
+	m_game_manager()
 {}
 
 Main::~Main() {
@@ -104,6 +105,7 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_screen_manager = std::make_unique<ScreenManager>();
 	m_sound_manager = std::make_unique<SoundManager>();
 	m_resources = std::make_unique<Resources>();
+	m_game_manager = std::make_unique<GameManager>();
 
 	// It's like the time I was a student in high school!! So nostalgic
 	g_game_random.seed(std::chrono::system_clock::now().time_since_epoch().count());

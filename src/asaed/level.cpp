@@ -1,10 +1,13 @@
 #include "asaed/level.hpp"
 
+#include "asaed/game_session.hpp"
+#include "asaed/room_analysis.hpp"
+#include "asaed/player_status.hpp"
+#include "asaed/save_game.hpp"
 #include "asaed/room.hpp"
 #include "object/camera.hpp"
 #include "object/player.hpp"
 #include "video/drawing_context.hpp"
-#include "asaed/room_analysis.hpp"
 
 namespace {
 	const uint32_t GATE_DOWN = 3;
@@ -50,7 +53,7 @@ void Level::start_level() {
 	for (auto& room : m_rooms) {
 		switch (room->get_room_type()) {
 			case RoomType::START:
-				room->add<Player>(0, 1);
+				room->add_object(GameSession::current()->get_savegame().get_player_status().clone_player_status());
 				room->add<Camera>();
 				room->flush_game_objects();
 				room->activate();

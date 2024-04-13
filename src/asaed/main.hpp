@@ -6,6 +6,7 @@
 #include "asaed/level_manager.hpp"
 #include "asaed/resources.hpp"
 #include "asaed/screen_manager.hpp"
+#include "asaed/game_manager.hpp"
 #include "audio/sound_manager.hpp"
 #include "badguy/badguy_manager.hpp"
 #include "control/input_manager.hpp"
@@ -57,6 +58,7 @@ private:
 	std::unique_ptr<ScreenManager> m_screen_manager;
 	std::unique_ptr<SoundManager> m_sound_manager;
 	std::unique_ptr<Resources> m_resources;
+	std::unique_ptr<GameManager> m_game_manager;
 	
 public :
 	int run(int argc, char** argv);
