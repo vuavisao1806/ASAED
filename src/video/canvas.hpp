@@ -8,7 +8,9 @@
 #include "math/rect.hpp"
 #include "math/rectf.hpp"
 #include "video/color.hpp"
+#include "video/layer.hpp"
 #include "video/surface_ptr.hpp"
+#include "video/ttf_font_ptr.hpp"
 #include "video/ttf_font.hpp"
 
 class DrawingContext;
@@ -56,9 +58,9 @@ public:
 
 	void draw_filled_rect(const Rectf& rect, const Color& color, int layer);
 
-	void draw_text(const TTFFont& font, const std::string& text, const Vector& position, FontAlignment alignment, int layer, const Color& color = Color(1.0f, 1.0f, 1.0f));
+	void draw_text(const TTFFontPtr& font, const std::string& text, const Vector& position, FontAlignment alignment, int layer, const Color& color = Color(1.0f, 1.0f, 1.0f));
 	/** draw text to the center of the screen */
-	void draw_center_text(const TTFFont& font, const std::string& text, const Vector& position, int layer, const Color& color = Color(1.0f, 1.0f, 1.0f));
+	void draw_center_text(const TTFFontPtr& font, const std::string& text, const Vector& position, int layer, const Color& color = Color(1.0f, 1.0f, 1.0f));
 	
 	void clear();
 

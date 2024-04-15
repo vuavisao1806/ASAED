@@ -59,7 +59,7 @@ float TTFFont::get_text_height(const std::string& text) const {
 	});
 }
 
-void TTFFont::draw_text(Canvas& canvas, const std::string& text, const Vector& pos, FontAlignment alignment, int layer, const Color& color) const {
+void TTFFont::draw_text(Canvas& canvas, const std::string& text, const Vector& pos, FontAlignment alignment, int layer, const Color& color) {
 	float last_y = pos.y - (static_cast<float>(TTF_FontHeight(m_font)) - get_height()) / 2.0f;
 
 	LineIterator iter(text);

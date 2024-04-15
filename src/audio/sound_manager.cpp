@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-#include "audio/mix_chunk.hpp"
+#include "audio/mix_chunk_ptr.hpp"
 #include "audio/mix_music_ptr.hpp"
 #include "util/reader_machine.hpp"
 #include "util/reader_data.hpp"
@@ -13,7 +13,8 @@ SoundManager::SoundManager() :
 	m_mix_chunks(),
 	current_music_name(),
 	m_pause_music(false),
-	m_volume(MIX_MAX_VOLUME)
+	m_volume_music(100),
+	m_volume_sound(100)
 {
 	ReaderMachine reader(filename);
 	for (size_t i = 0; i < reader.get_size(); ++ i) {
@@ -46,12 +47,18 @@ void SoundManager::pause_music() {
 
 void SoundManager::play_chunk(const std::string& name, int loops) {
 	const auto& mix_chunk = get_chunk(name);
-	mix_chunk->play(m_volume, loops);
+	Mix_VolumeChunk(mix_chunk, m_volume_sound);
+	Mix_PlayChannel(-1, mix_chunk, loops);
 }
 
-const int& SoundManager::get_volume() { return m_volume; }
-void SoundManager::set_volume(int volume) { m_volume = volume; }
+const int& SoundManager::get_volume_music() { return m_volume_music; }
+void SoundManager::set_volume_music(int volume) { 
+	m_volume_music = volume; 
+	Mix_VolumeMusic(m_volume_music);
+}
 
+const int& SoundManager::get_volume_sound() { return m_volume_sound; }
+void SoundManager::set_volume_sound(int volume) { m_volume_sound = volume; }
 	
 Mix_Music* SoundManager::get_music(const std::string& name) {
 	auto it = m_mix_musics.find(name);
@@ -61,10 +68,10 @@ Mix_Music* SoundManager::get_music(const std::string& name) {
 	throw std::runtime_error("Undefined music");
 }
 
-const std::unique_ptr<MixChunk>& SoundManager::get_chunk(const std::string& name) {
+Mix_Chunk* SoundManager::get_chunk(const std::string& name) {
 	auto it = m_mix_chunks.find(name);
 	if (it != m_mix_chunks.end()) {
-		return (it->second);
+		return (it->second.get());
 	}
 	throw std::runtime_error("Undefined chunk");
 }
@@ -80,9 +87,6 @@ void SoundManager::parse(const ReaderData* data) {
 		throw std::runtime_error("Unknown type chunk/music");
 	}
 	
-	int volume = MIX_MAX_VOLUME;
-	data->get("volume", volume);
-
 	if (from_string_to_type_sound(type) == TypeSound::MUSIC) {
 		MixMusicPtr mix_music = MixMusicCreator::from_file(data->m_parent_path + filename);
 		if (!mix_music) {
@@ -102,7 +106,6 @@ void SoundManager::parse(const ReaderData* data) {
 			throw std::runtime_error(msg.str());
 		}
 		else {
-			mix_chunk->set_volume(volume);
 			m_mix_chunks[filename] = std::move(mix_chunk);
 		}
 	}

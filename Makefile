@@ -1,6 +1,9 @@
 # This is Makefile I learned from my big senior and I adapted it to suit myself and this project 
 
 CPP_FILES = main.cpp                                               \
+            asaed/menu/game_menu.cpp                               \
+            asaed/menu/main_menu.cpp                               \
+            asaed/menu/options_menu.cpp                            \
             asaed/constants.cpp                                    \
             asaed/game_manager.cpp                                 \
             asaed/game_session.cpp                                 \
@@ -19,7 +22,7 @@ CPP_FILES = main.cpp                                               \
             asaed/screen_manager.cpp                               \
             asaed/screen.cpp                                       \
             asaed/title_screen.cpp                                 \
-            audio/mix_chunk.cpp                                    \
+            audio/mix_chunk_ptr.cpp                                \
             audio/mix_music_ptr.cpp                                \
             audio/sound_manager.cpp                                \
             badguy/badguy_manager.cpp                              \
@@ -35,6 +38,18 @@ CPP_FILES = main.cpp                                               \
             control/mouse_button_manager.cpp                       \
             control/mouse_config.cpp                               \
             control/mouse_motion_manager.cpp                       \
+            gui/colorscheme.cpp                                    \
+            gui/item_action.cpp                                    \
+            gui/item_back.cpp                                      \
+            gui/item_goto.cpp                                      \
+            gui/item_horizontal_line.cpp                           \
+            gui/item_label.cpp                                     \
+            gui/item_string_select.cpp                             \
+            gui/menu_item.cpp                                      \
+            gui/menu_manager.cpp                                   \
+            gui/menu_storage.cpp                                   \
+            gui/menu_transition.cpp                                \
+            gui/menu.cpp                                           \
             gui/mouse_cursor.cpp                                   \
             math/random.cpp                                        \
             math/rect.cpp                                          \

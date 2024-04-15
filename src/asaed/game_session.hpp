@@ -39,6 +39,9 @@ public:
 	
 	void draw_pause(DrawingContext& drawing_context);
 	void check_end_conditions();
+
+	void toggle_pause();
+	void quit_game();
 	// void finish(bool win = true);
 
 public:

@@ -85,6 +85,7 @@ Main::~Main() {
 	m_config_subsystem.reset();
 	m_sdl_subsystem.reset();
 	m_input_manager.reset();
+	m_resources.reset();
 	m_tile_manager.reset();
 	m_sprite_manager.reset();
 	m_video_system.reset();
@@ -94,7 +95,6 @@ Main::~Main() {
 	m_level_manager.reset();
 	m_screen_manager.reset();
 	m_sound_manager.reset();
-	m_resources.reset();
 	m_ttf_surface_manager.reset();
 }
 

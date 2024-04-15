@@ -10,6 +10,8 @@
 
 class Screen;
 class Compositor;
+class MenuManager;
+class MenuStorage;
 
 class ScreenManager final : public Currenton<ScreenManager> {
 private:
@@ -28,6 +30,8 @@ private:
 
 	std::vector<Action> m_actions;
 	std::vector<std::unique_ptr<Screen>> m_screen_stack;
+	std::unique_ptr<MenuManager> m_menu_manager;
+	std::unique_ptr<MenuStorage> m_menu_storage;
 
 public:
 	ScreenManager();

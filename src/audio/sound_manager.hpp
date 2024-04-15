@@ -9,7 +9,7 @@
 
 #include "util/currenton.hpp"
 
-class MixChunk;
+class MixChunkPtr;
 class MixMusicPtr;
 class ReaderData;
 
@@ -22,11 +22,12 @@ class SoundManager final : public Currenton<SoundManager> {
 private:
 	std::string filename;
 	std::map<std::string, MixMusicPtr> m_mix_musics;
-	std::map<std::string, std::unique_ptr<MixChunk>> m_mix_chunks;
+	std::map<std::string, MixChunkPtr> m_mix_chunks;
 
 	std::string current_music_name;
 	bool m_pause_music;
-	int m_volume;
+	int m_volume_music;
+	int m_volume_sound;
 
 public:
 	SoundManager();
@@ -42,11 +43,13 @@ public:
 
 	void play_chunk(const std::string& name, int loops = 0);
 
-	const int& get_volume();
-	void set_volume(int volume);
+	const int& get_volume_music();
+	void set_volume_music(int volume);
+	const int& get_volume_sound();
+	void set_volume_sound(int volume);
 
 	Mix_Music* get_music(const std::string& name);
-	const std::unique_ptr<MixChunk>& get_chunk(const std::string& name);
+	Mix_Chunk* get_chunk(const std::string& name);
 	
 private:
 	void parse(const ReaderData* data);

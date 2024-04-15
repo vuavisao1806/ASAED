@@ -8,12 +8,15 @@ class DrawingContext;
 
 enum class MouseCursorState {
 	NORMAL,
-	CLICK
+	CLICK,
+	LINK,
+	HIDE
 };
 
 class MouseCursor final : public Currenton<MouseCursor> {
 private:
 	MouseCursorState m_state;
+	MouseCursorState m_applied_state;
 	SpritePtr m_sprite;
 
 public:
@@ -26,7 +29,8 @@ private:
 public:
 	void draw(DrawingContext& drawing_context);
 	void apply_state(MouseCursorState state);
-
+	
+	void set_state(MouseCursorState state);
 	MouseCursorState get_state() const;
 };
 

@@ -39,7 +39,7 @@ public:
 	float get_text_width(const std::string& text) const;
 	float get_text_height(const std::string& text) const;
 
-	void draw_text(Canvas& canvas, const std::string& text, const Vector& pos, FontAlignment alignment, int layer, const Color& color) const;
+	void draw_text(Canvas& canvas, const std::string& text, const Vector& pos, FontAlignment alignment, int layer, const Color& color);
 };
 
 #endif

@@ -5,8 +5,11 @@
 #include "asaed/constants.hpp"
 #include "asaed/globals.hpp"
 #include "asaed/screen.hpp"
+#include "asaed/game_session.hpp"
 #include "asaed/game_manager.hpp"
 #include "control/input_manager.hpp"
+#include "gui/menu_manager.hpp"
+#include "gui/menu_storage.hpp"
 #include "video/compositor.hpp"
 #include "util/log.hpp"
 
@@ -21,7 +24,9 @@ ScreenManager::ScreenManager() :
 	elapsed_ticks(0),
 	last_ticks(0),
 	m_actions(),
-	m_screen_stack()
+	m_screen_stack(),
+	m_menu_manager(std::make_unique<MenuManager>()),
+	m_menu_storage(std::make_unique<MenuStorage>())
 {}
 
 
@@ -146,6 +151,9 @@ void ScreenManager::draw(Compositor& compositor) {
 	assert(!m_screen_stack.empty());
 	m_screen_stack.back()->draw(compositor);
 
+	auto& drawing_context = compositor.make_context();
+	m_menu_manager->draw(drawing_context);
+
 	compositor.render();
 }
 
@@ -157,12 +165,7 @@ void ScreenManager::update_game_logic(float dt_sec) {
 		m_screen_stack.back()->update(dt_sec, controller);
 	}
 
-	static bool is_active = false; // temporary
-	if (controller.hold(Control::ATTACK) && !is_active) {
-		is_active = true; // temporary
-		// pop_screen();
-		GameManager::current()->start_level("level1");
-	}
+	m_menu_manager->process_input(controller);
 }
 
 void ScreenManager::process_events() {
@@ -175,5 +178,6 @@ void ScreenManager::process_events() {
 			break;
 		}
 		InputManager::current()->process_event(event);
+		m_menu_manager->process_event(event);
 	}
 }

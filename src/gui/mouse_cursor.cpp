@@ -7,6 +7,7 @@
 
 MouseCursor::MouseCursor(SpritePtr sprite) :
 	m_state(MouseCursorState::NORMAL),
+	m_applied_state(MouseCursorState::HIDE),
 	m_sprite(std::move(sprite))
 {}
 
@@ -18,7 +19,7 @@ void MouseCursor::draw(DrawingContext& drawing_context) {
 		apply_state(MouseCursorState::CLICK);
 	}
 	else {
-		apply_state(MouseCursorState::NORMAL);
+		apply_state(m_state);
 	}
 
 	Vector mouse_pos = VideoSystem::current()->get_viewport().to_logical(x, y);
@@ -37,20 +38,21 @@ void MouseCursor::draw(DrawingContext& drawing_context) {
 }
 
 void MouseCursor::apply_state(MouseCursorState state) { 
-	if (m_state == state) {
-		return;
-	}
-	m_state = state;
-	switch (m_state) {
-		case MouseCursorState::NORMAL:
-			m_sprite->set_action("normal");
-			break;
-		case MouseCursorState::CLICK:
-			m_sprite->set_action("click");
-			break;
-		default:
-			break;
+	if (m_applied_state != state) {
+		m_applied_state = state;
+		switch (state) {
+			case MouseCursorState::NORMAL:
+				m_sprite->set_action("normal");
+				break;
+			case MouseCursorState::CLICK:
+				m_sprite->set_action("click");
+				break;
+			default:
+				break;
+		}
 	}
 }
 
+
+void MouseCursor::set_state(MouseCursorState state) { m_state = state; }
 MouseCursorState MouseCursor::get_state() const { return m_state; }

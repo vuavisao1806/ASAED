@@ -13,6 +13,11 @@ enum class Control {
 	DOWN,
 	
 	ATTACK,
+	ACTION,
+	SPACE,
+	ESCAPE,
+	MENU_SELECT,
+	MENU_BACK,
 
 	CONTROLCOUNT
 };

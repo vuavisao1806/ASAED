@@ -1,0 +1,18 @@
+#ifndef HEADER_ASAED_GUI_MENU_ACTION_HPP
+#define HEADER_ASAED_GUI_MENU_ACTION_HPP
+
+enum class MenuAction {
+	NONE = -1,
+	SELECT,
+	UNSELECT,
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	HIT,
+	INPUT,
+	REMOVE,
+	BACK
+};
+
+#endif
