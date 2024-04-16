@@ -106,7 +106,11 @@ void Ogre::deactivated() {
 	}
 }
 
-void Ogre::active_update(float dt_sec) {
+void Ogre::active_update(float /* dt_sec */) {
+	if (m_timer_shoot.paused()) {
+		m_timer_shoot.start_with_previous();
+	}
+
 	auto player_ptr = Room::get().get_nearest_player(m_bounding_box.get_middle());
 	Vector to_rotate = player_ptr->get_bounding_box().get_middle() - m_bounding_box.get_middle();
 	float dist = math::length(to_rotate);
@@ -148,12 +152,17 @@ void Ogre::active_update(float dt_sec) {
 	}
 }
 
-void Ogre::inactive_update(float dt_sec) {
+void Ogre::inactive_update(float /* dt_sec */) {
 	if (m_health <= 0) return;
+
+	if (m_timer_shoot.get_period() != 0.0f) {
+		m_timer_shoot.pause_with_previous();
+	}
+
 	wandering();
 
 	if (m_physic.get_velocity_x() < 0.0f) {
-		m_weapon->set_flip(VERTICAL_FLIP);
+		m_weapon->set_flip(HORIZONTAL_FLIP);
 	}
 	else{
 		m_weapon->set_flip(NO_FLIP);
@@ -199,7 +208,7 @@ std::unique_ptr<BadGuy> Ogre::clone(const Vector& pos) const {
 
 	badguy->m_health = m_health;
 	badguy->m_timer_dead.start(m_timer_dead.get_period(), true);
-	badguy->m_timer_dead.pause();
+	badguy->m_timer_dead.pause_with_previous();
 
 	badguy->m_radius_wander = m_radius_wander;
 	badguy->m_timer_wander.start(m_timer_wander.get_period(), true);

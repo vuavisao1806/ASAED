@@ -64,7 +64,7 @@ Vector BadGuy::get_start_position() const { return m_start_position; }
 
 void BadGuy::try_active() {
 	const Vector& eye = get_bounding_box().get_middle();
-	if (Room::get().can_see_player(eye)) {
+	if (Room::get().inside(m_bounding_box) && Room::get().can_see_player(eye)) {
 		set_state(STATE_ACTIVE);
 	}
 	else {

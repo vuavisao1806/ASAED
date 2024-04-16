@@ -20,6 +20,9 @@ private:
 	Uint32 elapsed_ticks;
 	Uint32 last_ticks;
 
+	/** to help actually pause game */
+	int m_speed;
+
 private:
 	struct Action {
 		enum Type { PUSH_ACTION, POP_ACTION, QUIT_ACTION };
@@ -47,6 +50,9 @@ public:
 	void quit();
 	void handle_screen_switch();
 	void loops();
+
+	void set_speed(float speed);
+	float get_speed() const;
 
 private:
 	void draw(Compositor& compositor);

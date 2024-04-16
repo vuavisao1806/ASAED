@@ -1,5 +1,6 @@
 #include "util/timer.hpp"
 
+#include <assert.h>
 #include <cmath>
 
 #include "asaed/globals.hpp"
@@ -17,6 +18,23 @@ void Timer::start(float period, bool cyclic) {
 	m_cycle_pause = 0;
 	m_cyclic = cyclic;
 }
+
+
+void Timer::start_with_previous() {
+	if (m_cyclic) {
+		return;
+	}
+	assert(m_cycle_pause != 0.0f);
+	resume();
+}
+
+void Timer::pause_with_previous() {
+	assert(m_cyclic);
+	float left = m_period;
+	stop();
+	m_cycle_pause = left;
+}
+
 
 bool Timer::check() {
 	if (m_period == 0.0f) return false;

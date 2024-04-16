@@ -24,6 +24,11 @@ public:
 	*/
 	void start(float period, bool cyclic);
 
+	/** start with the full cycle initial before (if the cycle is running, don't do anything) */
+	void start_with_previous();
+	/** pause with the full cycle initial before */
+	void pause_with_previous();
+
 	/** return true if a period (or more) passed */
 	bool check();
 

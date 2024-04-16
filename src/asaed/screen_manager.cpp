@@ -23,6 +23,7 @@ ScreenManager::ScreenManager() :
 	seconds_per_step(static_cast<float>(ms_per_step) / 1000.0f),
 	elapsed_ticks(0),
 	last_ticks(0),
+	m_speed(1.0f),
 	m_actions(),
 	m_screen_stack(),
 	m_menu_manager(std::make_unique<MenuManager>()),
@@ -132,7 +133,7 @@ void ScreenManager::loops() {
 	steps = std::min(steps, 4);
 
 	for (int i = 0; i < steps; ++ i) {
-		float dt_sec = seconds_per_step;
+		float dt_sec = seconds_per_step * m_speed;
 		g_game_time += dt_sec;
 		process_events();
 		update_game_logic(dt_sec);
@@ -146,6 +147,9 @@ void ScreenManager::loops() {
 
 	handle_screen_switch();
 }
+
+void ScreenManager::set_speed(float speed) { m_speed = speed; }
+float ScreenManager::get_speed() const { return m_speed; }
 
 void ScreenManager::draw(Compositor& compositor) {
 	assert(!m_screen_stack.empty());

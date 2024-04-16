@@ -7,6 +7,7 @@
 #include "asaed/screen_manager.hpp"
 #include "audio/sound_manager.hpp"
 #include "asaed/save_game.hpp"
+#include "badguy/badguy.hpp"
 #include "control/controller.hpp"
 #include "gui/mouse_cursor.hpp"
 #include "gui/menu_storage.hpp"
@@ -49,6 +50,7 @@ void GameSession::update(float dt_sec, const Controller& controller) {
 	// unpause
 	if (m_game_pause && !MenuManager::current()->is_active()) {
 		m_game_pause = false;
+		ScreenManager::current()->set_speed(1.0f);
 	}
 
 	check_end_conditions();
@@ -61,9 +63,9 @@ void GameSession::draw_pause(DrawingContext& drawing_context) {
 }
 
 void GameSession::check_end_conditions() {
-	// if (Room::get().get_player().empty()) {
-	// 	ScreenManager::current()->pop_screen();
-	// }
+	if (Room::get().get_player().empty()) {
+		ScreenManager::current()->pop_screen();
+	}
 }
 
 void GameSession::setup() {
@@ -79,6 +81,7 @@ Level& GameSession::get_current_level() const { return *m_level.get(); }
 void GameSession::toggle_pause() {
 	if (!m_game_pause && !MenuManager::current()->is_active()) {
 		MenuManager::current()->set_menu(MenuStorage::GAME_MENU);
+		ScreenManager::current()->set_speed(0.0f);
 		m_game_pause = true;
 	}
 }

@@ -20,7 +20,7 @@ TitleScreen::~TitleScreen()
 
 void TitleScreen::draw(Compositor& compositor) {
 	auto& drawing_context = compositor.make_context();
-	// drawing_context.get_canvas().draw_surface_scaled(m_theme, drawing_context.get_viewport(), Color(1.0f, 1.0f, 1.0f), LAYER_GUI);
+	drawing_context.get_canvas().draw_surface_scaled(m_theme, drawing_context.get_viewport(), Color(1.0f, 1.0f, 1.0f), LAYER_GUI - 50);
 	
 	
 	// MouseCursor::current()->draw(drawing_context); // temporary
