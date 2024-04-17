@@ -22,8 +22,6 @@ void Shooting::attack() {
 
 int Shooting::get_attack_per_turn() const { return m_attack_per_turn; };
 
-#include "util/log.hpp"
-
 void Shooting::shooting_angle(float angle) const {
 	const MovingTile& movingtile = MovingTileSet::current()->get(get_moving_tile_id());
 	const Rectf rect = Rectf(get_spawn_position(), movingtile.get_bounding_box().get_size());

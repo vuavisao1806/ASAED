@@ -65,6 +65,7 @@ CPP_FILES = main.cpp                                               \
             object/moving_sprite.cpp                               \
             object/physic.cpp                                      \
             object/player.cpp                                      \
+            object/portal.cpp                                      \
             object/tile_manager.cpp                                \
             object/tile_map.cpp                                    \
             object/tile_parser.cpp                                 \

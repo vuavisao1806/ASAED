@@ -1,0 +1,22 @@
+{
+	"portal": [
+		{
+			"name": "portal",
+			"family-name": "portal",
+			"hitbox": [0, 0, 64, 64],
+			"fps": 10,
+			"images": [
+				"portal.png",
+				"portal1.png",
+				"portal2.png",
+				"portal3.png",
+				"portal4.png",
+				"portal5.png",
+				"portal6.png",
+				"portal7.png",
+				"portal8.png",
+				"portal9.png"
+			]
+		}
+	]
+}

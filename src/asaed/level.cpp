@@ -7,6 +7,7 @@
 #include "asaed/room.hpp"
 #include "object/camera.hpp"
 #include "object/player.hpp"
+#include "object/portal.hpp"
 #include "video/drawing_context.hpp"
 
 namespace {
@@ -60,8 +61,12 @@ void Level::start_level() {
 				break;
 			case RoomType::NORMAL:
 				room->update(1.0f);
-		default:
-			break;
+				break;
+			case RoomType::END:
+				room->add_object(std::make_unique<Portal>(room->get_bounding_box().get_middle()));
+				break;
+			default:
+				break;
 		}
 		for (int i = 1; i <= 4; ++ i) {
 			Direction m_direction = static_cast<Direction>(i);
