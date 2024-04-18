@@ -13,7 +13,7 @@
 
 enum BadGuyData {
 	OGRE,
-	MAGICIAN
+	WIZZARD
 };
 
 /** Class BadGuy (base) to help inheritance and manage all of types badguy */
@@ -32,6 +32,8 @@ protected:
 
 	int m_health;
 	Timer m_timer_dead;
+
+	int m_hurt;
 	
 	float m_radius_wander;
 	Timer m_timer_wander;

@@ -1,0 +1,9 @@
+{
+	"room": [
+		{
+			"id": 5,
+			"type-room": "end",
+			"filename": "tilemap-end.json"
+		}
+	]
+}

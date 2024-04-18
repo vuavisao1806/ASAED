@@ -59,6 +59,7 @@ CPP_FILES = main.cpp                                               \
             math/vector.cpp                                        \
             math/util.cpp                                          \
             object/camera.cpp                                      \
+            object/chest.cpp                                       \
             object/floating_text.cpp                               \
             object/game_object_manager.cpp                         \
             object/game_object.cpp                                 \

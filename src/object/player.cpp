@@ -24,7 +24,7 @@
 namespace {
 	const float WALK_SPEED = 100.0f; // That funny setup because I don't think another more beautiful
 	
-	const float SHIELD_RECOVERY = 3.5f;
+	const float SHIELD_RECOVERY = 5.0f;
 	const float TIME_DEAD = 2.5f;
 
 	const int HEALTH = 8;
@@ -39,7 +39,6 @@ Player::Player(int player_id, int weapon_id) :
 	m_controller(&(InputManager::current()->get_controller(player_id))),
 	m_health(HEALTH),
 	m_shield(SHIELD),
-	m_hurt(0),
 	m_timer_dead(),
 	m_direction(Direction::RIGHT),
 	m_sprite(SpriteManager::current()->create("data/images/creatures/knight/knight-sprite.json")),
@@ -61,7 +60,6 @@ Player::Player(const Player& other) :
 	m_controller(other.m_controller),
 	m_health(other.m_health),
 	m_shield(other.m_shield),
-	m_hurt(0),
 	m_timer_dead(),
 	m_direction(other.m_direction),
 	m_sprite(other.m_sprite->clone()),
@@ -97,11 +95,9 @@ HitResponse Player::collision(CollisionObject& other, const CollisionHit& hit) {
 			m_shield -= damage[0];
 			m_health -= damage[1];
 
-			m_hurt = bullet->get_damage();
-			
 			Vector position = Vector(g_game_random.randf(get_bounding_box().get_left(), get_bounding_box().get_right()),
 			                         g_game_random.randf(get_bounding_box().get_top(), get_bounding_box().get_bottom()));
-			Room::get().add<FloatingText>(position, m_hurt);
+			Room::get().add<FloatingText>(position, bullet->get_damage());
 		}
 		return ABORT_MOVE;
 	}
@@ -131,13 +127,6 @@ void Player::update(float dt_sec) {
 			remove_me();
 		}
 		return;
-	}
-
-	if (m_hurt) {
-		Vector position = Vector(g_game_random.randf(get_bounding_box().get_left(), get_bounding_box().get_right()),
-		                         g_game_random.randf(get_bounding_box().get_top(), get_bounding_box().get_bottom()));
-		Room::get().add<FloatingText>(position, m_hurt);
-		m_hurt = 0;
 	}
 
 	if (m_timer_shield.check()) {
@@ -181,7 +170,9 @@ void Player::draw(DrawingContext& drawing_context) {
 
 		position += Vector(1.0f, 1.0f);
 
-		auto draw_item = [&] (Vector& position, const SurfacePtr& surface, const TTFFontPtr& font, const Color& front, const Color& back, int m_value, int CAPACITY) -> void {
+		auto draw_item = [&] (Vector& position, const SurfacePtr& surface, const TTFFontPtr& font,
+		                      const Color& front, const Color& back,
+		                      int m_value, int CAPACITY) -> void {
 			Vector item_position = position;
 			const float item_width = surface->get_width();
 			const float item_height = surface->get_height();
@@ -202,8 +193,8 @@ void Player::draw(DrawingContext& drawing_context) {
 			
 			std::string item = std::to_string(m_value) + '/' + std::to_string(CAPACITY);
 			item_position.y -= item_size.height + 1.0f;
-			item_position.x += item_size.width / 2.0f - Resources::small_font->get_text_width(item) / 2.0f;
-			drawing_context.get_canvas().draw_text(Resources::small_font, item, item_position, ALIGN_LEFT, LAYER_GUI, ColorScheme::Text::small_color);
+			item_position.x += item_size.width / 2.0f - font->get_text_width(item) / 2.0f;
+			drawing_context.get_canvas().draw_text(font, item, item_position, ALIGN_LEFT, LAYER_GUI, ColorScheme::Text::small_color);
 
 			position.y += item_height + 1.0f;
 		};

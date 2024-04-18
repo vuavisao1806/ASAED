@@ -83,7 +83,7 @@ void Ogre::wandering() {
 		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), angle) * WALK_SPEED);
 	} 
 	else if (m_timer_wander.check()) {
-		m_physic.set_velocity(Vector(g_game_random.randf(-1.0f, 1.0f), g_game_random.randf(-1.0f, 1.0f)) * WALK_SPEED);
+		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), g_game_random.randf(0.0f, 360.f)) * WALK_SPEED);
 	}
 }
 
@@ -214,5 +214,6 @@ std::unique_ptr<BadGuy> Ogre::clone(const Vector& pos) const {
 	badguy->m_timer_wander.start(m_timer_wander.get_period(), true);
 
 	badguy->m_timer_shoot.start(m_timer_shoot.get_period(), true);
+	badguy->m_timer_shoot.pause_with_previous();
 	return badguy;
 }

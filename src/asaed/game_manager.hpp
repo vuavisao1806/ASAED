@@ -21,7 +21,7 @@ private:
 	GameManager& operator=(const GameManager&) = delete;
 
 public:
-	void start_level(const std::string& filename_level);
+	void start_level(const std::string& filename_level, bool next);
 };
 
 #endif

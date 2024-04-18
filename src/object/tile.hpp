@@ -21,6 +21,8 @@ public:
 
 		/** to add some special attributest */
 		FIRST_INTERESTING_FLAG = 0x0100,
+		GATEDOWN               = 0x0200,
+		GATEUP                 = 0x0400,
 		GOAL =                   0x0100
 	};
 

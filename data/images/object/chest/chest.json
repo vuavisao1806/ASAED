@@ -1,0 +1,14 @@
+{
+	"chest": [
+		{
+			"name": "chest",
+			"family-name": "chest",
+			"hitbox": [0, 0, 16, 16],
+			"fps": 1,
+			"images": [
+				"chest.png",
+				"chest1.png"
+			]
+		}
+	]
+}

@@ -391,7 +391,7 @@ void CollisionSystem::collision_static_constraints(CollisionObject& object) cons
 }
 
 void CollisionSystem::collision_object(CollisionObject& object1, CollisionObject& object2) const {
-	for (int i = 0; i < 2; ++ i) {
+	for (int i = 0; i < 1; ++ i) {
 		const Rectf& r1 = object1.m_dest;
 		const Rectf& r2 = object2.m_dest;
 

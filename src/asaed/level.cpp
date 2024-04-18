@@ -12,7 +12,7 @@
 
 namespace {
 	const uint32_t GATE_DOWN = 3;
-	const uint32_t GATE_UP = 4;
+	const uint32_t SOLID = 2;
 } // namespace
 
 Level::Level() :
@@ -56,7 +56,6 @@ void Level::start_level() {
 			case RoomType::START:
 				room->add_object(GameSession::current()->get_savegame().get_player_status().clone_player_status());
 				room->add<Camera>();
-				room->add_object(std::make_unique<Portal>(room->get_bounding_box().get_middle()));
 				room->flush_game_objects();
 				room->activate();
 				break;
@@ -64,7 +63,7 @@ void Level::start_level() {
 				room->update(1.0f);
 				break;
 			case RoomType::END:
-				// room->add_object(std::make_unique<Portal>(room->get_bounding_box().get_middle()));
+				room->add_object(std::make_unique<Portal>(room->get_bounding_box().get_middle()));
 				break;
 			default:
 				break;
@@ -73,7 +72,7 @@ void Level::start_level() {
 			Direction m_direction = static_cast<Direction>(i);
 			if (m_direction == room->get_prev_room()) continue;
 			if (m_direction == room->get_next_room()) continue;
-			room->change_gate(m_direction, GATE_DOWN, GATE_UP);
+			room->change_gate(m_direction, GATE_DOWN, SOLID);
 		}
 	}
 }

@@ -12,7 +12,12 @@ GameManager::~GameManager() {
 	m_savegame.reset();
 }
 
-
-void GameManager::start_level(const std::string& filename_level) {
+void GameManager::start_level(const std::string& filename_level, bool next) {
+	if (next) {
+		ScreenManager::current()->pop_screen();
+	}
+	if (filename_level == "endgame") {
+		return;
+	}
 	ScreenManager::current()->push_screen(std::make_unique<GameSession>(filename_level, *m_savegame));
 }

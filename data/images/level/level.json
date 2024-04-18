@@ -3,11 +3,25 @@
 		{
 			"level": "level1",
 			"next-level": "level2",
-			"tileset": "level1/tile/level1-tile.json",
+			"tileset": "level1/tile/tile.json",
 			"room": [
-				"level1/level1-start.json",
-				"level1/level1-1.json",
-				"level1/level1-end.json"
+				"level1/room-start.json",
+				"level1/room-1.json",
+				"level1/room-2.json",
+				"level1/room-3.json",
+				"level1/room-end.json"
+			]
+		},
+		{
+			"level": "level2",
+			"next-level": "endgame",
+			"tileset": "level2/tile/tile.json",
+			"room": [
+				"level2/room-start.json",
+				"level2/room-1.json",
+				"level2/room-2.json",
+				"level2/room-3.json",
+				"level2/room-end.json"
 			]
 		}
 	]

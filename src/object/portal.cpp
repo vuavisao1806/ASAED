@@ -1,9 +1,16 @@
 #include "object/portal.hpp"
 
+#include "asaed/game_manager.hpp"
+#include "asaed/game_session.hpp"
+#include "asaed/level.hpp"
 #include "asaed/resources.hpp"
 #include "asaed/room.hpp"
 #include "object/player.hpp"
 #include "gui/colorscheme.hpp"
+
+namespace {
+	const float WAITING_TIME = 3.0f;
+}
 
 Portal::Portal(const Vector& position) :
 	MovingSprite(Vector(0.0f, 0.0f), "data/images/object/portal_big/portal.json")
@@ -11,7 +18,22 @@ Portal::Portal(const Vector& position) :
 	set_pos(position - get_bounding_box().get_middle());
 }
 
-void Portal::update(float /* dt_sec */) {}
+void Portal::update(float /* dt_sec */) {
+	if (Room::get().get_bounding_box().contains(get_bounding_box())) {
+		if (get_bounding_box().contains(Room::get().get_nearest_player(get_pos())->get_bounding_box())) {
+			if (m_timer.get_period() == 0.0f) {
+				m_timer.start(WAITING_TIME, false);
+			}
+			else if (m_timer.check()) {
+				GameManager::current()->start_level(GameSession::current()->get_current_level().get_next_level(), true);
+			}
+		}
+	}
+	else {
+		m_timer.stop();
+	}
+}
+
 void Portal::draw(DrawingContext& drawing_context) {
 	MovingSprite::draw(drawing_context);
 

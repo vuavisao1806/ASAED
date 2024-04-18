@@ -21,7 +21,7 @@ void MainMenu::menu_action(MenuItem& item) {
 	switch (item.get_id()) {
 		case MENU_ID_START:
 			MenuManager::current()->clear_menu_stack();
-			GameManager::current()->start_level("level1");
+			GameManager::current()->start_level("level1", false);
 			break;
 		
 		case MENU_ID_QUIT:

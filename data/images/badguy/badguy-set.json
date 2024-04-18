@@ -3,12 +3,23 @@
 		{
 			"id": 0,
 			"name": "ogre",
-			"health": 15,
+			"health": 25,
 			"sec-per-dead": 2.0,
 			"radius-wander": 40.0,
 			"ser-per-wander": 2.5,
 			"sec-per-shoot": 3.0,
 			"filename": "ogre/ogre-sprite.json"
+		},
+		{
+			"id": 1,
+			"name": "wizzard",
+			"health": 15,
+			"sec-per-dead": 2.0,
+			"radius-wander": 40.0,
+			"ser-per-wander": 2.5,
+			"sec-per-shoot": 3.0,
+			"sec-per-skill": 10.0,
+			"filename": "wizzard/wizzard-sprite.json"
 		}
 	]
 }

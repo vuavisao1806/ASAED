@@ -7,7 +7,7 @@ ItemLabel::ItemLabel(const std::string& text) :
 	MenuItem(text)
 {}
 
-void ItemLabel::draw(DrawingContext& drawing_context, const Vector& position, int menu_width, bool is_active) {
+void ItemLabel::draw(DrawingContext& drawing_context, const Vector& position, int menu_width, bool /* is_active */) {
 	drawing_context.get_canvas().draw_text(Resources::big_font, get_text(),
 	                                       Vector(position.x + static_cast<float>(menu_width) / 2.0f,
 	                                              position.y - Resources::big_font->get_height() / 2.0f),

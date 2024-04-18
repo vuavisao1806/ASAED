@@ -3,6 +3,7 @@
 #include "asaed/room.hpp"
 #include "weapon/hurt.hpp"
 #include "object/player.hpp"
+#include "object/tile.hpp"
 #include "math/random.hpp"
 #include "object/floating_text.hpp"
 #include "weapon/moving_tile/moving_tile.hpp"
@@ -31,14 +32,14 @@ void BadGuy::collision_solid(const CollisionHit& hit) {
 	}
 }
 
-HitResponse BadGuy::collision(CollisionObject& other, const CollisionHit& hit) {
+HitResponse BadGuy::collision(CollisionObject& other, const CollisionHit& /* hit */) {
 	if (auto bullet = dynamic_cast<MovingTile*>(&other)) {
 		if ((bullet->get_hurt_attributes() & HURT_BADGUY)) {
 			m_health -= bullet->get_damage();
 			Vector position = Vector(g_game_random.randf(get_bounding_box().get_left(), get_bounding_box().get_right()),
-									g_game_random.randf(get_bounding_box().get_top(), get_bounding_box().get_bottom()));
+			                         g_game_random.randf(get_bounding_box().get_top(), get_bounding_box().get_bottom()));
 			Room::get().add<FloatingText>(position, bullet->get_damage());
-			// It shouldn't be placed here but I'm so lazy 
+			// It shouldn't be placed here but I'm so lazy
 			// TODO: update new place
 		}
 		return ABORT_MOVE;

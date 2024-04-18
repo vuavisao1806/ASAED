@@ -10,7 +10,7 @@ MovingTile::MovingTile(const std::string& filename) :
 	m_ratio_crit()
 {}
 
-void MovingTile::collision_solid(const CollisionHit& hit) { remove_me(); }
+void MovingTile::collision_solid(const CollisionHit& /* hit */) { remove_me(); }
 HitResponse MovingTile::collision(CollisionObject& /* other */, const CollisionHit& /* hit */) { return ABORT_MOVE; }
 void MovingTile::collision_tile(uint32_t /* tile_attributes */) {}
 	

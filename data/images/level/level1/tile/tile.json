@@ -1,0 +1,46 @@
+{
+	"tiles": [
+		{
+			"id": 1,
+			"fps": 1,
+			"un-solid": 1,
+			"images": ["floor.png"]
+		},
+		{
+			"id": 2,
+			"fps": 1,
+			"solid": 1,
+			"images": ["brick.png"]
+		},
+		{
+			"id": 3,
+			"fps": 1,
+			"un-solid": 1,
+			"images": ["gate-down.png"]
+		},
+		{
+			"id": 4,
+			"fps": 1,
+			"solid": 1,
+			"images": ["brick.png"]
+		},
+		{
+			"id": 5,
+			"fps": 1,
+			"solid": 1,
+			"images": ["floor3.png"]
+		},
+		{
+			"id": 6,
+			"fps": 1,
+			"solid": 1,
+			"images": ["floor4.png"]
+		},
+		{
+			"id": 7,
+			"fps": 1,
+			"solid": 1,
+			"images": ["floor2.png"]
+		}
+	]
+}

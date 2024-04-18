@@ -4,6 +4,7 @@
 #include "object/moving_sprite.hpp"
 
 #include "math/vector.hpp"
+#include "util/timer.hpp"
 
 /**
  * Portal to transition level
@@ -11,6 +12,9 @@
 */
 
 class Portal final : public MovingSprite {
+private:
+	Timer m_timer;
+	
 public:
 	Portal(const Vector& position);
 

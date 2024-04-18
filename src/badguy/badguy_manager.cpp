@@ -45,6 +45,10 @@ void BadGuyManager::parse_badguy(const ReaderData* data) {
 		case OGRE:
 			badguy = Ogre::from_file(data);
 			break;
+
+		case WIZZARD:
+			badguy = Ogre::from_file(data);
+			break;
 		
 		default:
 			throw std::runtime_error("Unknow bad guy");

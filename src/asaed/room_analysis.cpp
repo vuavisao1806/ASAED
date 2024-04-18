@@ -79,13 +79,10 @@ void RoomAnalysis::update() {
 		case RoomType::BRIDGE:
 			break;
 		case RoomType::NORMAL:
-			if (!is_room_clear() && is_turn_clear()) {
-				start_next_turn();
-			}
 			if (!m_parent->get_player().empty()) {
-				if (!is_room_clear()) {
+				if (!is_room_clear() && is_turn_clear()) {
 					m_parent->start_room();
-					// start_next_turn();
+					start_next_turn();
 				}
 			
 				if (is_room_clear() && is_turn_clear()) {
