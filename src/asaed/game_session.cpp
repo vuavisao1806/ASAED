@@ -14,8 +14,6 @@
 #include "gui/menu_manager.hpp"
 #include "video/compositor.hpp"
 #include "video/drawing_context.hpp"
-#include "video/layer.hpp"
-
 
 GameSession::GameSession(const std::string& filename, SaveGame& savegame) :
 	m_level(LevelManager::current()->get(filename).creat_level_from_leveldata()),

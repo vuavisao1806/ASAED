@@ -19,6 +19,9 @@ public:
 	static SurfacePtr arrow_left;
 	static SurfacePtr arrow_right;
 	static SurfacePtr back;
+
+	static SurfacePtr heart;
+	static SurfacePtr shield;
 public:
 	Resources();
 	~Resources();

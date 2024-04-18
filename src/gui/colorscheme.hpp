@@ -14,21 +14,37 @@ class ColorScheme final {
 public:
 	class Menu {
 	public:
-		static Color back_color;
-		static Color front_color;
+		static Color back_color; // blue
+		static Color front_color; // gray
 		static Color horizontal_line_color;
-		static Color default_color;
-		static Color active_color;
-		static Color inactive_color;
-		static Color label_color;
+		static Color default_color; // white
+		static Color active_color; // blue
+		static Color inactive_color; // gray
+		static Color label_color; // light blue
+	};
+
+	class HUD {
+	public:
+		static Color frame_back;
+		static Color frame_front;
+		static Color space_back;
+		static Color heart_back;
+		static Color heart_front;
+		static Color shield_back;
+		static Color shield_front;
+	};
+
+	class FloatingText {
+	public:
+		static Color text_color;
 	};
 
 	class Text {
 	public:
-		static Color small_color;
-		static Color heading_color;
-		static Color reference_color;
-		static Color normal_color;
+		static Color small_color; // white
+		static Color heading_color; // yellow
+		static Color reference_color; // blue
+		static Color normal_color; // white
 	};
 };
 

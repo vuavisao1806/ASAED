@@ -24,6 +24,11 @@ private:
 	const Controller* m_controller;
 	
 	int m_health;
+	
+	int m_shield;
+	Timer m_timer_shield;
+
+	int m_hurt;
 	Timer m_timer_dead;
 
 	Direction m_direction;

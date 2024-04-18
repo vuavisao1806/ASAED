@@ -56,6 +56,7 @@ void Level::start_level() {
 			case RoomType::START:
 				room->add_object(GameSession::current()->get_savegame().get_player_status().clone_player_status());
 				room->add<Camera>();
+				room->add_object(std::make_unique<Portal>(room->get_bounding_box().get_middle()));
 				room->flush_game_objects();
 				room->activate();
 				break;
@@ -63,7 +64,7 @@ void Level::start_level() {
 				room->update(1.0f);
 				break;
 			case RoomType::END:
-				room->add_object(std::make_unique<Portal>(room->get_bounding_box().get_middle()));
+				// room->add_object(std::make_unique<Portal>(room->get_bounding_box().get_middle()));
 				break;
 			default:
 				break;

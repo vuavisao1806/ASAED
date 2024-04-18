@@ -22,7 +22,12 @@ public:
 	virtual void update(float dt_sec) override;
 	virtual void draw(DrawingContext& drawing_context) override;
 
+	virtual HitResponse collision(CollisionObject& other, const CollisionHit& hit) override;
+
 	virtual bool is_singleton() const override;
+
+	static std::string class_name();
+	virtual std::string get_class_name() const override;
 };
 
 #endif

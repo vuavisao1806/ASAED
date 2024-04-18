@@ -406,7 +406,7 @@ void CollisionSystem::collision_object(CollisionObject& object1, CollisionObject
 		HitResponse response2 = object2.collision(object1, hit);
 
 		if (response1 == CONTINUE && response2 == CONTINUE) {
-			normal *= (0.5f + EPSILON);
+			normal *= (0.25f + EPSILON);
 			object1.m_dest.move(-normal);
 			object2.m_dest.move(normal);
 		}
