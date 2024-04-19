@@ -9,7 +9,7 @@
 #include "gui/colorscheme.hpp"
 
 namespace {
-	const float WAITING_TIME = 3.0f;
+	const float WAITING_TIME = 2.0f;
 }
 
 Portal::Portal(const Vector& position) :

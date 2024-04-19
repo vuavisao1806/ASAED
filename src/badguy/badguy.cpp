@@ -6,7 +6,7 @@
 #include "object/tile.hpp"
 #include "math/random.hpp"
 #include "object/floating_text.hpp"
-#include "weapon/moving_tile/moving_tile.hpp"
+#include "weapon/projectile/projectile.hpp"
 
 BadGuy::BadGuy(const std::string& filename) :
 	MovingSprite(Vector(0.0f, 0.0f), filename, LAYER_OBJECT),
@@ -33,7 +33,7 @@ void BadGuy::collision_solid(const CollisionHit& hit) {
 }
 
 HitResponse BadGuy::collision(CollisionObject& other, const CollisionHit& /* hit */) {
-	if (auto bullet = dynamic_cast<MovingTile*>(&other)) {
+	if (auto bullet = dynamic_cast<Projectile*>(&other)) {
 		if ((bullet->get_hurt_attributes() & HURT_BADGUY)) {
 			m_health -= bullet->get_damage();
 			Vector position = Vector(g_game_random.randf(get_bounding_box().get_left(), get_bounding_box().get_right()),
@@ -51,7 +51,7 @@ HitResponse BadGuy::collision(CollisionObject& other, const CollisionHit& /* hit
 	return ABORT_MOVE;
 }
 
-void BadGuy::collision_tile(uint32_t tile_attributes) {
+void BadGuy::collision_tile(uint32_t /* tile_attributes */) {
 
 }
 

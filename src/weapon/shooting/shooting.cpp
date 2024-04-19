@@ -1,9 +1,9 @@
 #include "weapon/shooting/shooting.hpp"
 
 #include "asaed/room.hpp"
-#include "weapon/moving_tile/moving_tile.hpp"
-#include "weapon/moving_tile/moving_tile_analysis.hpp"
-#include "weapon/moving_tile/moving_tile_set.hpp"
+#include "weapon/projectile/projectile.hpp"
+#include "weapon/projectile/projectile_line.hpp"
+#include "weapon/projectile/projectile_set.hpp"
 
 Shooting::Shooting(const std::string& filename) :
 	Weapon(filename),
@@ -23,10 +23,10 @@ void Shooting::attack() {
 int Shooting::get_attack_per_turn() const { return m_attack_per_turn; };
 
 void Shooting::shooting_angle(float angle) const {
-	const MovingTile& movingtile = MovingTileSet::current()->get(get_moving_tile_id());
-	const Rectf rect = Rectf(get_spawn_position(), movingtile.get_bounding_box().get_size());
+	const Projectile& projectile = ProjectileSet::current()->get(get_projectile_id());
+	const Rectf rect = Rectf(get_spawn_position(), projectile.get_bounding_box().get_size());
 	if (Room::get().inside(rect)) {
-		Room::get().add_object(movingtile.clone(get_spawn_position(), m_hurt_attributes, angle));
+		Room::get().add_object(projectile.clone(get_spawn_position(), m_hurt_attributes, angle));
 	}
 }
 

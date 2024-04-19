@@ -71,14 +71,14 @@ Main::Main() :
 	m_sprite_manager(),
 	m_video_system(),
 	m_weapon_set(),
-	m_moving_set(),
 	m_badguy_manager(),
 	m_level_manager(),
 	m_screen_manager(),
 	m_sound_manager(),
 	m_resources(),
 	m_game_manager(),
-	m_ttf_surface_manager()
+	m_ttf_surface_manager(),
+	m_projectile_set()
 {}
 
 Main::~Main() {
@@ -90,12 +90,12 @@ Main::~Main() {
 	m_sprite_manager.reset();
 	m_video_system.reset();
 	m_weapon_set.reset();
-	m_moving_set.reset();
 	m_badguy_manager.reset();
 	m_level_manager.reset();
 	m_screen_manager.reset();
 	m_sound_manager.reset();
 	m_ttf_surface_manager.reset();
+	m_projectile_set.reset(); // tested
 }
 
 int Main::run(int /* argc */, char** /* argv */) {
@@ -109,7 +109,6 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_video_system = VideoSystem::create(VideoSystem::VIDEO_SDL);
 
 	m_weapon_set = std::make_unique<WeaponSet>();
-	m_moving_set = std::make_unique<MovingTileSet>();
 	m_badguy_manager = std::make_unique<BadGuyManager>();
 	m_level_manager = std::make_unique<LevelManager>();
 	m_screen_manager = std::make_unique<ScreenManager>();
@@ -117,6 +116,8 @@ int Main::run(int /* argc */, char** /* argv */) {
 	m_resources = std::make_unique<Resources>();
 	m_game_manager = std::make_unique<GameManager>();
 	m_ttf_surface_manager = std::make_unique<TTFSurfaceManager>();
+
+	m_projectile_set = std::make_unique<ProjectileSet>();
 
 	// It's like the time I was a student in high school!! So nostalgic
 	g_game_random.seed(std::chrono::system_clock::now().time_since_epoch().count());

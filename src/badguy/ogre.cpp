@@ -17,7 +17,7 @@ namespace {
 Ogre::Ogre(const std::string& filename) :
 	BadGuy(filename)
 {
-	m_weapon = WeaponSet::current()->get(2).clone(this);
+	m_weapon = WeaponSet::current()->get(SGUN).clone(this);
 	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
 	set_action("idle-right");
 }

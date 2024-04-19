@@ -1,0 +1,16 @@
+{
+	"movingtile": [
+		{
+			"id": 1,
+			"bounce-wall-count": 0,
+			"speed": 225.0,
+			"filename": "projectile/fire/fire.json"
+		},
+		{
+			"id": 2,
+			"bounce-wall-count": 0,
+			"speed": 200.0,
+			"filename": "projectile/purple/purple.json"
+		}
+	]
+}

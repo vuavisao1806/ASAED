@@ -26,7 +26,7 @@ public:
 	void shooting_angle(float angle) const;
 	virtual int get_attack_per_turn() const override;
 
-	virtual uint32_t get_moving_tile_id() const = 0;
+	virtual uint32_t get_projectile_id() const = 0;
 	virtual Vector get_spawn_position() const = 0;
 
 	static std::string class_name();

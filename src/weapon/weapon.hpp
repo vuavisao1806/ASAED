@@ -8,6 +8,12 @@
 #include "object/moving_sprite.hpp"
 #include "math/vector.hpp"
 
+enum WeaponData {
+	AK47 = 1,
+	SGUN,
+	GATLING
+};
+
 /**
  * Weapon is the base class for every weapon
  * (Actually, now only gun)

@@ -99,9 +99,9 @@ CPP_FILES = main.cpp                                               \
             video/ttf_surface.cpp                                  \
             video/video_system.cpp                                 \
             video/viewport.cpp                                     \
-            weapon/moving_tile/moving_tile_analysis.cpp            \
-            weapon/moving_tile/moving_tile_set.cpp                 \
-            weapon/moving_tile/moving_tile.cpp                     \
+            weapon/projectile/projectile_line.cpp                  \
+            weapon/projectile/projectile_set.cpp                   \
+            weapon/projectile/projectile.cpp                       \
             weapon/shooting/shooting_analysis.cpp                  \
             weapon/shooting/shooting.cpp                           \
             weapon/weapon_set.cpp                                  \

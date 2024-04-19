@@ -14,7 +14,7 @@
 #include "math/rectf.hpp"
 #include "math/random.hpp"
 #include "weapon/hurt.hpp"
-#include "weapon/moving_tile/moving_tile.hpp"
+#include "weapon/projectile/projectile.hpp"
 #include "video/video_system.hpp"
 #include "video/drawing_context.hpp"
 #include "video/surface.hpp"
@@ -27,7 +27,7 @@ namespace {
 	const float SHIELD_RECOVERY = 5.0f;
 	const float TIME_DEAD = 2.5f;
 
-	const int HEALTH = 8;
+	const int HEALTH = 5;
 	const int SHIELD = 5;
 
 	const float HEALTH_BAR_WIDTH = 100.0f;
@@ -87,7 +87,7 @@ void Player::collision_solid(const CollisionHit& hit) {
 }
 
 HitResponse Player::collision(CollisionObject& other, const CollisionHit& hit) {
-	if (auto bullet = dynamic_cast<MovingTile*>(&other)) {
+	if (auto bullet = dynamic_cast<Projectile*>(&other)) {
 		if ((bullet->get_hurt_attributes() & HURT_PLAYER)) {
 			int damage[2] = {0, 0};
 			damage[0] = std::min(bullet->get_damage(), m_shield);

@@ -7,6 +7,10 @@
 		{
 			"filename": "Estavius.mp3",
 			"type": "music"
+		},
+		{
+			"filename": "normal.mp3",
+			"type": "music"
 		}
 	]
 }

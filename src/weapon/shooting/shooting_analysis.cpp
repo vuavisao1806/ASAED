@@ -7,7 +7,7 @@
 
 ShootingAnalysis::ShootingAnalysis(const std::string& filename) :
 	Shooting(filename),
-	m_moving_tile_id(0),
+	m_projectile_id(0),
 	m_spawn_position(Vector(0.0f, 0.0f))
 {}
 
@@ -33,14 +33,14 @@ std::unique_ptr<Weapon> ShootingAnalysis::from_file(const ReaderData* data) {
 	}
 	
 	auto weapon = std::make_unique<ShootingAnalysis>(data->m_parent_path + weapon_filename);
-	weapon->m_moving_tile_id = id;
+	weapon->m_projectile_id = id;
 	weapon->m_attack_per_turn = attack_per_turn;
 	weapon->m_timer.start(1.0f / attack_per_sec, true);
 	weapon->m_accuracy = accuracy;
 	return weapon;
 }
 
-uint32_t ShootingAnalysis::get_moving_tile_id() const { return m_moving_tile_id; }
+uint32_t ShootingAnalysis::get_projectile_id() const { return m_projectile_id; }
 Vector ShootingAnalysis::get_spawn_position() const { return get_bounding_box().get_middle(); }
 float ShootingAnalysis::get_shoot_angle() const {
 	float ret = g_game_random.randf(get_angle() - m_accuracy, get_angle() + m_accuracy);
@@ -62,6 +62,6 @@ std::unique_ptr<Weapon> ShootingAnalysis::clone(MovingObject* parent, const Vect
 	weapon->m_timer.start(m_timer.get_period(), true);
 
 	weapon->m_spawn_position = m_spawn_position;
-	weapon->m_moving_tile_id = m_moving_tile_id;
+	weapon->m_projectile_id = m_projectile_id;
 	return weapon;
 }

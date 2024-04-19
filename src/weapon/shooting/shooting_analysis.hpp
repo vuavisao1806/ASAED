@@ -13,7 +13,7 @@ class ReaderData;
 /** Class to help analysis (parse) the weapon from file and directly link with suitable movingtile (bullet) */
 class ShootingAnalysis : public Shooting {
 private:
-	uint32_t m_moving_tile_id;
+	uint32_t m_projectile_id;
 	Vector m_spawn_position;
 	
 public:
@@ -27,7 +27,7 @@ public:
 	static std::unique_ptr<Weapon> from_file(const ReaderData* data);
 
 public:
-	virtual uint32_t get_moving_tile_id() const override;
+	virtual uint32_t get_projectile_id() const override;
 	virtual Vector get_spawn_position() const override;
 	virtual float get_shoot_angle() const override;
 

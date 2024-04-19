@@ -68,7 +68,7 @@ void GameSession::check_end_conditions() {
 
 void GameSession::setup() {
 	m_level->start_level();
-	SoundManager::current()->play_music("boss.mp3");
+	SoundManager::current()->play_music("normal.mp3");
 }
 
 void GameSession::leave() {}
