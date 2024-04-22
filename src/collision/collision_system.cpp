@@ -5,15 +5,18 @@
 
 #include "asaed/constants.hpp"
 #include "asaed/room.hpp"
+#include "badguy/badguy.hpp"
 #include "collision/collision_object.hpp"
 #include "object/tile.hpp"
 #include "object/tile_map.hpp"
 #include "math/rectf.hpp"
 #include "object/moving_object.hpp"
+#include "object/player.hpp"
 #include "object/tile.hpp"
 #include "video/drawing_context.hpp"
 #include "video/color.hpp"
 #include "video/layer.hpp"
+
 namespace {
 	// arbitrary (pixel / frame)
 	const float MAX_SPEED = 12.0f;
@@ -65,7 +68,7 @@ namespace {
 
 		bool shift_out = false;
 	
-		if (moving_object) {
+		if (moving_object && (dynamic_cast<Player*>(moving_object) || dynamic_cast<BadGuy*>(moving_object))) {
 			if (std::abs(object_movement.x) < std::abs(object_movement.y)) {
 				if (intersect_left < SHIFT_DELTA) {
 					constraints.constrain_right(grown_other_object_rect.get_left());

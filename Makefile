@@ -99,8 +99,11 @@ CPP_FILES = main.cpp                                               \
             video/ttf_surface.cpp                                  \
             video/video_system.cpp                                 \
             video/viewport.cpp                                     \
+            weapon/projectile/projectile_cycle.cpp                 \
+            weapon/projectile/projectile_cycloid.cpp               \
             weapon/projectile/projectile_line.cpp                  \
             weapon/projectile/projectile_set.cpp                   \
+            weapon/projectile/projectile_triangle.cpp              \
             weapon/projectile/projectile.cpp                       \
             weapon/shooting/shooting_analysis.cpp                  \
             weapon/shooting/shooting.cpp                           \

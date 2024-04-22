@@ -1,0 +1,15 @@
+{
+	"gatling": [
+		{
+			"name": "projectile",
+			"family-name": "projectile",
+			"fps": 8,
+			"hitbox": [0, 0, 24, 10],
+			"images": [
+				"gatling-1.png",
+				"gatling-2.png",
+				"gatling-3.png"
+			]
+		}
+	]
+}

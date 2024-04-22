@@ -1,10 +1,10 @@
 {
-	"fire": [
+	"purple": [
 		{
-			"name": "bullet",
-			"family-name": "bullet",
+			"name": "projectile",
+			"family-name": "projectile",
 			"fps": 8,
-			"hitbox": [0, 0, 15, 9],
+			"hitbox": [0, 0, 12, 13],
 			"images": [
 				"purple-1.png",
 				"purple-2.png",

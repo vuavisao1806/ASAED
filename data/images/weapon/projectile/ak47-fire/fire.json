@@ -1,0 +1,16 @@
+{
+	"fire": [
+		{
+			"name": "projectile",
+			"family-name": "projectile",
+			"fps": 8,
+			"hitbox": [0, 0, 14, 5],
+			"images": [
+				"fire-1.png",
+				"fire-2.png",
+				"fire-3.png",
+				"fire-4.png"
+			]
+		}
+	]
+}

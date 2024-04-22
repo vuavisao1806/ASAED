@@ -5,6 +5,8 @@
 #include "util/log.hpp"
 #include "weapon/projectile/projectile.hpp"
 #include "weapon/projectile/projectile_line.hpp"
+#include "weapon/projectile/projectile_cycle.hpp"
+#include "weapon/projectile/projectile_cycloid.hpp"
 
 
 ProjectileSet::ProjectileSet() :
@@ -63,6 +65,24 @@ void ProjectileSet::parse_projectile(const ReaderData* data) {
 		throw std::runtime_error("Missing projectile id");
 	}
 
-	auto projectile = ProjectileLine::from_file(data);
+	uint32_t type;
+	if (!data->get("type", type)) {
+		throw std::runtime_error("Missing projectile type");
+	}
+	std::unique_ptr<Projectile> projectile;
+	switch (type) {
+		case ProjectileType::LINE:
+			projectile = ProjectileLine::from_file(data);
+			break;
+		case ProjectileType::CYCLE:
+			projectile = ProjectileCycle::from_file(data);
+			break;
+		case ProjectileType::CYCLOID:
+			projectile = ProjectileCycloid::from_file(data);
+			break;
+		
+		default:
+			break;
+	}
 	add_projectile(id, std::move(projectile));
 }

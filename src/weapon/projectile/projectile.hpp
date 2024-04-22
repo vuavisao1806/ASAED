@@ -13,13 +13,15 @@
 */
 
 enum ProjectileData {
-	AK47_PLAYER,
-	AK47_BADGUY,
-	SGUN_PLAYER,
-	SGUN_BADGUY,
-	GATLING_PLAYER,
-	GATLING_BADGUY,
-	BOOMERANG_BADGUY
+	AK47_PROJECTILE_PLAYER = 1,
+	AK47_PROJECTILE_BADGUY,
+	SGUN_PROJECTILE_PLAYER,
+	SGUN_PROJECTILE_BADGUY,
+	GATLING_PROJECTILE_PLAYER,
+	BOOMERANG_PROJECTILE_BADGUY,
+	CYCLE_PROJECTILE_PLAYER,
+	CYCLE_PROJECTILE_BADGUY,
+	CYCLOID_PROJECTILE_BADGUY
 };
 
 class Projectile : public MovingSprite {
@@ -50,6 +52,11 @@ public:
 
 	int get_damage() const;
 	float get_ratio_crit() const;
+
+	Vector get_velocity() const;
+	void set_velocity(const Vector& velocity);
+
+	Physic& get_physic();
 };
 
 #endif

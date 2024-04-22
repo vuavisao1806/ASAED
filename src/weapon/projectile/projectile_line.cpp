@@ -36,7 +36,6 @@ std::unique_ptr<Projectile> ProjectileLine::from_file(const ReaderData* data) {
 	return projectile;
 }
 
-
 void ProjectileLine::collision_solid(const CollisionHit& hit) {
 	if (m_wall_bounce_count > 0) {
 		-- m_wall_bounce_count;

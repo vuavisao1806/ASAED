@@ -56,3 +56,8 @@ void Projectile::set_hurt_attributes(uint32_t hurt_attributes) { m_hurt_attribut
 
 int Projectile::get_damage() const { return m_damage; }
 float Projectile::get_ratio_crit() const { return m_ratio_crit; }
+
+Vector Projectile::get_velocity() const { return m_physic.get_velocity(); }
+void Projectile::set_velocity(const Vector& velocity) { m_physic.set_velocity(velocity); }
+
+Physic& Projectile::get_physic() { return m_physic; }

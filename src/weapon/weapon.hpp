@@ -9,9 +9,11 @@
 #include "math/vector.hpp"
 
 enum WeaponData {
-	AK47 = 1,
-	SGUN,
-	GATLING
+	AK47_PLAYER = 1,
+	AK47_BADGUY,
+	SGUN_PLAYER,
+	SGUN_BADGUY,
+	GATLING_PLAYER,
 };
 
 /**

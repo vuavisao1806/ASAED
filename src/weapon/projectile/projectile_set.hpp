@@ -10,6 +10,13 @@
 class ReaderData;
 class Projectile;
 
+enum ProjectileType {
+	LINE = 1,
+	CYCLE,
+	CYCLOID,
+	BOOMERANG
+};
+
 class ProjectileSet final : public Currenton<ProjectileSet> {
 	std::string m_filename;
 	std::vector<std::unique_ptr<Projectile>> m_projectiles;

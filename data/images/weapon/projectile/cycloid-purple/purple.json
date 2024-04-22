@@ -1,0 +1,13 @@
+{
+	"purple": [
+		{
+			"name": "projectile",
+			"family-name": "projectile",
+			"fps": 1,
+			"hitbox": [0, 0, 8, 8],
+			"images": [
+				"purple-1.png"
+			]
+		}
+	]
+}

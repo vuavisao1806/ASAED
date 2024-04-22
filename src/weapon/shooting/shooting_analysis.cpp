@@ -17,7 +17,7 @@ std::unique_ptr<Weapon> ShootingAnalysis::from_file(const ReaderData* data) {
 	attack_per_turn = std::max(attack_per_turn, 1);
 
 	int id = 1;
-	data->get("moving-tile-id", id);
+	data->get("projectile-id", id);
 	id = std::max(id, 1);
 
 	float attack_per_sec = 1.0f;
