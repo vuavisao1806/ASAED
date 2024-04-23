@@ -4,7 +4,7 @@
 			"name": "walk-right",
 			"family-name": "walk",
 			"fps": 16,
-			"hitbox": [0, 8, 16, 20],
+			"hitbox": [0, 10, 15, 18],
 			"images": [
 				"walk-0.png",
 				"walk-1.png",
@@ -21,7 +21,7 @@
 			"name": "idle-right",
 			"family-name": "idle",
 			"fps": 16,
-			"hitbox": [0, 8, 16, 20],
+			"hitbox": [0, 10, 15, 18],
 			"images": [
 				"idle-0.png",
 				"idle-1.png",
@@ -37,7 +37,7 @@
 		{
 			"name": "dead-right",
 			"family-name": "dead",
-			"hitbox": [0, 8, 16, 20],
+			"hitbox": [0, 10, 15, 18],
 			"fps": 1,
 			"images": [
 				"idle-0.png"

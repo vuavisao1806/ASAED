@@ -5,6 +5,7 @@
 #include "util/log.hpp"
 #include "badguy/badguy.hpp"
 #include "badguy/ogre.hpp"
+#include "badguy/wizzard.hpp"
 
 BadGuyManager::BadGuyManager() :
 	m_filename("data/images/badguy/badguy-set.json"),
@@ -47,7 +48,7 @@ void BadGuyManager::parse_badguy(const ReaderData* data) {
 			break;
 
 		case WIZZARD:
-			badguy = Ogre::from_file(data);
+			badguy = Wizzard::from_file(data);
 			break;
 		
 		default:

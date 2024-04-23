@@ -151,6 +151,11 @@ Rect TileMap::get_tiles_overlapping(const Rectf& rect) const {
 	return Rect(t_left, t_top, t_right, t_bottom);
 }
 
+std::pair<int, int> TileMap::get_tile_fake_position(const Vector& pos) const {
+	Vector m_pos = (pos - m_offset) / BLOCK_SIZE;
+	return std::make_pair(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y));
+}
+
 bool TileMap::is_outside_bounds(const Vector& pos) const {
 	Vector m_pos = (pos - m_offset) / BLOCK_SIZE;
 	float width = static_cast<float>(m_width);

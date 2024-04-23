@@ -91,6 +91,8 @@ public:
 	/** return rect() filled by indices that overlap the given rectangle */
 	Rect get_tiles_overlapping(const Rectf& rect) const;
 
+	std::pair<int, int> get_tile_fake_position(const Vector& pos) const;
+
 	bool is_outside_bounds(const Vector& pos) const;
 
 	void set_tileset(const TileSet* new_tileset);

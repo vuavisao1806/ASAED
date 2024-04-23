@@ -28,6 +28,7 @@ CPP_FILES = main.cpp                                               \
             badguy/badguy_manager.cpp                              \
             badguy/badguy.cpp                                      \
             badguy/ogre.cpp                                        \
+            badguy/wizzard.cpp                                     \
             collision/collision_object.cpp                         \
             collision/collision_system.cpp                         \
             collision/collision.cpp                                \
@@ -76,6 +77,7 @@ CPP_FILES = main.cpp                                               \
             sprite/sprite_data.cpp                                 \
             sprite/sprite_manager.cpp                              \
             sprite/sprite.cpp                                      \
+            util/a_start.cpp                                       \
             util/line_iterator.cpp                                 \
             util/log.cpp                                           \
             util/reader_assert.cpp                                 \

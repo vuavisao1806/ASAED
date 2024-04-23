@@ -2,9 +2,11 @@
 
 #include "asaed/room.hpp"
 #include "object/player.hpp"
+#include "object/tile_map.hpp"
 #include "math/random.hpp"
 #include "math/util.hpp"
 #include "sprite/sprite.hpp"
+#include "util/a_start.hpp"
 #include "util/reader_machine.hpp"
 #include "util/reader_data.hpp"
 #include "weapon/weapon.hpp"
@@ -77,11 +79,49 @@ void Ogre::draw(DrawingContext& drawing_context) {
 }
 
 void Ogre::wandering() {
+	if (!m_smart_position.empty()) {
+		const auto* tile_map = Room::get().get_solid_tilemaps()[0];
+		if (tile_map->get_tile_fake_position(get_bounding_box().get_middle()) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(get_bounding_box().p1()) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(get_bounding_box().p2()) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(Vector(get_bounding_box().get_right(), get_bounding_box().get_top())) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(Vector(get_bounding_box().get_left(), get_bounding_box().get_bottom())) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (!m_smart_position.empty()) {
+			Vector to_rotate = m_smart_position.back() - get_bounding_box().get_middle();
+			// float angle = math::angle(to_rotate) + g_game_random.randf(-3.0f, 3.0f); // to fix collision
+			float angle = math::angle(to_rotate);
+			m_physic.set_velocity(math::rotate(Vector(1.5f, 0.0f), angle) * WALK_SPEED);
+			return;
+		}
+	}
+
 	if (math::distance(get_bounding_box().get_middle(), m_start_position) > m_radius_wander) {
-		Vector to_rotate = m_start_position - get_bounding_box().get_middle();
-		float angle = math::angle(to_rotate);
-		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), angle) * WALK_SPEED);
-	} 
+		if (Room::get().free_light_of_sight(get_bounding_box().get_middle(), m_start_position)) {
+			Vector to_rotate = m_start_position - get_bounding_box().p1();
+			float angle = math::angle(to_rotate) + g_game_random.randf(-5.0f, 5.0f);
+			m_physic.set_velocity(math::rotate(Vector(1.5f, 0.0f), angle) * WALK_SPEED);
+		}
+		else {
+			const auto* tile_map = Room::get().get_solid_tilemaps()[0];
+			AStart m_astart(tile_map, get_bounding_box().get_middle(), m_start_position);
+			m_smart_position = m_astart.smart_path();
+		}
+	}
 	else if (m_timer_wander.check()) {
 		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), g_game_random.randf(0.0f, 360.f)) * WALK_SPEED);
 	}
@@ -162,7 +202,7 @@ void Ogre::inactive_update(float /* dt_sec */) {
 	wandering();
 
 	if (m_physic.get_velocity_x() < 0.0f) {
-		m_weapon->set_flip(HORIZONTAL_FLIP);
+		m_weapon->set_flip(VERTICAL_FLIP);
 	}
 	else{
 		m_weapon->set_flip(NO_FLIP);

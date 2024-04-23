@@ -3,12 +3,16 @@
 
 #include "badguy/badguy.hpp"
 
+#include "util/timer.hpp"
+
 class ReaderData;
 class Weapon;
 
 class Wizzard : public BadGuy {
 private:
 	std::unique_ptr<Weapon> m_weapon;
+
+	Timer m_timer_ultimate;
 
 public:
 	Wizzard(const std::string& filename);

@@ -14,6 +14,7 @@ enum WeaponData {
 	SGUN_PLAYER,
 	SGUN_BADGUY,
 	GATLING_PLAYER,
+	MAGICSTAFF_BADGUY,
 };
 
 /**

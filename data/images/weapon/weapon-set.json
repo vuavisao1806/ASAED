@@ -44,6 +44,15 @@
 			"attack-per-sec": 5.0,
 			"accuracy": 5.0,
 			"filename": "weapons/Gatling/Gatling.json"
+		},
+		{
+			"id": 6,
+			"name": "magicstaff-badguy",
+			"projectile-id": 9,
+			"attack-per-turn": 3,
+			"attack-per-sec": 3.0,
+			"accuracy": 7.0,
+			"filename": "weapons/MagicStaff/MagicStaff.json"
 		}
 	]
 }

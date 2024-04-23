@@ -5,6 +5,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "object/direction.hpp"
 #include "object/physic.hpp"
@@ -43,6 +44,8 @@ protected:
 
 	Direction m_direction;
 	Physic m_physic;
+
+	std::vector<Vector> m_smart_position;
 
 public:
 	BadGuy(const std::string& filename);

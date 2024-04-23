@@ -17,7 +17,8 @@ BadGuy::BadGuy(const std::string& filename) :
 	m_timer_shoot(),
 	m_state(STATE_INACTIVE),
 	m_direction(Direction::RIGHT),
-	m_physic()
+	m_physic(),
+	m_smart_position()
 {}
 
 void BadGuy::update(float /* dt_sec */) {}

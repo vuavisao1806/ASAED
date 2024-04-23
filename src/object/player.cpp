@@ -24,7 +24,7 @@
 namespace {
 	const float WALK_SPEED = 100.0f; // That funny setup because I don't think another more beautiful
 	
-	const float SHIELD_RECOVERY = 5.0f;
+	const float SHIELD_RECOVERY = 3.0f;
 	const float TIME_DEAD = 2.5f;
 
 	const int HEALTH = 5;

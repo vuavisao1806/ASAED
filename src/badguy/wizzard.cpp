@@ -5,20 +5,27 @@
 #include "math/random.hpp"
 #include "math/util.hpp"
 #include "sprite/sprite.hpp"
+#include "util/a_start.hpp"
 #include "util/reader_machine.hpp"
 #include "util/reader_data.hpp"
 #include "weapon/weapon.hpp"
 #include "weapon/weapon_set.hpp"
+#include "weapon/projectile/projectile_triangle.hpp"
 
 namespace {
 	const float WALK_SPEED = 35.0f; // option
+	const float ULTIMATE = 5.0f; // option
 } // namespace
 
+#include "util/log.hpp"
 Wizzard::Wizzard(const std::string& filename) :
-	BadGuy(filename)
+	BadGuy(filename),
+	m_timer_ultimate()
 {
-	m_weapon = WeaponSet::current()->get(2).clone(this);
+	log_warning << "wizzard is coming\n";
+	m_weapon = WeaponSet::current()->get(MAGICSTAFF_BADGUY).clone(this);
 	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
+	m_timer_ultimate.start(ULTIMATE, true);
 	set_action("idle-right");
 }
 
@@ -77,11 +84,49 @@ void Wizzard::draw(DrawingContext& drawing_context) {
 }
 
 void Wizzard::wandering() {
+	if (!m_smart_position.empty()) {
+		const auto* tile_map = Room::get().get_solid_tilemaps()[0];
+		if (tile_map->get_tile_fake_position(get_bounding_box().get_middle()) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(get_bounding_box().p1()) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(get_bounding_box().p2()) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(Vector(get_bounding_box().get_right(), get_bounding_box().get_top())) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (tile_map->get_tile_fake_position(Vector(get_bounding_box().get_left(), get_bounding_box().get_bottom())) ==
+		    tile_map->get_tile_fake_position(m_smart_position.back())) {
+			m_smart_position.pop_back();
+		}
+		if (!m_smart_position.empty()) {
+			Vector to_rotate = m_smart_position.back() - get_bounding_box().get_middle();
+			// float angle = math::angle(to_rotate) + g_game_random.randf(-3.0f, 3.0f); // to fix collision
+			float angle = math::angle(to_rotate);
+			m_physic.set_velocity(math::rotate(Vector(1.5f, 0.0f), angle) * WALK_SPEED);
+			return;
+		}
+	}
+
 	if (math::distance(get_bounding_box().get_middle(), m_start_position) > m_radius_wander) {
-		Vector to_rotate = m_start_position - get_bounding_box().get_middle();
-		float angle = math::angle(to_rotate);
-		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), angle) * WALK_SPEED);
-	} 
+		if (Room::get().free_light_of_sight(get_bounding_box().get_middle(), m_start_position)) {
+			Vector to_rotate = m_start_position - get_bounding_box().get_middle();
+			float angle = math::angle(to_rotate);
+			m_physic.set_velocity(math::rotate(Vector(1.5f, 0.0f), angle) * WALK_SPEED);
+		}
+		else {
+			const auto* tile_map = Room::get().get_solid_tilemaps()[0];
+			AStart m_astart(tile_map, get_bounding_box().get_middle(), m_start_position);
+			m_smart_position = m_astart.smart_path();
+		}
+	}
 	else if (m_timer_wander.check()) {
 		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), g_game_random.randf(0.0f, 360.f)) * WALK_SPEED);
 	}
@@ -109,6 +154,10 @@ void Wizzard::active_update(float /* dt_sec */) {
 		m_timer_shoot.start_with_previous();
 	}
 
+	if (m_timer_ultimate.paused()) {
+		m_timer_ultimate.start_with_previous();
+	}
+	
 	auto player_ptr = Room::get().get_nearest_player(m_bounding_box.get_middle());
 	Vector to_rotate = player_ptr->get_bounding_box().get_middle() - m_bounding_box.get_middle();
 	float dist = math::length(to_rotate);
@@ -148,6 +197,10 @@ void Wizzard::active_update(float /* dt_sec */) {
 	if (m_timer_shoot.check()) {
 		m_weapon->attack();
 	}
+	
+	if (m_timer_ultimate.check()) {
+		Room::get().add_object(std::make_unique<ProjectileTriangle>(get_pos(), math::angle(to_rotate), CYCLOID_PROJECTILE_BADGUY));
+	}
 }
 
 void Wizzard::inactive_update(float /* dt_sec */) {
@@ -157,10 +210,14 @@ void Wizzard::inactive_update(float /* dt_sec */) {
 		m_timer_shoot.pause_with_previous();
 	}
 
+	if (m_timer_ultimate.get_period() != 0.0f) {
+		m_timer_ultimate.pause_with_previous();
+	}
+
 	wandering();
 
 	if (m_physic.get_velocity_x() < 0.0f) {
-		m_weapon->set_flip(HORIZONTAL_FLIP);
+		m_weapon->set_flip(VERTICAL_FLIP);
 	}
 	else{
 		m_weapon->set_flip(NO_FLIP);
