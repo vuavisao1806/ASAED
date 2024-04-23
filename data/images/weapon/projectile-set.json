@@ -41,8 +41,9 @@
 			"name": "gatling-player",
 			"type": 1,
 			"damage": 2,
-			"bounce-wall-count": 0,
-			"speed": 200.0,
+			"bounce-wall-count": 1,
+			"color": 3,
+			"speed": 280.0,
 			"filename": "projectile/gatling/gatling.json"
 		},
 		{

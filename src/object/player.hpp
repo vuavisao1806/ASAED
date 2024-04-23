@@ -17,6 +17,7 @@
 
 class Controller;
 class DrawingContext;
+class Chest;
 
 class Player : public MovingObject {
 private:
@@ -68,6 +69,8 @@ public:
 public:
 	int get_id() const;
 	void set_id(int id);
+
+	void switch_weapon(Chest& chest);
 
 	std::unique_ptr<Player> clone() const;
 };

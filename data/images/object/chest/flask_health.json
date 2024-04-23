@@ -1,0 +1,13 @@
+{
+	"flask": [
+		{
+			"name": "flask",
+			"family-name": "flask",
+			"hitbox": [0, 0, 16, 16],
+			"fps": 1,
+			"images": [
+				"flask_health.png"
+			]
+		}
+	]
+}

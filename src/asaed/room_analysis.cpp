@@ -1,10 +1,12 @@
 #include "asaed/room_analysis.hpp"
 
+#include "asaed/constants.hpp"
 #include "asaed/room.hpp"
 #include "asaed/level_data.hpp"
 #include "badguy/badguy_manager.hpp"
 #include "badguy/badguy.hpp"
 #include "math/random.hpp"
+#include "object/chest.hpp"
 #include "object/tile_map.hpp"
 #include "object/tile_set.hpp"
 #include "util/reader_data.hpp"
@@ -88,6 +90,14 @@ void RoomAnalysis::update() {
 				if (is_room_clear() && is_turn_clear()) {
 					// will update soon
 					// add chest
+					if (m_parent->get_objects_by_type_index(std::type_index(typeid(Chest))).empty()) {
+						Vector position = Vector(g_game_random.randf(m_parent->get_bounding_box().get_left(), m_parent->get_bounding_box().get_right()),
+												g_game_random.randf(m_parent->get_bounding_box().get_top(), m_parent->get_bounding_box().get_bottom()));
+						Rectf rect = Rectf(position - Vector(BLOCK_SIZE, BLOCK_SIZE) / 2.0f, Sizef(BLOCK_SIZE, BLOCK_SIZE));
+						if (m_parent->inside(rect) && m_parent->is_free_of_tiles(rect)) {
+							m_parent->add<Chest>(position);
+						}
+					}
 					m_parent->open_room();
 				}
 			}

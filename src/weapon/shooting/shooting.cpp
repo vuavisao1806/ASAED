@@ -28,7 +28,7 @@ void Shooting::shooting_angle(float angle) const {
 	const Projectile& projectile = ProjectileSet::current()->get(get_projectile_id());
 	const Rectf rect = Rectf(get_spawn_position(), projectile.get_bounding_box().get_size());
 	if (Room::get().inside(rect)) {
-		Room::get().add_object(projectile.clone(get_spawn_position(), m_hurt_attributes, angle));
+		Room::get().add_object(std::move(projectile.clone(get_spawn_position(), m_hurt_attributes, angle)));
 	}
 
 	// for (float angle = 0; angle < 360; angle += 20) {

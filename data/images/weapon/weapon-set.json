@@ -11,15 +11,6 @@
 		},
 		{
 			"id": 2,
-			"name": "ak47-badguy",
-			"projectile-id": 2,
-			"attack-per-turn": 1,
-			"attack-per-sec": 3.0,
-			"accuracy": 8.0,
-			"filename": "weapons/AK47/AK47.json"
-		},
-		{
-			"id": 3,
 			"name": "sgun-player",
 			"projectile-id": 3,
 			"attack-per-turn": 1,
@@ -28,22 +19,31 @@
 			"filename": "weapons/Sgun/Sgun.json"
 		},
 		{
-			"id": 4,
-			"name": "sgun-badguy",
-			"projectile-id": 4,
-			"attack-per-turn": 1,
-			"attack-per-sec": 5.0,
-			"accuracy": 2.0,
-			"filename": "weapons/Sgun/Sgun.json"
-		},
-		{
-			"id": 5,
+			"id": 3,
 			"name": "gatling-player",
 			"projectile-id": 5,
 			"attack-per-turn": 3,
 			"attack-per-sec": 5.0,
 			"accuracy": 5.0,
 			"filename": "weapons/Gatling/Gatling.json"
+		},
+		{
+			"id": 4,
+			"name": "ak47-badguy",
+			"projectile-id": 2,
+			"attack-per-turn": 1,
+			"attack-per-sec": 3.0,
+			"accuracy": 8.0,
+			"filename": "weapons/AK47/AK47.json"
+		},
+		{
+			"id": 5,
+			"name": "sgun-badguy",
+			"projectile-id": 4,
+			"attack-per-turn": 1,
+			"attack-per-sec": 5.0,
+			"accuracy": 2.0,
+			"filename": "weapons/Sgun/Sgun.json"
 		},
 		{
 			"id": 6,

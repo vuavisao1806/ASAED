@@ -26,7 +26,7 @@ HitResponse Projectile::collision(CollisionObject& other, const CollisionHit& /*
 
 	if (dynamic_cast<BadGuy*>(&other)) {
 		if (!(m_hurt_attributes & HURT_BADGUY)) {
-				return ABORT_MOVE;
+			return ABORT_MOVE;
 		}
 		remove_me();
 		return FORCE_MOVE;

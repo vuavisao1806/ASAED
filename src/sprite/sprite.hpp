@@ -41,6 +41,7 @@ public:
 	
 	/** set action by name */
 	void set_action(const std::string& name);
+	const std::string& get_action() const;
 
 	/** get the total frames in the current action */
 	int get_frames();

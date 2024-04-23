@@ -12,6 +12,8 @@ class ProjectileLine : public Projectile {
 private:
 	int m_wall_bounce_count;
 
+	int m_color; // for fun, only use in Gatling
+
 public:
 	ProjectileLine(const std::string& filename);
 

@@ -1,12 +1,20 @@
 {
 	"chest": [
 		{
-			"name": "chest",
-			"family-name": "chest",
+			"name": "chest-close",
+			"family-name": "close",
 			"hitbox": [0, 0, 16, 16],
 			"fps": 1,
 			"images": [
-				"chest.png",
+				"chest.png"
+			]
+		},
+		{
+			"name": "chest-open",
+			"family-name": "open",
+			"hitbox": [0, 0, 16, 16],
+			"fps": 1,
+			"images": [
 				"chest1.png"
 			]
 		}

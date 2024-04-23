@@ -2,9 +2,10 @@
 
 #include "object/player.hpp"
 #include "badguy/badguy.hpp"
-#include "weapon/hurt.hpp"
+#include "math/random.hpp"
 #include "util/reader_data.hpp"
 #include "util/reader_machine.hpp"
+#include "weapon/hurt.hpp"
 
 ProjectileLine::ProjectileLine(const std::string& filename) :
 	Projectile(filename),
@@ -23,6 +24,10 @@ std::unique_ptr<Projectile> ProjectileLine::from_file(const ReaderData* data) {
 	float speed = 100.0f;
 	data->get("speed", speed);
 	speed = std::max(speed, 100.0f);
+
+	int color = 1;
+	data->get("color", color);
+	color = std::max(color, 1);
 	
 	std::string projectile_filename;
 	if (!data->get("filename", projectile_filename)) {
@@ -31,6 +36,7 @@ std::unique_ptr<Projectile> ProjectileLine::from_file(const ReaderData* data) {
 
 	auto projectile = std::make_unique<ProjectileLine>(data->m_parent_path + projectile_filename);
 	projectile->m_damage = damage;
+	projectile->m_color = color;
 	projectile->m_wall_bounce_count = bounce_wall_count;
 	projectile->m_physic.set_velocity(Vector(speed, 0.0f));
 	return projectile;
@@ -45,6 +51,7 @@ void ProjectileLine::collision_solid(const CollisionHit& hit) {
 		if (hit.top || hit.bottom) {
 			m_physic.set_inverse_velocity_y();
 		}
+		set_angle(180.0f - get_angle());
 	}
 	else {
 		remove_me();
@@ -62,6 +69,13 @@ std::unique_ptr<Projectile> ProjectileLine::clone(const Vector& pos, uint32_t hu
 	projectile->set_hurt_attributes(hurt_attributes);
 	projectile->set_angle(angle);
 	projectile->m_wall_bounce_count = m_wall_bounce_count;
+	projectile->m_color = m_color;
+
+	// Just for fun!!
+	// Don't touch, it's only use in Gatling
+	if (projectile->m_color > 1) {
+		projectile->set_action("projectile-" + std::to_string(g_game_random.rand(1, projectile->m_color)));
+	}
 
 	Vector velocity = Vector(math::length(m_physic.get_velocity()), 0.0f);;
 	projectile->m_physic.set_velocity(math::rotate(velocity, angle));

@@ -94,6 +94,8 @@ void Sprite::set_action(const std::string& name) {
 	m_action = new_action;
 }
 
+const std::string& Sprite::get_action() const { return m_action->name; }
+
 int Sprite::get_frames() { return static_cast<int>(m_action->surfaces.size()); }
 
 int Sprite::get_current_frame() { return m_frame_index; }

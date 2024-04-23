@@ -61,6 +61,7 @@ CPP_FILES = main.cpp                                               \
             math/util.cpp                                          \
             object/camera.cpp                                      \
             object/chest.cpp                                       \
+            object/flask_health.cpp                                \
             object/floating_text.cpp                               \
             object/game_object_manager.cpp                         \
             object/game_object.cpp                                 \

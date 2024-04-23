@@ -1,6 +1,7 @@
 #include "object/player.hpp"
 
 #include <SDL_image.h>
+#include <algorithm>
 
 #include "asaed/room.hpp"
 #include "asaed/resources.hpp"
@@ -8,7 +9,9 @@
 #include "control/controller.hpp"
 #include "control/input_manager.hpp"
 #include "object/camera.hpp"
+#include "object/chest.hpp"
 #include "object/floating_text.hpp"
+#include "object/flask_health.hpp"
 #include "gui/colorscheme.hpp"
 #include "math/util.hpp"
 #include "math/rectf.hpp"
@@ -20,7 +23,6 @@
 #include "video/surface.hpp"
 #include "sprite/sprite.hpp"
 #include "sprite/sprite_manager.hpp"
-
 namespace {
 	const float WALK_SPEED = 100.0f; // That funny setup because I don't think another more beautiful
 	
@@ -42,7 +44,7 @@ Player::Player(int player_id, int weapon_id) :
 	m_timer_dead(),
 	m_direction(Direction::RIGHT),
 	m_sprite(SpriteManager::current()->create("data/images/creatures/knight/knight-sprite.json")),
-	m_weapon(WeaponSet::current()->get(weapon_id).clone(this))
+	m_weapon(WeaponSet::current()->get(GATLING_PLAYER).clone(this)) // tested
 {
 	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 	set_pos(Vector(100.0f, 100.0f));
@@ -104,6 +106,18 @@ HitResponse Player::collision(CollisionObject& other, const CollisionHit& hit) {
 
 	if (dynamic_cast<BadGuy*>(&other)) {
 		return CONTINUE;
+	}
+
+	if (dynamic_cast<FlaskHealth*>(&other)) {
+		if (m_controller->pressed(Control::ATTACK)) {
+			m_health = std::min(HEALTH, m_health + 1); // noooo!
+		}
+	}
+
+	if (auto* chest = dynamic_cast<Chest*>(&other)) {
+		if (m_controller->pressed(Control::ATTACK)) {
+			switch_weapon(*chest);
+		}
 	}
 	return CONTINUE;
 }
@@ -264,6 +278,17 @@ void Player::set_id(int id) {
 
 int Player::get_layer() const { return LAYER_OBJECT + 1; }
 
+void Player::switch_weapon(Chest& chest) {
+	if (!chest.get_weapon()) {
+		return;
+	}
+	auto new_weapon = chest.get_weapon()->clone(this);
+
+	chest.set_weapon(m_weapon->clone(&chest));
+	
+	m_weapon = std::move(new_weapon);
+	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
+}
 
 std::unique_ptr<Player> Player::clone() const {
 	assert(this != nullptr);

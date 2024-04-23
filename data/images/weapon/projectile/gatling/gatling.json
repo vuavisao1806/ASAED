@@ -1,13 +1,29 @@
 {
 	"gatling": [
 		{
-			"name": "projectile",
+			"name": "projectile-1",
 			"family-name": "projectile",
-			"fps": 8,
-			"hitbox": [0, 0, 24, 10],
+			"fps": 1,
+			"hitbox": [0, 0, 12, 5],
 			"images": [
-				"gatling-1.png",
-				"gatling-2.png",
+				"gatling-1.png"
+			]
+		},
+		{
+			"name": "projectile-2",
+			"family-name": "projectile",
+			"fps": 1,
+			"hitbox": [0, 0, 12, 5],
+			"images": [
+				"gatling-2.png"
+			]
+		},
+		{
+			"name": "projectile-3",
+			"family-name": "projectile",
+			"fps": 1,
+			"hitbox": [0, 0, 12, 5],
+			"images": [
 				"gatling-3.png"
 			]
 		}
