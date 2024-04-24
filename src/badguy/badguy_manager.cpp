@@ -8,7 +8,7 @@
 #include "badguy/wizzard.hpp"
 
 BadGuyManager::BadGuyManager() :
-	m_filename("data/images/badguy/badguy-set.json"),
+	m_filename("images/badguy/badguy-set.json"),
 	m_badguys()
 {
 	ReaderMachine reader(m_filename);

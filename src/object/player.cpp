@@ -43,7 +43,7 @@ Player::Player(int player_id, int weapon_id) :
 	m_shield(SHIELD),
 	m_timer_dead(),
 	m_direction(Direction::RIGHT),
-	m_sprite(SpriteManager::current()->create("data/images/creatures/knight/knight-sprite.json")),
+	m_sprite(SpriteManager::current()->create("images/creatures/knight/knight-sprite.json")),
 	m_weapon(WeaponSet::current()->get(GATLING_PLAYER).clone(this)) // tested
 {
 	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());

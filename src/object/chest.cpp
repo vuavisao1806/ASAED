@@ -10,7 +10,7 @@
 
 
 Chest::Chest(const Vector& position) :
-	MovingSprite(Vector(0.0f, 0.0f), "data/images/object/chest/chest.json"),
+	MovingSprite(Vector(0.0f, 0.0f), "images/object/chest/chest.json"),
 	m_weapon(),
 	m_spawn(false)
 {
@@ -44,7 +44,7 @@ HitResponse Chest::collision(CollisionObject& other, const CollisionHit& /* hit 
 			}
 		
 			default:
-				log_warning << "Chest empty! But it's feature!";
+				log_warning << "Chest empty! But it's feature!\n";
 				break;
 		}
 	}

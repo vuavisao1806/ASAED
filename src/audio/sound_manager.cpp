@@ -8,7 +8,7 @@
 #include "util/reader_data.hpp"
 
 SoundManager::SoundManager() :
-	filename("data/music/music-list.json"),
+	filename("music/music-list.json"),
 	m_mix_musics(),
 	m_mix_chunks(),
 	current_music_name(),

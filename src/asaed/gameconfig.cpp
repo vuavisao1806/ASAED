@@ -16,7 +16,7 @@ Config::Config() :
 
 
 void Config::load() {
-	ReaderMachine reader("data/gameconfig.json");
+	ReaderMachine reader("gameconfig.json");
 	const ReaderData* data = reader.get_data(0);
 
 	std::vector<int> window;

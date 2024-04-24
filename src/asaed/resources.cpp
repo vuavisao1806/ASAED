@@ -29,18 +29,18 @@ Resources::~Resources() {
 
 
 void Resources::load() {
-	m_mouse_cursor = std::make_unique<MouseCursor>(SpriteManager::current()->create("data/images/menu/mouse-cursor.json"));
+	m_mouse_cursor = std::make_unique<MouseCursor>(SpriteManager::current()->create("images/menu/mouse-cursor.json"));
 
-	normal_font = std::make_shared<TTFFont>("data/fonts/SuperMario256.ttf", 18, 1.5f);
-	small_font = std::make_shared<TTFFont>("data/fonts/SuperMario256.ttf", 11, 1.5f);
-	big_font = std::make_shared<TTFFont>("data/fonts/SuperMario256.ttf", 22, 1.5f);
+	normal_font = std::make_shared<TTFFont>("fonts/SuperMario256.ttf", 18, 1.5f);
+	small_font = std::make_shared<TTFFont>("fonts/SuperMario256.ttf", 11, 1.5f);
+	big_font = std::make_shared<TTFFont>("fonts/SuperMario256.ttf", 22, 1.5f);
 
-	arrow_left = Surface::from_file("data/images/menu/arrow-left.png");
-	arrow_right = Surface::from_file("data/images/menu/arrow-right.png");
-	back = Surface::from_file("data/images/menu/arrow-back.png");
+	arrow_left = Surface::from_file("images/menu/arrow-left.png");
+	arrow_right = Surface::from_file("images/menu/arrow-right.png");
+	back = Surface::from_file("images/menu/arrow-back.png");
 
-	heart = Surface::from_file("data/images/menu/HUD/heart.png");
-	shield = Surface::from_file("data/images/menu/HUD/shield.png");
+	heart = Surface::from_file("images/menu/HUD/heart.png");
+	shield = Surface::from_file("images/menu/HUD/shield.png");
 }
 
 void Resources::unload() {

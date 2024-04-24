@@ -8,7 +8,7 @@
 #include "util/reader_data.hpp"
 
 LevelManager::LevelManager() :
-	m_filename("data/images/level/level.json"),
+	m_filename("images/level/level.json"),
 	m_levels()
 {
 	ReaderMachine reader(m_filename);

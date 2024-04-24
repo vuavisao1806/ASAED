@@ -12,7 +12,7 @@
 #include "video/surface.hpp"
 
 TitleScreen::TitleScreen() :
-	m_theme(Surface::from_file("data/images/menu/theme.png"))
+	m_theme(Surface::from_file("images/menu/theme.png"))
 {}
 
 TitleScreen::~TitleScreen()

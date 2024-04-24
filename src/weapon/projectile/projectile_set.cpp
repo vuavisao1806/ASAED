@@ -10,7 +10,7 @@
 
 
 ProjectileSet::ProjectileSet() :
-	m_filename("data/images/weapon/projectile-set.json"),
+	m_filename("images/weapon/projectile-set.json"),
 	m_projectiles(1)
 {
 	parse();

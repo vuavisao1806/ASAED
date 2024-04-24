@@ -9,7 +9,7 @@
 
 
 WeaponSet::WeaponSet() :
-	m_filename("data/images/weapon/weapon-set.json"),
+	m_filename("images/weapon/weapon-set.json"),
 	m_weapons(1)
 {
 	parse();

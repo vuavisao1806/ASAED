@@ -11,7 +11,7 @@
 #include "gui/colorscheme.hpp"
 
 FlaskHealth::FlaskHealth(const Vector& position) :
-	MovingSprite(Vector(0.0f, 0.0f), "data/images/object/chest/flask_health.json")
+	MovingSprite(Vector(0.0f, 0.0f), "images/object/chest/flask_health.json")
 {
 	set_pos(position - get_bounding_box().get_middle());
 }
