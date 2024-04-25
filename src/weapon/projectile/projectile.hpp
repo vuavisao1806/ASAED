@@ -4,6 +4,8 @@
 #include "object/moving_sprite.hpp"
 #include "object/physic.hpp"
 
+#include <numeric>
+#include <limits>
 #include <stdint.h>
 #include <string>
 
@@ -21,7 +23,10 @@ enum ProjectileData {
 	BOOMERANG_PROJECTILE_BADGUY,
 	CYCLE_PROJECTILE_PLAYER,
 	CYCLE_PROJECTILE_BADGUY,
-	CYCLOID_PROJECTILE_BADGUY
+	CYCLOID_PROJECTILE_BADGUY,
+	SPECIAL_PROJECTILE_BADGUY,
+	BIG_PROJECTILE_BADGUY,
+	MINI_PROJECTILE_BADGUY
 };
 
 class Projectile : public MovingSprite {
@@ -44,7 +49,7 @@ public:
 	static std::string class_name();
 	virtual std::string get_class_name() const override;
 	
-	virtual std::unique_ptr<Projectile> clone(const Vector& pos, uint32_t hurt_attributes, float angle) const = 0;
+	virtual std::unique_ptr<Projectile> clone(const Vector& pos, uint32_t hurt_attributes, float angle, float angle_shift = std::numeric_limits<float>::max()) const = 0;
 
 public:
 	uint32_t get_hurt_attributes() const;

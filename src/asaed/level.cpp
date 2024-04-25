@@ -64,6 +64,7 @@ void Level::start_level() {
 				break;
 			}
 			case RoomType::NORMAL:
+			case RoomType::BOSS:
 				room->update(1.0f);
 				break;
 			case RoomType::END:

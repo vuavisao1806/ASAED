@@ -3,9 +3,11 @@
 #include "util/reader_machine.hpp"
 #include "util/reader_data.hpp"
 #include "util/log.hpp"
+#include "badguy/anubis.hpp"
 #include "badguy/badguy.hpp"
 #include "badguy/ogre.hpp"
 #include "badguy/wizzard.hpp"
+#include "badguy/zulan.hpp"
 
 BadGuyManager::BadGuyManager() :
 	m_filename("images/badguy/badguy-set.json"),
@@ -49,6 +51,14 @@ void BadGuyManager::parse_badguy(const ReaderData* data) {
 
 		case WIZZARD:
 			badguy = Wizzard::from_file(data);
+			break;
+
+		case ZULAN:
+			badguy = Zulan::from_file(data);
+			break;
+
+		case ANUBIS:
+			badguy = Anubis::from_file(data);
 			break;
 		
 		default:

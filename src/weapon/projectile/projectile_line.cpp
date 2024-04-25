@@ -63,7 +63,7 @@ void ProjectileLine::collision_tile(uint32_t /* tile_attributes */) {}
 std::string ProjectileLine::class_name() { return "projectile_line"; }
 std::string ProjectileLine::get_class_name() const { return class_name(); }
 
-std::unique_ptr<Projectile> ProjectileLine::clone(const Vector& pos, uint32_t hurt_attributes, float angle) const {
+std::unique_ptr<Projectile> ProjectileLine::clone(const Vector& pos, uint32_t hurt_attributes, float angle, float /* angle_shift */) const {
 	auto projectile = std::make_unique<ProjectileLine>(m_sprite_name);
 	projectile->set_pos(pos);
 	projectile->set_hurt_attributes(hurt_attributes);

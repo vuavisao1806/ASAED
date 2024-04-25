@@ -17,12 +17,10 @@ namespace {
 	const float ULTIMATE = 5.0f; // option
 } // namespace
 
-#include "util/log.hpp"
 Wizzard::Wizzard(const std::string& filename) :
 	BadGuy(filename),
 	m_timer_ultimate()
 {
-	log_warning << "wizzard is coming\n";
 	m_weapon = WeaponSet::current()->get(MAGICSTAFF_BADGUY).clone(this);
 	m_weapon->set_offset(m_weapon->get_bounding_box().get_middle());
 	m_timer_ultimate.start(ULTIMATE, true);
@@ -108,7 +106,6 @@ void Wizzard::wandering() {
 		}
 		if (!m_smart_position.empty()) {
 			Vector to_rotate = m_smart_position.back() - get_bounding_box().get_middle();
-			// float angle = math::angle(to_rotate) + g_game_random.randf(-3.0f, 3.0f); // to fix collision
 			float angle = math::angle(to_rotate);
 			m_physic.set_velocity(math::rotate(Vector(1.5f, 0.0f), angle) * WALK_SPEED);
 			return;

@@ -19,6 +19,7 @@ Color ColorScheme::HUD::heart_back(0.74f, 0.2f, 0.18f);
 Color ColorScheme::HUD::heart_front(0.8f, 0.36f, 0.4f);
 Color ColorScheme::HUD::shield_back(0.55f, 0.55f, 0.56f);
 Color ColorScheme::HUD::shield_front(0.65f, 0.7f, 0.74f);
+Color ColorScheme::HUD::normal_color(1.0f, 1.0f, 1.0f);
 
 Color ColorScheme::Text::small_color(1.0f, 1.0f, 1.0f);
 Color ColorScheme::Text::heading_color(1.0f, 1.0f, 0.6f);

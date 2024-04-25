@@ -6,6 +6,7 @@
 
 enum class RoomType {
 	NORMAL,
+	BOSS,
 	START,
 	END,
 	BRIDGE

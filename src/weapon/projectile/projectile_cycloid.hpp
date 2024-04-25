@@ -27,7 +27,7 @@ public:
 	static std::string class_name();
 	virtual std::string get_class_name() const override;
 
-	virtual std::unique_ptr<Projectile> clone(const Vector& pos, uint32_t hurt_attributes, float angle) const override;
+	virtual std::unique_ptr<Projectile> clone(const Vector& pos, uint32_t hurt_attributes, float angle, float angle_shift = std::numeric_limits<float>::max()) const override;
 };
 
 #endif

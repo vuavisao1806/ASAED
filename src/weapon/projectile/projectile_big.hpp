@@ -1,31 +1,30 @@
-#ifndef HEADER_ASAED_WEAPON_PROJECTILE_PROJECTILE_CYCLE_HPP
-#define HEADER_ASAED_WEAPON_PROJECTILE_PROJECTILE_CYCLE_HPP
+#ifndef HEADER_ASAED_WEAPON_WEAPON_PROJECTILE_BIG_HPP
+#define HEADER_ASAED_WEAPON_WEAPON_PROJECTILE_BIG_HPP
 
 #include "weapon/projectile/projectile.hpp"
 
 #include <string>
 
-#include "math/vector.hpp"
+#include "util/timer.hpp"
 
 class ReaderData;
 
 
-class ProjectileCycle : public Projectile {
+class ProjectileBig : public Projectile {
 private:
-	Physic m_physic_shift;
+	Timer m_timer_spawn;
 
 public:
-	ProjectileCycle(const std::string& filename);
+	ProjectileBig(const std::string& filename);
 
 private:
-	ProjectileCycle(const ProjectileCycle&) = delete;
-	ProjectileCycle& operator=(const ProjectileCycle&) = delete;
+	ProjectileBig(const ProjectileBig&) = delete;
+	ProjectileBig& operator=(const ProjectileBig&) = delete;
 
 public:
 	static std::unique_ptr<Projectile> from_file(const ReaderData* data);
 
 public:
-	virtual void collision_solid(const CollisionHit& hit) override;
 	virtual void collision_tile(uint32_t tile_attributes) override;
 
 	virtual void update(float dt_sec) override;

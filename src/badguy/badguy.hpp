@@ -14,7 +14,9 @@
 
 enum BadGuyData {
 	OGRE,
-	WIZZARD
+	WIZZARD,
+	ZULAN,
+	ANUBIS
 };
 
 /** Class BadGuy (base) to help inheritance and manage all of types badguy */

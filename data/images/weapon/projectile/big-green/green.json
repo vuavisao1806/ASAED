@@ -1,0 +1,16 @@
+{
+	"green": [
+		{
+			"name": "projectile",
+			"family-name": "projectile",
+			"fps": 8,
+			"hitbox": [0, 0, 30, 30],
+			"images": [
+				"green-1.png",
+				"green-2.png",
+				"green-3.png",
+				"green-4.png"
+			]
+		}
+	]
+}

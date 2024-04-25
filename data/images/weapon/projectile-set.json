@@ -70,7 +70,7 @@
 			"type": 2,
 			"damage": 1,
 			"bounce-wall-count": 0,
-			"speed": 200.0,
+			"speed": 125.0,
 			"filename": "projectile/cycle-purple/purple.json"
 		},
 		{
@@ -81,6 +81,33 @@
 			"bounce-wall-count": 0,
 			"speed": 200.0,
 			"filename": "projectile/cycloid-purple/purple.json"
+		},
+		{
+			"id": 10,
+			"name": "special-badguy",
+			"type": 1,
+			"damage": 1,
+			"bounce-wall-count": 0,
+			"speed": 100.0,
+			"filename": "projectile/cycloid-purple/purple.json"
+		},
+		{
+			"id": 11,
+			"name": "big-badguy",
+			"type": 5,
+			"damage": 2,
+			"bounce-wall-count": 0,
+			"speed": 125.0,
+			"filename": "projectile/big-green/green.json"
+		},
+		{
+			"id": 12,
+			"name": "mini-badguy",
+			"type": 1,
+			"damage": 1,
+			"bounce-wall-count": 0,
+			"speed": 125.0,
+			"filename": "projectile/mini-green/green.json"
 		}
 	]
 }

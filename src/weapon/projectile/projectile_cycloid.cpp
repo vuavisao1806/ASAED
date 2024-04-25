@@ -63,7 +63,7 @@ void ProjectileCycloid::update(float dt_sec) {
 std::string ProjectileCycloid::class_name() { return "projectile_cycloid"; }
 std::string ProjectileCycloid::get_class_name() const { return class_name(); }
 
-std::unique_ptr<Projectile> ProjectileCycloid::clone(const Vector& pos, uint32_t hurt_attributes, float angle) const {
+std::unique_ptr<Projectile> ProjectileCycloid::clone(const Vector& pos, uint32_t hurt_attributes, float angle, float /* angle_shift */) const {
 	auto projectile = std::make_unique<ProjectileCycloid>(m_sprite_name);
 	projectile->set_pos(pos);
 	projectile->set_hurt_attributes(hurt_attributes);

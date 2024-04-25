@@ -44,7 +44,7 @@ Player::Player(int player_id, int weapon_id) :
 	m_timer_dead(),
 	m_direction(Direction::RIGHT),
 	m_sprite(SpriteManager::current()->create("images/creatures/knight/knight-sprite.json")),
-	m_weapon(WeaponSet::current()->get(GATLING_PLAYER).clone(this)) // tested
+	m_weapon(WeaponSet::current()->get(GATLING_PLAYER).clone(this))
 {
 	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 	set_pos(Vector(100.0f, 100.0f));
@@ -197,18 +197,18 @@ void Player::draw(DrawingContext& drawing_context) {
 			item_size -= Sizef(item_width + 5.0f, 0.0f);
 			float rem = item_size.width / CAPACITY;
 
-			drawing_context.get_canvas().draw_filled_rect(Rectf(item_position, item_size), ColorScheme::HUD::space_back, LAYER_GUI);
+			drawing_context.get_canvas().draw_filled_rect(Rectf(item_position, item_size), ColorScheme::HUD::space_back, LAYER_HUD);
 			
 			item_size.height /= 2.0f;
-			drawing_context.get_canvas().draw_filled_rect(Rectf(item_position, item_size - Sizef(rem, 0.0f) * (CAPACITY - m_value)), front, LAYER_GUI);
+			drawing_context.get_canvas().draw_filled_rect(Rectf(item_position, item_size - Sizef(rem, 0.0f) * (CAPACITY - m_value)), front, LAYER_HUD);
 
 			item_position.y += item_size.height;
-			drawing_context.get_canvas().draw_filled_rect(Rectf(item_position, item_size - Sizef(rem, 0.0f) * (CAPACITY - m_value)), back, LAYER_GUI);
+			drawing_context.get_canvas().draw_filled_rect(Rectf(item_position, item_size - Sizef(rem, 0.0f) * (CAPACITY - m_value)), back, LAYER_HUD);
 			
 			std::string item = std::to_string(m_value) + '/' + std::to_string(CAPACITY);
 			item_position.y -= item_size.height + 1.0f;
 			item_position.x += item_size.width / 2.0f - font->get_text_width(item) / 2.0f;
-			drawing_context.get_canvas().draw_text(font, item, item_position, ALIGN_LEFT, LAYER_GUI, ColorScheme::Text::small_color);
+			drawing_context.get_canvas().draw_text(font, item, item_position, ALIGN_LEFT, LAYER_HUD, ColorScheme::Text::small_color);
 
 			position.y += item_height + 1.0f;
 		};

@@ -3,6 +3,7 @@
 RoomType from_string_to_room_type(const std::string& name) {
 	/** Why switch-case doesn't accept string!! */
 	if (name == "normal") return RoomType::NORMAL;
+	if (name == "boss") return RoomType::BOSS;
 	if (name == "start") return RoomType::START;
 	if (name == "end") return RoomType::END;
 	if (name == "bridge") return RoomType::BRIDGE;

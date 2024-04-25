@@ -187,6 +187,7 @@ std::unique_ptr<Level> LevelData::creat_level_from_leveldata() const {
 
 	std::unique_ptr<RoomAnalysis> start_room;
 	std::unique_ptr<RoomAnalysis> end_room;
+	std::unique_ptr<RoomAnalysis> boss_room;
 	std::vector<uint32_t> index;
 	
 	for (size_t id = 1; id < m_rooms.size(); ++ id) {
@@ -197,6 +198,9 @@ std::unique_ptr<Level> LevelData::creat_level_from_leveldata() const {
 				break;
 			case RoomType::END:
 				end_room    = room_analysis->clone(Vector(0.0f, 0.0f));
+				break;
+			case RoomType::BOSS:
+				boss_room    = room_analysis->clone(Vector(0.0f, 0.0f));
 				break;
 			case RoomType::NORMAL:
 				index.push_back(id);
@@ -215,6 +219,11 @@ std::unique_ptr<Level> LevelData::creat_level_from_leveldata() const {
 	for (const auto& id : index) {
 		new_level->add_room(creat_bridge(new_level->get(new_level->get_num_rooms() - 1)));
 		new_level->add_room(creat_room(m_rooms[id]->clone(Vector(0.0f, 0.0f)), new_level->get(new_level->get_num_rooms() - 1)));
+	}
+
+	if (boss_room) {
+		new_level->add_room(creat_bridge(new_level->get(new_level->get_num_rooms() - 1)));
+		new_level->add_room(creat_room(boss_room->clone(Vector(0.0f, 0.0f)), new_level->get(new_level->get_num_rooms() - 1)));
 	}
 
 	assert(end_room != nullptr);

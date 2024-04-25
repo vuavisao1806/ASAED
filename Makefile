@@ -25,10 +25,12 @@ CPP_FILES = main.cpp                                               \
             audio/mix_chunk_ptr.cpp                                \
             audio/mix_music_ptr.cpp                                \
             audio/sound_manager.cpp                                \
+            badguy/anubis.cpp                                      \
             badguy/badguy_manager.cpp                              \
             badguy/badguy.cpp                                      \
             badguy/ogre.cpp                                        \
             badguy/wizzard.cpp                                     \
+            badguy/zulan.cpp                                       \
             collision/collision_object.cpp                         \
             collision/collision_system.cpp                         \
             collision/collision.cpp                                \
@@ -102,6 +104,7 @@ CPP_FILES = main.cpp                                               \
             video/ttf_surface.cpp                                  \
             video/video_system.cpp                                 \
             video/viewport.cpp                                     \
+            weapon/projectile/projectile_big.cpp                   \
             weapon/projectile/projectile_cycle.cpp                 \
             weapon/projectile/projectile_cycloid.cpp               \
             weapon/projectile/projectile_line.cpp                  \

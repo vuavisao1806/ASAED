@@ -81,6 +81,7 @@ void RoomAnalysis::update() {
 		case RoomType::BRIDGE:
 			break;
 		case RoomType::NORMAL:
+		case RoomType::BOSS:
 			if (!m_parent->get_player().empty()) {
 				if (!is_room_clear() && is_turn_clear()) {
 					m_parent->start_room();
@@ -125,9 +126,11 @@ void RoomAnalysis::start_next_turn() {
 		const auto& badguy = BadGuyManager::current()->get(name_badguy);
 		Vector position_spawn;
 		if (badguy.is_boss()) {
-			position_spawn = rect.get_middle();
-			if (!m_parent->inside(Rectf(position_spawn, badguy.get_bounding_box().get_size())) ||
-			    !m_parent->is_free_of_tiles(Rectf(position_spawn, badguy.get_bounding_box().get_size()))) {
+			position_spawn = rect.get_middle() - Vector(badguy.get_bounding_box().get_width(), badguy.get_bounding_box().get_height()) / 2.0f;
+			const Rectf& rect = Rectf(position_spawn, 
+			                          badguy.get_bounding_box().get_size());
+			if (!m_parent->inside(rect) ||
+			    !m_parent->is_free_of_tiles(rect)) {
 					throw std::runtime_error("Boss needs to be set in the room center!!");
 			}
 			m_parent->add_object(badguy.clone(position_spawn));

@@ -32,6 +32,7 @@ public:
 		static Color heart_front;
 		static Color shield_back;
 		static Color shield_front;
+		static Color normal_color;
 	};
 
 	class FloatingText {

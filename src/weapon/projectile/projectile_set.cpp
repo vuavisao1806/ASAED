@@ -7,6 +7,7 @@
 #include "weapon/projectile/projectile_line.hpp"
 #include "weapon/projectile/projectile_cycle.hpp"
 #include "weapon/projectile/projectile_cycloid.hpp"
+#include "weapon/projectile/projectile_big.hpp"
 
 
 ProjectileSet::ProjectileSet() :
@@ -79,6 +80,9 @@ void ProjectileSet::parse_projectile(const ReaderData* data) {
 			break;
 		case ProjectileType::CYCLOID:
 			projectile = ProjectileCycloid::from_file(data);
+			break;
+		case ProjectileType::BIGSPAWN:
+			projectile = ProjectileBig::from_file(data);
 			break;
 		
 		default:
