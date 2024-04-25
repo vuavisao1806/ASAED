@@ -53,12 +53,16 @@ void Level::draw(DrawingContext& drawing_context) {
 void Level::start_level() {
 	for (auto& room : m_rooms) {
 		switch (room->get_room_type()) {
-			case RoomType::START:
-				room->add_object(GameSession::current()->get_savegame().get_player_status().clone_player_status());
+			case RoomType::START: {
+				auto player = GameSession::current()->get_savegame().get_player_status().clone_player_status();
+				player->set_pos(room->get_bounding_box().get_middle());
+				room->add_object(std::move(player));
+				
 				room->add<Camera>();
 				room->flush_game_objects();
 				room->activate();
 				break;
+			}
 			case RoomType::NORMAL:
 				room->update(1.0f);
 				break;
