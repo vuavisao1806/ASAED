@@ -1,8 +1,9 @@
 #include "asaed/menu/main_menu.hpp"
 
-#include "audio/sound_manager.hpp"
 #include "asaed/game_manager.hpp"
 #include "asaed/screen_manager.hpp"
+#include "asaed/credits_screen.hpp"
+#include "audio/sound_manager.hpp"
 #include "gui/menu_item.hpp"
 #include "gui/menu_manager.hpp"
 #include "gui/menu_storage.hpp"
@@ -14,6 +15,7 @@ MainMenu::MainMenu() {
 	add_horizontal_line();
 	add_entry(MENU_ID_START, "Start Game");
 	add_submenu("Options", MenuStorage::OPTIONS_MENU);
+	add_entry(MENU_ID_CREDITS, "Credits");
 	add_entry(MENU_ID_QUIT, "Quit");
 }
 
@@ -22,6 +24,11 @@ void MainMenu::menu_action(MenuItem& item) {
 		case MENU_ID_START:
 			MenuManager::current()->clear_menu_stack();
 			GameManager::current()->start_level("level1", false);
+			break;
+			
+		case MENU_ID_CREDITS:
+			MenuManager::current()->clear_menu_stack();
+			GameManager::current()->start_level("credits", false);
 			break;
 		
 		case MENU_ID_QUIT:

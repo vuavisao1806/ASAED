@@ -5,6 +5,7 @@ CPP_FILES = main.cpp                                               \
             asaed/menu/main_menu.cpp                               \
             asaed/menu/options_menu.cpp                            \
             asaed/constants.cpp                                    \
+            asaed/credits_screen.cpp                               \
             asaed/game_manager.cpp                                 \
             asaed/game_session.cpp                                 \
             asaed/gameconfig.cpp                                   \
@@ -72,6 +73,7 @@ CPP_FILES = main.cpp                                               \
             object/physic.cpp                                      \
             object/player.cpp                                      \
             object/portal.cpp                                      \
+            object/scroller_text.cpp                               \
             object/tile_manager.cpp                                \
             object/tile_map.cpp                                    \
             object/tile_parser.cpp                                 \

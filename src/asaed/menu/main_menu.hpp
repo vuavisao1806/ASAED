@@ -7,6 +7,7 @@ class MainMenu final : public Menu {
 private:
 	enum MainMenuID {
 		MENU_ID_START,
+		MENU_ID_CREDITS,
 		MENU_ID_QUIT
 	};
 

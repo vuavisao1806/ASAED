@@ -146,6 +146,7 @@ void Anubis::active_update(float /* dt_sec */) {
 			m_timer_skill_3.start_with_previous();
 			m_timer_skill_4.start_with_previous();
 			m_timer_wander.start_with_previous();
+			m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), g_game_random.randf(0.0f, 360.f)) * WALK_SPEED);
 		}
 		wandering();
 	}

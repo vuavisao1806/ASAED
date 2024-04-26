@@ -2,7 +2,7 @@
 	"leves": [
 		{
 			"level": "level1",
-			"next-level": "endgame",
+			"next-level": "credits",
 			"tileset": "level1/tile/tile.json",
 			"room": [
 				"level1/room-start.json",

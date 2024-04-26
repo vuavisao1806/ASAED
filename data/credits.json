@@ -1,0 +1,109 @@
+{
+	"credits": [
+		{
+			"type": "title",
+			"name": ["ASAED"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["ASAED team"]
+		},
+		{
+			"type": "persons",
+			"name": ["vuavisao"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Developer"]
+		},
+		{
+			"type": "persons",
+			"name": ["vuavisao"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Level Design"]
+		},
+		{
+			"type": "persons",
+			"name": ["vuavisao"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Graphics"]
+		},
+		{
+			"type": "persons",
+			"name": ["Stole on the Internet :>"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Music"]
+		},
+		{
+			"type": "persons",
+			"name": ["Stole on my old game :>"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Supporter"]
+		},
+		{
+			"type": "persons",
+			"name": ["quanmcvn"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Lecturers"]
+		},
+		{
+			"type": "persons",
+			"name": ["Mr.Le Duc Trong", "Mr.Tran Truong Thuy"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Additional contributors"]
+		},
+		{
+			"type": "persons",
+			"name": ["L.D.H.A", "N.N.D", "V.X.D", "N.X.D", "L.T.C", "N.D.A", "M.T.D"]
+		},
+		{
+			"type": "blank"
+		},
+		{
+			"type": "heading",
+			"name": ["Special Thanks to"]
+		},
+		{
+			"type": "persons",
+			"name": ["Supertux", "For giving me a great experience", "about OOP and the importance of design", "",
+			         "Lazyfoo", "For giving me the required knowledge", "about SDL2 and something relevant", "",
+			         "And you, the player", "For giving your valuable time", "to experience this game"]
+		}
+	]
+}

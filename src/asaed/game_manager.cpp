@@ -1,6 +1,7 @@
 #include "asaed/game_manager.hpp"
 
 #include "asaed/game_session.hpp"
+#include "asaed/credits_screen.hpp"
 #include "asaed/room.hpp"
 #include "asaed/save_game.hpp"
 #include "asaed/screen_manager.hpp"
@@ -23,7 +24,8 @@ void GameManager::start_level(const std::string& filename_level, bool next) {
 	else {
 		m_savegame->get_player_status().reset_player_status();
 	}
-	if (filename_level == "endgame") {
+	if (filename_level == "credits") {
+		ScreenManager::current()->push_screen(std::make_unique<CreditsScreen>());
 		return;
 	}
 	ScreenManager::current()->push_screen(std::make_unique<GameSession>(filename_level, *m_savegame));
