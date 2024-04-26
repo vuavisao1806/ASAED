@@ -39,7 +39,7 @@ std::unique_ptr<Projectile> ProjectileCycloid::from_file(const ReaderData* data)
 	return projectile;
 }
 
-void ProjectileCycloid::collision_solid(const CollisionHit& hit) {
+void ProjectileCycloid::collision_solid(const CollisionHit& /* hit */) {
 	remove_me();
 }
 

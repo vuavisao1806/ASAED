@@ -88,7 +88,7 @@ void Player::collision_solid(const CollisionHit& hit) {
 	}
 }
 
-HitResponse Player::collision(CollisionObject& other, const CollisionHit& hit) {
+HitResponse Player::collision(CollisionObject& other, const CollisionHit& /* hit */) {
 	if (auto bullet = dynamic_cast<Projectile*>(&other)) {
 		if ((bullet->get_hurt_attributes() & HURT_PLAYER)) {
 			int damage[2] = {0, 0};
@@ -122,7 +122,7 @@ HitResponse Player::collision(CollisionObject& other, const CollisionHit& hit) {
 	return CONTINUE;
 }
 
-void Player::collision_tile(uint32_t tile_attributes) {
+void Player::collision_tile(uint32_t /* tile_attributes */) {
 
 }
 

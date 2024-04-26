@@ -6,7 +6,7 @@ ItemHorizontalLine::ItemHorizontalLine() :
 	MenuItem("")
 {}
 
-void ItemHorizontalLine::draw(DrawingContext& drawing_context, const Vector& position, int menu_width, bool is_active) {
+void ItemHorizontalLine::draw(DrawingContext& drawing_context, const Vector& position, int menu_width, bool /* is_active */) {
 	// Draw a horizontal line with a little 3D effect
 	// Let me see! Let me see
 	drawing_context.get_canvas().draw_filled_rect(Rectf(Vector(position.x, position.y - 6.0f),

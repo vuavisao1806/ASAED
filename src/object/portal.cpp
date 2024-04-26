@@ -82,7 +82,7 @@ void Portal::draw(DrawingContext& drawing_context) {
 }
 
 
-HitResponse Portal::collision(CollisionObject& other, const CollisionHit& /* hit */) {
+HitResponse Portal::collision(CollisionObject& /* other */, const CollisionHit& /* hit */) {
 	return ABORT_MOVE;
 }
 
