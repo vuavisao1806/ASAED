@@ -25,7 +25,7 @@ void TitleScreen::draw(Compositor& compositor) {
 }
 
 void TitleScreen::update(float /* dt_sec */, const Controller& /* controller */) {
-	SoundManager::current()->play_music("Estavius.mp3");
+	SoundManager::current()->play_music("start.mp3");
 
 	if (!MenuManager::current()->is_active() && (!GameSession::current() && !CreditsScreen::current())) {
 		MenuManager::current()->set_menu(MenuStorage::MAIN_MENU);

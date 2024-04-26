@@ -11,6 +11,10 @@
 		{
 			"filename": "normal.mp3",
 			"type": "music"
+		},
+		{
+			"filename": "start.mp3",
+			"type": "music"
 		}
 	]
 }
