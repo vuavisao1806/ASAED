@@ -8,6 +8,8 @@
 #include "weapon/projectile/projectile_cycle.hpp"
 #include "weapon/projectile/projectile_cycloid.hpp"
 #include "weapon/projectile/projectile_big.hpp"
+#include "weapon/projectile/projectile_boomerang.hpp"
+#include "weapon/projectile/projectile_spawn.hpp"
 
 
 ProjectileSet::ProjectileSet() :
@@ -83,6 +85,14 @@ void ProjectileSet::parse_projectile(const ReaderData* data) {
 			break;
 		case ProjectileType::BIGSPAWN:
 			projectile = ProjectileBig::from_file(data);
+			break;
+		
+		case ProjectileType::BOOMERANG:
+			projectile = ProjectileBoomerang::from_file(data);
+			break;
+
+		case ProjectileType::SPAWN:
+			projectile = ProjectileSpawn::from_file(data);
 			break;
 		
 		default:

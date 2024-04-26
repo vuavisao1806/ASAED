@@ -15,7 +15,8 @@ enum ProjectileType {
 	CYCLE,
 	CYCLOID,
 	BOOMERANG,
-	BIGSPAWN
+	BIGSPAWN,
+	SPAWN
 };
 
 class ProjectileSet final : public Currenton<ProjectileSet> {

@@ -1,0 +1,11 @@
+{
+	"MagicStaff": [
+		{
+			"name": "magicstaff",
+			"family-name": "magicstaff",
+			"fps": 1,
+			"hitbox": [0, 0, 20, 8],
+			"images": ["MagicStaff.png"]
+		}
+	]
+}

@@ -1,0 +1,52 @@
+{
+	"actions": [
+		{
+			"name": "walk-right",
+			"family-name": "walk",
+			"fps": 16,
+			"hitbox": [1, 8, 13, 15],
+			"images": [
+				"walk-0.png",
+				"walk-1.png",
+				"walk-2.png",
+				"walk-3.png"
+			]
+		},
+		{
+			"name": "walk-left",
+			"family-name": "walk",
+			"mirror-action": "walk-right"
+		},
+		{
+			"name": "idle-right",
+			"family-name": "idle",
+			"fps": 16,
+			"hitbox": [1, 8, 13, 15],
+			"images": [
+				"idle-0.png",
+				"idle-1.png",
+				"idle-2.png",
+				"idle-3.png"
+			]
+		},
+		{
+			"name": "idle-left",
+			"family-name": "idle",
+			"mirror-action": "idle-right"
+		},
+		{
+			"name": "dead-right",
+			"family-name": "dead",
+			"hitbox": [1, 8, 13, 15],
+			"fps": 1,
+			"images": [
+				"idle-0.png"
+			]
+		},
+		{
+			"name": "dead-left",
+			"family-name": "dead",
+			"mirror-action": "dead-right"
+		}
+	]
+}

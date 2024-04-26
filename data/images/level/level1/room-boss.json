@@ -2,13 +2,13 @@
 	"room": [
 		{
 			"id": 2,
-			"type-room": "boss",
+			"type-room": "normal",
 			"filename": "tilemap-boss.json",
 			"turn": 1,
 			"min-spawn": 1,
 			"max-spawn": 1,
 			"badguy": [
-				"anubis"
+				"necromancer"
 			]
 		}
 	]

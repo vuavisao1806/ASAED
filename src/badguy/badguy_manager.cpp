@@ -8,6 +8,8 @@
 #include "badguy/ogre.hpp"
 #include "badguy/wizzard.hpp"
 #include "badguy/zulan.hpp"
+#include "badguy/orc.hpp"
+#include "badguy/necromancer.hpp"
 
 BadGuyManager::BadGuyManager() :
 	m_filename("images/badguy/badguy-set.json"),
@@ -59,6 +61,14 @@ void BadGuyManager::parse_badguy(const ReaderData* data) {
 
 		case ANUBIS:
 			badguy = Anubis::from_file(data);
+			break;
+		
+		case ORC:
+			badguy = Orc::from_file(data);
+			break;
+		
+		case NECROMANCER:
+			badguy = Necromancer::from_file(data);
 			break;
 		
 		default:

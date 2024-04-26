@@ -36,6 +36,27 @@
 			"sec-per-dead": 2.0,
 			"ser-per-wander": 2.5,
 			"filename": "anubis/anubis-sprite.json"
+		},
+		{
+			"id": 4,
+			"name": "orc",
+			"health": 20,
+			"sec-per-dead": 2.0,
+			"radius-wander": 40.0,
+			"ser-per-wander": 2.5,
+			"sec-per-shoot": 3.0,
+			"filename": "orc/orc-sprite.json"
+		},
+		{
+			"id": 5,
+			"name": "necromancer",
+			"health": 15,
+			"sec-per-dead": 2.0,
+			"radius-wander": 40.0,
+			"ser-per-wander": 2.5,
+			"sec-per-shoot": 3.0,
+			"sec-per-skill": 10.0,
+			"filename": "necromancer/necromancer-sprite.json"
 		}
 	]
 }

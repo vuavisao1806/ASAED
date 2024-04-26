@@ -29,7 +29,7 @@ namespace {
 	const float SHIELD_RECOVERY = 3.0f;
 	const float TIME_DEAD = 2.5f;
 
-	const int HEALTH = 5;
+	const int HEALTH = 10;
 	const int SHIELD = 5;
 
 	const float HEALTH_BAR_WIDTH = 100.0f;

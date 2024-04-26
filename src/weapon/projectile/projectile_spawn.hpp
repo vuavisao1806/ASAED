@@ -1,25 +1,35 @@
-#ifndef HEADER_ASAED_WEAPON_PROJECTILE_PROJECTILE_CYCLOID_HPP
-#define HEADER_ASAED_WEAPON_PROJECTILE_PROJECTILE_CYCLOID_HPP
+#ifndef HEADER_ASAED_WEAPON_PROJECTILE_PROJECTILE_SPAWN_HPP
+#define HEADER_ASAED_WEAPON_PROJECTILE_PROJECTILE_SPAWN_HPP
 
 #include "weapon/projectile/projectile.hpp"
 
-class ProjectileCycloid : public Projectile {
+#include <string>
+
+#include "util/timer.hpp"
+
+class ReaderData;
+
+
+class ProjectileSpawn : public Projectile {
 private:
-	Vector m_first_position;
-	float m_timer; // bad design, but if it's work, it's oke
+	Timer m_timer_stop;
+	Timer m_timer_valid;
+	int m_cnt_spawn;
+	Timer m_timer_spawn;
 
 public:
-	ProjectileCycloid(const std::string& filename);
+	ProjectileSpawn(const std::string& filename);
 
 private:
-	ProjectileCycloid(const ProjectileCycloid&) = delete;
-	ProjectileCycloid& operator=(const ProjectileCycloid&) = delete;
+	ProjectileSpawn(const ProjectileSpawn&) = delete;
+	ProjectileSpawn& operator=(const ProjectileSpawn&) = delete;
 
 public:
 	static std::unique_ptr<Projectile> from_file(const ReaderData* data);
 
 public:
 	virtual void collision_solid(const CollisionHit& hit) override;
+	virtual HitResponse collision(CollisionObject& other, const CollisionHit& hit) override;
 	virtual void collision_tile(uint32_t tile_attributes) override;
 
 	virtual void update(float dt_sec) override;

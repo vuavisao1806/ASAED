@@ -53,6 +53,15 @@
 			"attack-per-sec": 3.0,
 			"accuracy": 7.0,
 			"filename": "weapons/MagicStaff/MagicStaff.json"
+		},
+		{
+			"id": 7,
+			"name": "redmagicstaff-badguy",
+			"projectile-id": 6,
+			"attack-per-turn": 3,
+			"attack-per-sec": 3.0,
+			"accuracy": 7.0,
+			"filename": "weapons/RedMagicStaff/MagicStaff.json"
 		}
 	]
 }

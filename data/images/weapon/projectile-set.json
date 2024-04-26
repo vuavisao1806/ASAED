@@ -50,7 +50,7 @@
 			"id": 6,
 			"name": "boomerang-badguy",
 			"type": 4,
-			"damage": 2,
+			"damage": 1,
 			"bounce-wall-count": 0,
 			"speed": 200.0,
 			"filename": "projectile/boomerang-purple/purple.json"
@@ -108,6 +108,15 @@
 			"bounce-wall-count": 0,
 			"speed": 125.0,
 			"filename": "projectile/mini-green/green.json"
+		},
+		{
+			"id": 13,
+			"name": "spawn-badguy",
+			"type": 6,
+			"damage": 0,
+			"bounce-wall-count": 0,
+			"speed": 200.0,
+			"filename": "projectile/spawn-fire/fire.json"
 		}
 	]
 }

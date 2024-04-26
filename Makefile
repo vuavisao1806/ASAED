@@ -29,7 +29,9 @@ CPP_FILES = main.cpp                                               \
             badguy/anubis.cpp                                      \
             badguy/badguy_manager.cpp                              \
             badguy/badguy.cpp                                      \
+            badguy/necromancer.cpp                                 \
             badguy/ogre.cpp                                        \
+            badguy/orc.cpp                                         \
             badguy/wizzard.cpp                                     \
             badguy/zulan.cpp                                       \
             collision/collision_object.cpp                         \
@@ -107,10 +109,12 @@ CPP_FILES = main.cpp                                               \
             video/video_system.cpp                                 \
             video/viewport.cpp                                     \
             weapon/projectile/projectile_big.cpp                   \
+            weapon/projectile/projectile_boomerang.cpp             \
             weapon/projectile/projectile_cycle.cpp                 \
             weapon/projectile/projectile_cycloid.cpp               \
             weapon/projectile/projectile_line.cpp                  \
             weapon/projectile/projectile_set.cpp                   \
+            weapon/projectile/projectile_spawn.cpp                 \
             weapon/projectile/projectile_triangle.cpp              \
             weapon/projectile/projectile.cpp                       \
             weapon/shooting/shooting_analysis.cpp                  \
