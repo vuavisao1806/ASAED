@@ -1,7 +1,8 @@
 # ASAED (An's Adventure Escape Dungeon)
 
 - Thử nghiệm game, các tính năng trong game và cấu trúc tổ chức code:
-- Hướng dẫn cài đặt game:
+	* [Youtube](https://youtu.be/u5Rq9pGqljQ)
+	* [Drive](https://drive.google.com/drive/folders/1gkx45nQFezb-bVZDmnZARltJpHn8vd_j?usp=sharing)
 
 ## Tác giả
 - Sinh viên: Nguyễn Hải An
@@ -95,7 +96,7 @@ Các loại súng của nhân vật bạn:
 |--                                                |----------|-------|
 | <img src="data/images/weapon/weapons/AK47/AK47.png" width = 23> | AK47   | Đây là súng khởi đầu bạn nhận được |
 | <img src="data/images/weapon/weapons/Sgun/Sgun.png">            | Sgun    | Trông thì rất súng ngắm nhưng lại không phải vậy |
-| <img src="data/images/weapon/weapons/Gatling/Gatling.png">      | Gatling    | Trước nòng Gatling .... bình đẳng |
+| <img src="data/images/weapon/weapons/Gatling/gatling.png">      | Gatling    | Trước nòng Gatling .... bình đẳng |
 
 Các loại quái vật trong game:
 <br/>
@@ -121,11 +122,9 @@ Các loại boss trong game:
 **Anubis**: Vị thần cổ đại
 <br/>
 
-<div style="text-align: center;">
-
+<p align="center">
 <img src="data/images/badguy/anubis/idle-0.png" width = 100>
-
-</div>
+</p>
 
 * **Skill 1**: Bắn ra một vòng tròn đạn, hãy cẩn thận núp sau những vật cản
 * **Skill 2**: Bắn ra một vòng tròn đạn xoay theo 4 hướng
@@ -138,11 +137,9 @@ Các loại boss trong game:
 **Zulan**: Vị thần công nghệ
 <br/>
 
-<div style="text-align: center;">
-
+<p align="center">
 <img src="data/images/badguy/zulan/idle-0.png" width = 100>
-
-</div>
+</p>
 
 * **Skill 1**: Bắn ra một vòng tròn đạn, hãy cẩn thận núp sau những vật cản
 * **Skill 2**: Bắn ra một viên đạn lớn có đạn con xoáy theo
@@ -161,11 +158,9 @@ Các loại boss trong game:
 **Cổng không gian**:
 <br/>
 
-<div style="text-align: center;">
-
+<p align="center">
 <img src="data/images/object/portal/portal.png" width = 100>
-
-</div>
+</p>
 
 * Cổng xuất hiện mỗi khi bạn vượt qua tất cả các ải (phòng) trong một level. Đưa bạn tới level tiếp theo hoặc kết thúc game
 

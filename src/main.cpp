@@ -8,5 +8,5 @@ int main(int argc, char** argv) {
 	g_main = std::make_unique<Main>();
 	int ret = g_main->run(argc, argv);
 
-	return ret; 
+	return ret;
 }
