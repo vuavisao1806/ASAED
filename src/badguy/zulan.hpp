@@ -11,15 +11,12 @@ class Weapon;
 class Zulan : public BadGuy {
 private:
 	int HEALTH;
-	Timer m_timer_skill_1;
 	
+	Timer m_timer_skill_1;
 	Timer m_timer_skill_2;
-
-	int m_cnt_shooting_skill_2;
-	float m_angle_shooting_skill_2;
-	Timer m_timer_recovery_shooting_skill_2;
-
 	Timer m_timer_skill_3;
+	Timer m_timer_skill_3_angry;
+	Timer m_timer_skill_4;
 
 public:
 	Zulan(const std::string& filename);
@@ -50,6 +47,8 @@ private:
 	void skill_1();
 	void skill_2();
 	void skill_3();
+	void skill_3_angry();
+	void skill_4();
 };
 
 #endif

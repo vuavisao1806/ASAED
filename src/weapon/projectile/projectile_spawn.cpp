@@ -15,7 +15,7 @@ namespace {
 	const float TIME_SPAWN = 0.5f;
 
 	const int MIN_SPAWN = 1;
-	const int MAX_SPAWN = 4;
+	const int MAX_SPAWN = 2;
 	
 	const int NUMBER_BADGUY = 3;
 	const std::string listBadguy[] = {"ogre", "wizzard", "orc"};

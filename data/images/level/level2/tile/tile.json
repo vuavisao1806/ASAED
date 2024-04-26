@@ -22,25 +22,25 @@
 			"id": 4,
 			"fps": 1,
 			"solid": 1,
-			"images": ["brick.png"]
+			"images": ["gate-up.png"]
 		},
 		{
 			"id": 5,
 			"fps": 1,
 			"solid": 1,
-			"images": ["floor3.png"]
+			"images": ["floor2.png"]
 		},
 		{
 			"id": 6,
 			"fps": 1,
 			"solid": 1,
-			"images": ["floor4.png"]
+			"images": ["floor3.png"]
 		},
 		{
 			"id": 7,
 			"fps": 1,
 			"solid": 1,
-			"images": ["floor2.png"]
+			"images": ["floor4.png"]
 		}
 	]
 }

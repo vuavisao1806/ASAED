@@ -5,11 +5,11 @@
 			"type-room": "normal",
 			"filename": "tilemap-3.json",
 			"turn": 1,
-			"min-spawn": 1,
-			"max-spawn": 1,
+			"min-spawn": 2,
+			"max-spawn": 3,
 			"badguy": [
 				"ogre",
-				"wizzard"
+				"orc"
 			]
 		}
 	]

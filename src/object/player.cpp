@@ -29,7 +29,7 @@ namespace {
 	const float SHIELD_RECOVERY = 3.0f;
 	const float TIME_DEAD = 2.5f;
 
-	const int HEALTH = 10;
+	const int HEALTH = 6;
 	const int SHIELD = 5;
 
 	const float HEALTH_BAR_WIDTH = 100.0f;
@@ -44,7 +44,7 @@ Player::Player(int player_id, int weapon_id) :
 	m_timer_dead(),
 	m_direction(Direction::RIGHT),
 	m_sprite(SpriteManager::current()->create("images/creatures/knight/knight-sprite.json")),
-	m_weapon(WeaponSet::current()->get(GATLING_PLAYER).clone(this))
+	m_weapon(WeaponSet::current()->get(weapon_id).clone(this))
 {
 	set_size(m_sprite->get_current_hitbox_width(), m_sprite->get_current_hitbox_height());
 	set_pos(Vector(100.0f, 100.0f));

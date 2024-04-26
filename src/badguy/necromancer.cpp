@@ -16,7 +16,7 @@
 
 namespace {
 	const float WALK_SPEED = 35.0f; // options
-	const float ULTIMATE = 7.5f; // options
+	const float ULTIMATE = 5.0f; // options
 } // namespace
 
 Necromancer::Necromancer(const std::string& filename) :

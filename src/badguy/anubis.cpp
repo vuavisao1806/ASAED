@@ -39,7 +39,8 @@ Anubis::Anubis(const std::string& filename) :
 	m_timer_skill_2(),
 	m_cnt_shooting_skill_2(0),
 	m_angle_shooting_skill_2(0.0f),
-	m_timer_skill_3()
+	m_timer_skill_3(),
+	m_timer_skill_4()
 {}
 
 void Anubis::update(float dt_sec) {

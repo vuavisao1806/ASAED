@@ -2,12 +2,38 @@
 	"leves": [
 		{
 			"level": "level1",
-			"next-level": "credits",
+			"next-level": "level2",
 			"tileset": "level1/tile/tile.json",
 			"room": [
 				"level1/room-start.json",
-				"level1/room-boss.json",
+				"level1/room-1.json",
+				"level1/room-2.json",
+				"level1/room-3.json",
 				"level1/room-end.json"
+			]
+		},
+		{
+			"level": "level2",
+			"next-level": "level3",
+			"tileset": "level2/tile/tile.json",
+			"room": [
+				"level2/room-start.json",
+				"level2/room-1.json",
+				"level2/room-2.json",
+				"level2/room-boss.json",
+				"level2/room-end.json"
+			]
+		},
+		{
+			"level": "level3",
+			"next-level": "credits",
+			"tileset": "level3/tile/tile.json",
+			"room": [
+				"level3/room-start.json",
+				"level3/room-1.json",
+				"level3/room-2.json",
+				"level3/room-boss.json",
+				"level3/room-end.json"
 			]
 		}
 	]

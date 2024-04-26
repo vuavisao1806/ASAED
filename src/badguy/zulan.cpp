@@ -15,17 +15,17 @@
 #include "weapon/projectile/projectile_line.hpp"
 
 namespace {
-	const float SKILL_RECOVERY_1 = 7.5f; // option
-	const float SKILL_RECOVERY_2 = 15.0f; // option
-	const float SKILL_RECOVERY_3 = 7.5f; // option
-	const float HEALTH_BAR_WIDTH = 200.0f; // option
-	const float HEALTH_BAR_HEIGHT = 12.5f; // option
+	const float WALK_SPEED = 30.0f; // options
+	const float SKILL_RECOVERY_1 = 3.5f; // options
+	const float SKILL_RECOVERY_2 = 9.0f; // options
+	const float SKILL_RECOVERY_3 = 7.5f; // options
+	const float SKILL_RECOVERY_3_ANGRY = 9.5f; // options
+	const float SKILL_RECOVERY_4 = 17.5f; // options
 
-	const int NUMBER_SHOOTING_SKILL_1 = 30; // option
+	const float HEALTH_BAR_WIDTH = 200.0f; // options
+	const float HEALTH_BAR_HEIGHT = 12.5f; // options
 
-	const float SKILL_RECOVERY_SHOOTING_SKILL_2 = 0.15f; // option
-	const float DELTA_SHOOTING_SKILL_2 = 10.0f; // option
-	const int NUMBER_SHOOTING_SKILL_2 = 36; // option
+	const int NUMBER_SHOOTING_SKILL_1 = 30; // options
 	
 	const float CIRCLE = 360.0f;
 } // namespace
@@ -34,9 +34,8 @@ Zulan::Zulan(const std::string& filename) :
 	BadGuy(filename),
 	m_timer_skill_1(),
 	m_timer_skill_2(),
-	m_cnt_shooting_skill_2(0),
-	m_angle_shooting_skill_2(0.0f),
-	m_timer_skill_3()
+	m_timer_skill_3(),
+	m_timer_skill_4()
 {}
 
 void Zulan::update(float dt_sec) {
@@ -47,6 +46,14 @@ void Zulan::update(float dt_sec) {
 	}
 	// boss is auto active
 	active_update(dt_sec);
+
+	if (m_physic.get_velocity_x() < 0.0f) {
+		m_direction = Direction::LEFT;
+	}
+	else {
+		m_direction = Direction::RIGHT;
+	}
+	set_movement(m_physic.get_movement(dt_sec));
 }
 
 void Zulan::draw(DrawingContext& drawing_context) {
@@ -98,7 +105,11 @@ void Zulan::draw(DrawingContext& drawing_context) {
 	MovingSprite::draw(drawing_context);
 }
 
-void Zulan::wandering() {}
+void Zulan::wandering() {
+	if (m_timer_wander.check()) {
+		m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), g_game_random.randf(0.0f, 360.f)) * WALK_SPEED);
+	}
+}
 
 void Zulan::activated() {}
 
@@ -128,24 +139,33 @@ void Zulan::active_update(float /* dt_sec */) {
 		m_timer_skill_3.start_with_previous();
 	}
 
+	if (m_health < HEALTH / 2) {
+		m_timer_skill_3_angry.start_with_previous();
+		m_timer_skill_4.start_with_previous();
+	}
 	wandering();
 
 	if (m_timer_skill_1.check()) {
 		skill_1();
 	}
-	
-	if (m_timer_skill_2.check() && m_cnt_shooting_skill_2 == 0) {
-		m_angle_shooting_skill_2 = g_game_random.randf(0.0f, 360.0f);
-		m_cnt_shooting_skill_2 = NUMBER_SHOOTING_SKILL_2;
-		m_timer_recovery_shooting_skill_2.start(SKILL_RECOVERY_SHOOTING_SKILL_2, true);
-	}
 
-	if (m_cnt_shooting_skill_2 != 0 && m_timer_recovery_shooting_skill_2.check()) {
+	if (m_timer_skill_2.check()) {
 		skill_2();
 	}
+	
+	if (m_health >= HEALTH / 2) {
+		if (m_timer_skill_3.check()) {
+			skill_3();
+		}
+	}
+	else {
+		if (m_timer_skill_3_angry.check()) {
+			skill_3_angry();
+		}
 
-	if (m_timer_skill_3.check()) {
-		skill_3();
+		if (m_timer_skill_4.check()) {
+			skill_4();
+		}
 	}
 }
 void Zulan::inactive_update(float /* dt_sec */) {}
@@ -163,18 +183,60 @@ void Zulan::skill_1() {
 }
 
 void Zulan::skill_2() {
-	const auto& projectile = ProjectileSet::current()->get(SPECIAL_PROJECTILE_BADGUY);
-	for (int i = 0; i < 4; ++ i) {
-		float angle = m_angle_shooting_skill_2 + static_cast<float>(i) * 90.0f;
+	if (!Room::get().get_nearest_player(get_bounding_box().get_middle())) {
+		return;
+	}
+	float angle = math::angle(Room::get().get_nearest_player(get_bounding_box().get_middle())->get_pos() - get_bounding_box().get_middle());
+	
+	const Projectile& projectile = ProjectileSet::current()->get(BIG_PROJECTILE_BADGUY);
+	const Rectf rect = Rectf(get_bounding_box().get_middle(), projectile.get_bounding_box().get_size());
+	if (Room::get().inside(rect)) {
 		Room::get().add_object(std::move(projectile.clone(get_bounding_box().get_middle(), HURT_PLAYER, angle)));
 	}
-
-	m_angle_shooting_skill_2 += DELTA_SHOOTING_SKILL_2;
-	-- m_cnt_shooting_skill_2;
 }
 
 void Zulan::skill_3() {
+	if (!Room::get().get_nearest_player(get_bounding_box().get_middle())) {
+		return;
+	}
+	float angle_spawn = math::angle(Room::get().get_nearest_player(get_bounding_box().get_middle())->get_pos() - get_bounding_box().get_middle());
+	const auto& projectile = ProjectileSet::current()->get(CYCLE_PROJECTILE_BADGUY);
 
+	for (float angle = 0; angle < 360; angle += 20) {
+		const Rectf rect = Rectf(get_bounding_box().get_middle(), projectile.get_bounding_box().get_size());
+		if (Room::get().inside(rect)) {
+			Room::get().add_object(projectile.clone(get_bounding_box().get_middle(), HURT_PLAYER, angle, angle_spawn));
+		}
+	}
+}
+
+void Zulan::skill_3_angry() {
+	float angle_spawn = g_game_random.randf(0.0f, 360.0f);
+	const auto& projectile = ProjectileSet::current()->get(CYCLE_PROJECTILE_BADGUY);
+
+	for (int i = 0; i < 3; ++ i) {
+		for (float angle = 0; angle < 360; angle += 40) {
+			const Rectf rect = Rectf(get_bounding_box().get_middle(), projectile.get_bounding_box().get_size());
+			if (Room::get().inside(rect)) {
+				Room::get().add_object(projectile.clone(get_bounding_box().get_middle(), HURT_PLAYER, angle, angle_spawn));
+			}
+		}
+		angle_spawn += 120.0f;
+		angle_spawn = std::fmod(angle_spawn, 360.0f);
+	}
+}
+
+void Zulan::skill_4() {
+	float angle_spawn = g_game_random.randf(0.0f, 360.0f);
+	const auto& projectile = ProjectileSet::current()->get(SPAWN_PROJECTILE_BADGUY);
+	for (int i = 0; i < 3; ++ i) {
+		const Rectf rect = Rectf(get_bounding_box().get_middle(), projectile.get_bounding_box().get_size());
+		if (Room::get().inside(rect)) {
+			Room::get().add_object(projectile.clone(get_bounding_box().get_middle(), HURT_PLAYER, angle_spawn));
+		}
+		angle_spawn += 120.0f;
+		angle_spawn = std::fmod(angle_spawn, 360.0f);
+	}
 }
 
 std::unique_ptr<BadGuy> Zulan::from_file(const ReaderData* data) {
@@ -206,11 +268,14 @@ std::unique_ptr<BadGuy> Zulan::clone(const Vector& pos) const {
 
 	badguy->set_pos(pos);
 	badguy->m_start_position = badguy->get_bounding_box().get_middle();
+	badguy->m_physic.set_velocity(math::rotate(Vector(1.0f, 1.0f), g_game_random.randf(0.0f, 360.f)) * WALK_SPEED);
 
 	badguy->m_health = m_health;
 	badguy->HEALTH = m_health;
 	badguy->m_timer_dead.start(m_timer_dead.get_period(), true);
 	badguy->m_timer_dead.pause_with_previous();
+
+	badguy->m_timer_wander.start(m_timer_wander.get_period(), true);
 
 	badguy->m_timer_skill_1.start(SKILL_RECOVERY_1, true);
 	badguy->m_timer_skill_1.pause_with_previous();
@@ -220,5 +285,11 @@ std::unique_ptr<BadGuy> Zulan::clone(const Vector& pos) const {
 	
 	badguy->m_timer_skill_3.start(SKILL_RECOVERY_3, true);
 	badguy->m_timer_skill_3.pause_with_previous();
+
+	badguy->m_timer_skill_3_angry.start(SKILL_RECOVERY_3_ANGRY, true);
+	badguy->m_timer_skill_3_angry.pause_with_previous();
+
+	badguy->m_timer_skill_4.start(SKILL_RECOVERY_4, true);
+	badguy->m_timer_skill_4.pause_with_previous();
 	return badguy;
 }

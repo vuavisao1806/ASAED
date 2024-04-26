@@ -7,7 +7,7 @@
 			"sec-per-dead": 2.0,
 			"radius-wander": 40.0,
 			"ser-per-wander": 2.5,
-			"sec-per-shoot": 3.0,
+			"sec-per-shoot": 2.5,
 			"filename": "ogre/ogre-sprite.json"
 		},
 		{
@@ -17,14 +17,14 @@
 			"sec-per-dead": 2.0,
 			"radius-wander": 40.0,
 			"ser-per-wander": 2.5,
-			"sec-per-shoot": 3.0,
+			"sec-per-shoot": 2.5,
 			"sec-per-skill": 10.0,
 			"filename": "wizzard/wizzard-sprite.json"
 		},
 		{
 			"id": 2,
 			"name": "zulan",
-			"health": 300,
+			"health": 500,
 			"sec-per-dead": 2.0,
 			"ser-per-wander": 5.0,
 			"filename": "zulan/zulan-sprite.json"
@@ -32,7 +32,7 @@
 		{
 			"id": 3,
 			"name": "anubis",
-			"health": 300,
+			"health": 450,
 			"sec-per-dead": 2.0,
 			"ser-per-wander": 2.5,
 			"filename": "anubis/anubis-sprite.json"
@@ -40,11 +40,11 @@
 		{
 			"id": 4,
 			"name": "orc",
-			"health": 20,
+			"health": 15,
 			"sec-per-dead": 2.0,
 			"radius-wander": 40.0,
 			"ser-per-wander": 2.5,
-			"sec-per-shoot": 3.0,
+			"sec-per-shoot": 2.5,
 			"filename": "orc/orc-sprite.json"
 		},
 		{
@@ -54,7 +54,7 @@
 			"sec-per-dead": 2.0,
 			"radius-wander": 40.0,
 			"ser-per-wander": 2.5,
-			"sec-per-shoot": 3.0,
+			"sec-per-shoot": 2.5,
 			"sec-per-skill": 10.0,
 			"filename": "necromancer/necromancer-sprite.json"
 		}

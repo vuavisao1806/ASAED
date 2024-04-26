@@ -8,7 +8,7 @@
 			"min-spawn": 1,
 			"max-spawn": 2,
 			"badguy": [
-				"ogre",
+				"necromancer",
 				"wizzard",
 				"orc"
 			]

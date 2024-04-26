@@ -1,14 +1,14 @@
 {
 	"room": [
 		{
-			"id": 3,
+			"id": 2,
 			"type-room": "normal",
-			"filename": "tilemap-2.json",
-			"turn": 3,
+			"filename": "tilemap-1.json",
+			"turn": 2,
 			"min-spawn": 1,
 			"max-spawn": 2,
 			"badguy": [
-				"ogre",
+				"necromancer",
 				"wizzard",
 				"orc"
 			]
